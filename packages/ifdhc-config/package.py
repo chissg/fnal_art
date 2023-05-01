@@ -36,7 +36,6 @@ class IfdhcConfig(Package):
     parallel = False
 
     def url_for_version(self, version):
-        print("in url_for_version...")
         url = "https://cdcvs.fnal.gov/cgi-bin/git_archive.cgi/cvs/projects/ifdhc.v{0}.tbz2"
         return url.format(version.underscored)
 
