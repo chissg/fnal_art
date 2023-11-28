@@ -86,6 +86,8 @@ class Larwirecell(CMakePackage):
 
     patch("v09_04_03.patch", when="@09.04.03")
     patch("v09_04_05.patch", when="@09.04.05")
+    patch("findjsoncpp.patch")
+
 
     depends_on("boost")
     depends_on("larevt")
