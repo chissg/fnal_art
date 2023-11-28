@@ -87,6 +87,12 @@ class Larreco(CMakePackage):
     # patch('v09_07_08_01.patch', when='@09.07.08.01')
     patch("v09_07_08_02.patch", when="@09.07.08.02")
 
+    def patch(self):
+        filter_file( r'isnan', 'std::isnan', 'larreco/SpacePointSolver/HitReaders/HitsICARUS_tool.cc')
+        filter_file( r'isinf', 'std::isinf', 'larreco/SpacePointSolver/HitReaders/HitsICARUS_tool.cc')
+        filter_file( r'isnan', 'std::isnan', 'larreco/SpacePointSolver/HitReaders/HitsStandard_tool.cc')
+        filter_file( r'isinf', 'std::isinf', 'larreco/SpacePointSolver/HitReaders/HitsStandard_tool.cc')
+
     variant(
         "cxxstd",
         default="17",
