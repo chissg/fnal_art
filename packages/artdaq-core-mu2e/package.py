@@ -68,3 +68,8 @@ class ArtdaqCoreMu2e(CMakePackage):
         env.prepend_path("FHICL_FILE_PATH", prefix + "/fcl")
         # Cleaup.
         sanitize_environments(env, "CET_PLUGIN_PATH", "FHICL_FILE_PATH")
+        env.set("ARTDAQ_CORE_MU2E_INC", prefix.include)
+
+    def setup_dependent_build_environment(self, env, dependent_spec):
+        prefix = self.prefix
+        env.set("ARTDAQ_CORE_MU2E_INC", prefix.include)

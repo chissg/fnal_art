@@ -67,3 +67,8 @@ class Btrk(SConsPackage):
         env.set("ROOT_INC", "%s/include/root" % self.spec["root"].prefix)
         env.set("GCC_VERSION", "{}".format(self.spec.compiler.version))
         env.set("DEBUG_LEVEL", "prof")
+        env.set("BTRK_INC", prefix.include)
+
+    def setup_dependent_run_environment(self, env, dependent_spec):
+        prefix = self.prefix
+        env.set("BTRK_INC", prefix.include)

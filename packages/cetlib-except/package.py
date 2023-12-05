@@ -61,3 +61,8 @@ class CetlibExcept(CMakePackage):
         env.prepend_path("PATH", os.path.join(self.build_directory, "bin"))
         # Cleanup.
         sanitize_environments(env, "PATH")
+
+    def setup_dependent_run_environment(self, env, dependent_spec):
+        prefix = self.prefix
+        env.set("CETLIB_EXCEPT_INC", prefix.include)
+        env.set("CET_PLUGIN_PATH", prefix.include)

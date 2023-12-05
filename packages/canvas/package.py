@@ -74,3 +74,8 @@ class Canvas(CMakePackage):
         env.prepend_path("PATH", os.path.join(prefix, "bin"))
         # Cleanup.
         sanitize_environments(env, "PATH")
+        env.set("CANVAS_INC", prefix.include)
+
+    def setup_dependent_run_environment(self, env, dependent_spec):
+        prefix = self.prefix
+        env.set("CANVAS_INC", prefix.include)

@@ -55,3 +55,7 @@ class Kinkal(CMakePackage):
     def makelink(self):
         with working_dir(self.stage.path):
             os.symlink('%s/spack-src' % self.stage.path, '%s/KinKal' % self.stage.path)
+
+    def setup_dependent_run_environment(self, env, dep_env):
+        prefix=self.prefix
+        env.set("KINKAL_INC", prefix.include)

@@ -68,3 +68,7 @@ class HepConcurrency(CMakePackage):
         env.prepend_path("PATH", os.path.join(prefix, "bin"))
         # Cleanup.
         sanitize_environments(env, "PATH")
+
+    def setup_dependennt_run_environment(self, env, dep_spec):
+        prefix=self.prefix
+        env.set("HEP_CONCURRENCY_INC", prefix.include)

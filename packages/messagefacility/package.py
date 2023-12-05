@@ -97,6 +97,7 @@ class Messagefacility(CMakePackage):
         env.prepend_path("PERL5LIB", os.path.join(prefix, "perllib"))
         # Cleaup.
         sanitize_environments(env, "CET_PLUGIN_PATH", "PERL5LIB")
+        env.set("MESSAGEFACILITY_INC", prefix.include)
 
     def setup_dependent_run_environment(self, env, dependent_spec):
         prefix = self.prefix
@@ -106,3 +107,4 @@ class Messagefacility(CMakePackage):
         env.prepend_path("PERL5LIB", os.path.join(prefix, "perllib"))
         # Cleaup.
         sanitize_environments(env, "CET_PLUGIN_PATH", "PERL5LIB")
+        env.set("MESSAGEFACILITY_INC", prefix.include)

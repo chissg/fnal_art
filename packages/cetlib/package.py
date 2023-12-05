@@ -92,6 +92,7 @@ class Cetlib(CMakePackage):
         env.prepend_path("PERL5LIB", os.path.join(prefix, "perllib"))
         # Cleanup.
         sanitize_environments(env, "PERL5LIB")
+        env.set("CETLIB_EXCEPT_INC", prefix.include)
 
     def setup_dependent_run_environment(self, env, dependent_spec):
         prefix = self.prefix
@@ -99,3 +100,4 @@ class Cetlib(CMakePackage):
         env.prepend_path("PERL5LIB", os.path.join(prefix, "perllib"))
         # Cleanup.
         sanitize_environments(env, "PERL5LIB")
+        env.set("CETLIB_EXCEPT_INC", prefix.include)

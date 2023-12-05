@@ -97,6 +97,7 @@ class ArtRootIo(CMakePackage):
         env.prepend_path("CET_PLUGIN_PATH", prefix.lib)
         # Cleanup.
         sanitize_environments(env, "CET_PLUGIN_PATH")
+        env.set("ART_ROOT_IO_INC", prefix.include)
 
     def setup_dependent_run_environment(self, env, dependent_spec):
         prefix = self.prefix
@@ -104,3 +105,4 @@ class ArtRootIo(CMakePackage):
         env.prepend_path("CET_PLUGIN_PATH", prefix.lib)
         # Cleanup.
         sanitize_environments(env, "CET_PLUGIN_PATH")
+        env.set("ART_ROOT_IO_INC", prefix.include)
