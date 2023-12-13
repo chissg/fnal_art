@@ -75,6 +75,5 @@ class FhiclCpp(CMakePackage):
         # Cleanup
         sanitize_environments(env, "PATH")
 
-    def setup_dependennt_run_environment(self, env, dep_spec):
-        prefix=self.prefix
-        env.set("FHICLCPP_INC", prefix.include)
+    def setup_dependent_run_environment(self, env, dep_spec):
+        env.set("FHICLCPP_INC", self.prefix.include)
