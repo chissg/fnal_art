@@ -77,5 +77,4 @@ class Canvas(CMakePackage):
         env.set("CANVAS_INC", prefix.include)
 
     def setup_dependent_run_environment(self, env, dependent_spec):
-        prefix = self.prefix
-        env.set("CANVAS_INC", prefix.include)
+        env.set("CANVAS_INC", self.prefix.include)
