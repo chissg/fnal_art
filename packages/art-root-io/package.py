@@ -22,6 +22,7 @@ class ArtRootIo(CMakePackage):
     url = "https://github.com/art-framework-suite/art-root-io/archive/refs/tags/v1_13_01.tar.gz"
 
     version("develop", branch="develop", get_full_repo=True)
+    version("1.13.03", sha256="507181c5caa8a53017783415509b3a01d152864a6ed0334c925eac11d47f6fb9")
     version("1.13.01", sha256="f4a41d448672f0dfa31d3a27787af3af29dd1bf82028d7854652f02d64222366")
     version("1.12.04", sha256="912e01cb3f253de244548a52ee4f9e31b2eb6d1af9bd7cb33e48bab064651273")
     version("1.12.03", sha256="2281435aa910085902f9a8d14c90d69ee980a980637bbb4bb2e1aad1ab5f02af")
