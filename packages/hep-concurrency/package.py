@@ -4,14 +4,14 @@
 # SPDX-License-Identifier: (Apache-2.0 OR MIT)
 
 import os
+import sys
+
+from pathlib import Path
+
+sys.path.append(str(Path(__file__).parents[2] / "lib"))
+from utilities import *
 
 from spack.package import *
-
-
-def sanitize_environments(env, *vars):
-    for var in vars:
-        env.prune_duplicate_paths(var)
-        env.deprioritize_system_paths(var)
 
 
 class HepConcurrency(CMakePackage):
@@ -37,8 +37,9 @@ class HepConcurrency(CMakePackage):
         sticky=True,
         description="C++ standard",
     )
+    conflicts("cxxstd=17", when="@develop")
 
-    depends_on("catch2@3:",    when="@1.09.00:", type=("build", "test"))
+    depends_on("catch2@3:", when="@1.09.00:", type=("build", "test"))
     depends_on("catch2@2.3.0", when="@:1.08.99", type=("build", "test"))
     depends_on("cetlib-except")
     depends_on("cetmodules@3.19.02:", type="build")
@@ -53,13 +54,14 @@ class HepConcurrency(CMakePackage):
             depends_on("ninja@1.10:", type="build")
 
     def url_for_version(self, version):
-        url = "https://github.com/art-framework-suite/hep-concurrency/archive/refs/tags/v{0}.tar.gz"
+        url = (
+            "https://github.com/art-framework-suite/hep-concurrency/archive/refs/tags/v{0}.tar.gz"
+        )
         return url.format(version.underscored)
 
     def cmake_args(self):
-        return [
-           "--preset", "default", 
-           self.define_from_variant("CMAKE_CXX_STANDARD", "cxxstd"),
+        return preset_args(self.stage.source_path) + [
+            self.define_from_variant("CMAKE_CXX_STANDARD", "cxxstd")
         ]
 
     def setup_build_environment(self, env):

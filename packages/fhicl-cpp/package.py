@@ -4,14 +4,14 @@
 # SPDX-License-Identifier: (Apache-2.0 OR MIT)
 
 import os
+import sys
+
+from pathlib import Path
+
+sys.path.append(str(Path(__file__).parents[2] / "lib"))
+from utilities import *
 
 from spack.package import *
-
-
-def sanitize_environments(env, *vars):
-    for var in vars:
-        env.prune_duplicate_paths(var)
-        env.deprioritize_system_paths(var)
 
 
 class FhiclCpp(CMakePackage):
@@ -38,6 +38,7 @@ class FhiclCpp(CMakePackage):
         sticky=True,
         description="C++ standard",
     )
+    conflicts("cxxstd=17", when="@develop")
 
     depends_on("boost+program_options+test")
     depends_on("cetlib")
@@ -51,7 +52,7 @@ class FhiclCpp(CMakePackage):
     depends_on("sqlite")
     depends_on("tbb")
 
-    patch("test_build.patch",when="@:4.17.00")
+    patch("test_build.patch", when="@:4.17.00")
 
     if "SPACK_CMAKE_GENERATOR" in os.environ:
         generator = os.environ["SPACK_CMAKE_GENERATOR"]
@@ -63,9 +64,8 @@ class FhiclCpp(CMakePackage):
         return url.format(version.underscored)
 
     def cmake_args(self):
-        return [
-           "--preset", "default", 
-           self.define_from_variant("CMAKE_CXX_STANDARD", "cxxstd"),
+        return preset_args(self.stage.source_path) + [
+            self.define_from_variant("CMAKE_CXX_STANDARD", "cxxstd")
         ]
 
     def setup_build_environment(self, env):
@@ -77,3 +77,10 @@ class FhiclCpp(CMakePackage):
 
     def setup_dependent_run_environment(self, env, dep_spec):
         env.set("FHICLCPP_INC", self.prefix.include)
+
+    def setup_run_environment(self, env):
+        bindir = self.prefix.bin
+        # Bash completions.
+        env.from_sourcing_file(os.path.join(bindir, "fhicl-dump_completions"))
+        env.from_sourcing_file(os.path.join(bindir, "fhicl-expand_completions"))
+        env.from_sourcing_file(os.path.join(bindir, "fhicl-get_completions"))

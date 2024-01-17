@@ -59,8 +59,10 @@ class Kinkal(CMakePackage):
     @run_after('install')
     def copy_headers(self):
         with working_dir(self.stage.path):
-            copy('%s/spack-src/KinKal/General/PhysicalConstants.h' % self.stage.path,
+            copy('spack-src/General/PhysicalConstants.h' % self.stage.path,
                     '%s/include/KinKal/General/PhysicalConstants.h' % self.prefix)
+            copy('spack-src/General/SystemOfUnits.h' % self.stage.path,
+                    '%s/include/KinKal/General/SystemOfUnits.h' % self.prefix)
 
     def setup_dependent_run_environment(self, env, dep_env):
         prefix=self.prefix
