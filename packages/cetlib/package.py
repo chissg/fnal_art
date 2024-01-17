@@ -54,6 +54,7 @@ class Cetlib(CMakePackage):
     depends_on("catch2", type=("build", "test"))
     depends_on("cetmodules", type="build")
     conflicts("cetmodules@:3.21.00", when="catch2@3:")
+    depends_on("tbb")
 
     if "SPACK_CMAKE_GENERATOR" in os.environ:
         generator = os.environ["SPACK_CMAKE_GENERATOR"]
