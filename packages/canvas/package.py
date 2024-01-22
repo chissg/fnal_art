@@ -4,14 +4,14 @@
 # SPDX-License-Identifier: (Apache-2.0 OR MIT)
 
 import os
+import sys
+
+from pathlib import Path
+
+sys.path.append(str(Path(__file__).parents[2] / "lib"))
+from utilities import *
 
 from spack.package import *
-
-
-def sanitize_environments(env, *vars):
-    for var in vars:
-        env.prune_duplicate_paths(var)
-        env.deprioritize_system_paths(var)
 
 
 class Canvas(CMakePackage):
@@ -21,6 +21,7 @@ class Canvas(CMakePackage):
     git = "https://github.com/art-framework-suite/canvas.git"
     url = "https://github.com/art-framework-suite/canvas/archive/refs/tags/v3_16_01.tar.gz"
 
+    version("3.16.03", sha256="150f82d37c402b4e428b040f047ef9e2b9613a8d8d8803aba03137a754bb7a47")
     version("3.16.01", sha256="e8eb606d38dfa8d5c56cf6074212e83cbf55de80c3bff51b1167704d9adb4169")
     version("3.15.02", sha256="7569ce0c2f64f2932b2c6d2e6a734e45d7ca21af652e0192b4f216373870ec24")
     version("3.15.01", sha256="7a2b839f5c564c1a9d719203c4bb68b2feb95019c9e2a92bf30302adbba09047")
@@ -40,6 +41,7 @@ class Canvas(CMakePackage):
         sticky=True,
         description="C++ standard",
     )
+    conflicts("cxxstd=17", when="@develop")
 
     depends_on("boost+date_time+test")
     depends_on("cetlib")
@@ -63,9 +65,8 @@ class Canvas(CMakePackage):
         return url.format(version.underscored)
 
     def cmake_args(self):
-        return [
-           "--preset", "default", 
-           self.define_from_variant("CMAKE_CXX_STANDARD", "cxxstd"),
+        return preset_args(self.stage.source_path) + [
+            self.define_from_variant("CMAKE_CXX_STANDARD", "cxxstd")
         ]
 
     def setup_build_environment(self, env):

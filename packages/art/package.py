@@ -4,14 +4,14 @@
 # SPDX-License-Identifier: (Apache-2.0 OR MIT)
 
 import os
+import sys
+
+from pathlib import Path
+
+sys.path.append(str(Path(__file__).parents[2] / "lib"))
+from utilities import *
 
 from spack import *
-
-
-def sanitize_environments(env, *vars):
-    for var in vars:
-        env.prune_duplicate_paths(var)
-        env.deprioritize_system_paths(var)
 
 
 class Art(CMakePackage):
@@ -23,7 +23,8 @@ class Art(CMakePackage):
     git = "https://github.com/art-framework-suite/art.git"
     url = "https://github.com/art-framework-suite/art/archive/refs/tags/v3_13_01.tar.gz"
 
-
+    version("3.14.03", sha256="c16b8b69a540fe00090e56ff6911c356615dd2c82179d57373024bcb01984434")
+    version("3.14.02", sha256="8cc7340a1a92ee22ddeacc3b1ad8a0688561d4fb2a790f42be791534bce8ea2e")
     version("3.14.01", sha256="29489e0dc7abf2756c9081569a54dbb49c8cbb472c651e343d6ce2d49fc1cac2")
     version("3.14.00", sha256="20eaa43d68b07eb5ea87c10c2e1b85a91dc5eaa3b4b83841b67e76dd64399ef0")
     version("3.13.02", sha256="c0a39ef326daee1e77cfb73d56ea08533be0e8d281e9e937814e258622758158")
@@ -46,6 +47,7 @@ class Art(CMakePackage):
         sticky=True,
         description="C++ standard",
     )
+    conflicts("cxxstd=17", when="@develop")
 
     depends_on("boost+date_time+graph+program_options+regex")
     depends_on("boost+filesystem+json+test+thread", type=("build"))
@@ -76,9 +78,8 @@ class Art(CMakePackage):
         return url.format(version.underscored)
 
     def cmake_args(self):
-        return [
-           "--preset", "default", 
-           self.define_from_variant("CMAKE_CXX_STANDARD", "cxxstd"),
+        return preset_args(self.stage.source_path) + [
+            self.define_from_variant("CMAKE_CXX_STANDARD", "cxxstd")
         ]
 
     def setup_build_environment(self, env):

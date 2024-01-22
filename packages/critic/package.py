@@ -4,6 +4,12 @@
 # SPDX-License-Identifier: (Apache-2.0 OR MIT)
 
 import os
+import sys
+
+from pathlib import Path
+
+sys.path.append(str(Path(__file__).parents[2] / "lib"))
+from utilities import *
 
 import llnl.util.tty as tty
 
@@ -25,12 +31,6 @@ class PrependEnv(NameValueModifier):
             env[self.name] = self.separator.join(directories)
 
 
-def sanitize_environments(env, *vars):
-    for var in vars:
-        env.prune_duplicate_paths(var)
-        env.deprioritize_system_paths(var)
-
-
 class Critic(CMakePackage):
     """Compatibility tests for the art and gallery applications of the art
     suite.
@@ -41,6 +41,7 @@ class Critic(CMakePackage):
     url = "https://github.com/art-framework-suite/critic/archive/refs/tags/v2_12_03.tar.gz"
 
     version("develop", branch="develop", get_full_repo=True)
+    version("2.13.03", sha256="96f62ff84e09fab7359f4d890e1bb9939cdea35b702a733663187483536da74e")
     version("2.13.01", sha256="bc5aac156904a34161db5af23a0e0952c648614a91961ae631dace815a903ec4")
     version("2.12.04", sha256="0ec37fe12f9433ea9df4ec0bd33e667b3dd10a45137b2abc4292f6b08460b225")
     version("2.12.03", sha256="13ae221a5060eb37de3c57c3b74e707c3bb2bd6352995fc640bfbb6e841bcfca")
@@ -54,6 +55,7 @@ class Critic(CMakePackage):
         sticky=True,
         description="C++ standard",
     )
+    conflicts("cxxstd=17", when="@develop")
 
     depends_on("art")
     depends_on("art-root-io")
@@ -78,9 +80,8 @@ class Critic(CMakePackage):
         return url.format(version.underscored)
 
     def cmake_args(self):
-        return [
-           "--preset", "default", 
-           self.define_from_variant("CMAKE_CXX_STANDARD", "cxxstd"),
+        return preset_args(self.stage.source_path) + [
+            self.define_from_variant("CMAKE_CXX_STANDARD", "cxxstd")
         ]
 
     def setup_build_environment(self, env):

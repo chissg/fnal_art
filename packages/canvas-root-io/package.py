@@ -4,14 +4,15 @@
 # SPDX-License-Identifier: (Apache-2.0 OR MIT)
 
 import os
+import sys
+
+from pathlib import Path
+
+sys.path.append(str(Path(__file__).parents[2] / "lib"))
+from utilities import *
+
 
 from spack.package import *
-
-
-def sanitize_environments(env, *vars):
-    for var in vars:
-        env.prune_duplicate_paths(var)
-        env.deprioritize_system_paths(var)
 
 
 class CanvasRootIo(CMakePackage):
@@ -22,6 +23,7 @@ class CanvasRootIo(CMakePackage):
     url = "https://github.com/art-framework-suite/canvas-root-io/archive/refs/tags/v1_13_01.tar.gz"
 
     version("develop", branch="develop", get_full_repo=True)
+    version("1.13.03", sha256="4ef6333ac780591821364d51ef926b512a1e806b1b39f1ba8dacc97f9a0e20a7")
     version("1.13.01", sha256="44795decae980c7f7a90dde69c886b7f01b150caef7ec8f88622740fdcb87549")
     version("1.12.03", sha256="53919330ebc85fb19fb4ab42a4be588cf12e866118339ccd408af0722eebdb5b")
     version("1.12.02", sha256="ad0fdb8d03e2646ca1522cabd1bcf766884a2c5720a3c0d338e7d29995e10316")
@@ -30,7 +32,7 @@ class CanvasRootIo(CMakePackage):
     version("1.11.00", sha256="950ccf0277f7315d396ae49f6421fd613a7bb34cf7cba68c1c2dfb062b990b6c")
     version("1.09.04", sha256="cb854b4fdc72be24856886d985f96ceb3b0049729df0b4a11fb501ff7c48847b")
 
-    patch("test_build.patch",when="@:1.11.00")
+    patch("test_build.patch", when="@:1.11.00")
 
     variant(
         "cxxstd",
@@ -40,6 +42,7 @@ class CanvasRootIo(CMakePackage):
         sticky=True,
         description="C++ standard",
     )
+    conflicts("cxxstd=17", when="@develop")
 
     depends_on("boost+thread")
     depends_on("canvas")
@@ -61,9 +64,8 @@ class CanvasRootIo(CMakePackage):
             depends_on("ninja@1.10:", type="build")
 
     def cmake_args(self):
-        return [
-           "--preset", "default", 
-           self.define_from_variant("CMAKE_CXX_STANDARD", "cxxstd"),
+        return preset_args(self.stage.source_path) + [
+            self.define_from_variant("CMAKE_CXX_STANDARD", "cxxstd")
         ]
 
     def url_for_version(self, version):
