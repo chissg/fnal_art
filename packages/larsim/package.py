@@ -29,7 +29,7 @@ class Larsim(CMakePackage):
     """Larsim"""
 
     homepage = "https://cdcvs.fnal.gov/redmine/projects/larsim"
-    git_base = "https://github.com/LArSoft/larsim.git"
+    git = "https://github.com/LArSoft/larsim.git"
     url = "https://github.com/LArSoft/larsim/archive/v01_02_03.tar.gz"
     list_url = "https://api.github.com/repos/LArSoft/larsim/tags"
 
@@ -55,6 +55,7 @@ class Larsim(CMakePackage):
     version("09.14.07", sha256="a0a235caf17b5d9d2b3959ed967a5cdb2cc1851d3d696976a656c2f48834cadc")
     version("09.14.06", sha256="5d729da4515d0315d123724b411c4e81e191ea88ed37692b5a037b7b7d94fbfb")
     version("mwm1", tag="mwm1", git="https://github.com/marcmengel/larsim.git", get_full_repo=True)
+    version("develop", branch="develop", get_full_repo=True)
 
     def url_for_version(self, version):
         url = "https://github.com/LArSoft/{0}/archive/v{1}.tar.gz"
@@ -111,7 +112,7 @@ class Larsim(CMakePackage):
         filter_file(r'math_tr1', '', 'CMakeLists.txt')
         filter_file(r'Boost::math_tr1', '', 'larsim/LegacyLArG4/CMakeLists.txt')
         filter_file(r'Boost::math_tr1', '', 'larsim/PhotonPropagation/CMakeLists.txt')
-        
+
 
     def cmake_args(self):
         args = [

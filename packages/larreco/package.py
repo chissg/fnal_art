@@ -29,12 +29,12 @@ class Larreco(CMakePackage):
     """Larreco"""
 
     homepage = "https://cdcvs.fnal.gov/redmine/projects/larreco"
-    git_base = "https://github.com/LArSoft/larreco.git"
+    git = "https://github.com/LArSoft/larreco.git"
     url = "https://github.com/LArSoft/larreco/archive/v01_02_03.tar.gz"
     list_url = "https://api.github.com/repos/LArSoft/larreco/tags"
 
     version("09.23.01", sha256="168dcf19c40295cc98b6549866520da78c2a1fbaf91680b41a3255793f87e232")
-    version("09.22.03", sha256="6e7c0e11bd70fb47f4f0f39e211a60dcf3c4d888415eb2cf7a48070b43aa1a7b") 
+    version("09.22.03", sha256="6e7c0e11bd70fb47f4f0f39e211a60dcf3c4d888415eb2cf7a48070b43aa1a7b")
     version("09.22.00", sha256="b7389f283b1ba23571022af44f3d62006d5b5e0c0f3d3b9f653e2d983c1d8541")
     version(
         "09.07.08.02", sha256="eba7aba2443f4c9efdb0f071db9ca6ffb7f6e0630283f235759c51586e33c449"
@@ -61,6 +61,7 @@ class Larreco(CMakePackage):
     version(
         "mwm1", tag="mwm1", git="https://github.com/marcmengel/larreco.git", get_full_repo=True
     )
+    version("develop", branch="develop", get_full_repo=True)
 
     def url_for_version(self, version):
         url = "https://github.com/LArSoft/{0}/archive/v{1}.tar.gz"

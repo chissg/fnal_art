@@ -29,7 +29,7 @@ class Larwirecell(CMakePackage):
     """Larwirecell"""
 
     homepage = "https://cdcvs.fnal.gov/redmine/projects/larwirecell"
-    git_base = "https://github.com/LArSoft/larwirecell.git"
+    git = "https://github.com/LArSoft/larwirecell.git"
     url = "https://github.com/LArSoft/larwirecell/archive/v01_02_03.tar.gz"
     list_url = "https://api.github.com/repos/LArSoft/larwirecell/tags"
 
@@ -55,6 +55,7 @@ class Larwirecell(CMakePackage):
     version(
         "mwm1", tag="mwm1", git="https://github.com/marcmengel/larwirecell.git", get_full_repo=True
     )
+    version("develop", branch="develop", get_full_repo=True)
 
     def url_for_version(self, version):
         url = "https://github.com/LArSoft/{0}/archive/v{1}.tar.gz"

@@ -29,7 +29,7 @@ class Larevt(CMakePackage):
     """Larevt"""
 
     homepage = "https://cdcvs.fnal.gov/redmine/projects/larevt"
-    git_base = "https://github.com/LArSoft/larevt.git"
+    git = "https://github.com/LArSoft/larevt.git"
     url = "https://github.com/LArSoft/larevt/archive/v01_02_03.tar.gz"
     list_url = "https://api.github.com/repos/LArSoft/larevt/tags"
 
@@ -53,6 +53,7 @@ class Larevt(CMakePackage):
     version("09.02.10", sha256="5afa7063640f2722d22cb9140f2b335043d5bb6d5ecf6e1fd3559b9d2c206b57")
     version("09.02.09", sha256="5f71d0182038e9cc096977047abf411819b0c47d5f4110fb66a2856d47ee7489")
     version("mwm1", tag="mwm1", git="https://github.com/marcmengel/larevt.git", get_full_repo=True)
+    version("develop", branch="develop", get_full_repo=True)
 
     def url_for_version(self, version):
         url = "https://github.com/LArSoft/{0}/archive/v{1}.tar.gz"

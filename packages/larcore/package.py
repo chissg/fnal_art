@@ -29,7 +29,7 @@ class Larcore(CMakePackage):
     """Larcore"""
 
     homepage = "https://cdcvs.fnal.gov/redmine/projects/larcore"
-    git_base = "https://github.com/LArSoft/larcore.git"
+    git = "https://github.com/LArSoft/larcore.git"
     url = "https://github.com/LArSoft/larcore/archive/v01_02_03.tar.gz"
     list_url = "https://api.github.com/repos/LArSoft/larcore/tags"
     version("09.10.01", sha256="748ce3a30f81f2dc789be8d276fb0831c951eeef514ff4cae6e2d6ff291fb9fb")
@@ -55,6 +55,7 @@ class Larcore(CMakePackage):
     version(
         "mwm1", tag="mwm1", git="https://github.com/marcmengel/larcore.git", get_full_repo=True
     )
+    version("develop", branch="develop", get_full_repo=True)
 
     def url_for_version(self, version):
         url = "https://github.com/LArSoft/{0}/archive/v{1}.tar.gz"

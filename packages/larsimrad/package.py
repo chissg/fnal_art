@@ -29,7 +29,7 @@ class Larsimrad(CMakePackage):
     """larsimrad"""
 
     homepage = "https://cdcvs.fnal.gov/redmine/projects/larsimrad"
-    git_base = "https://github.com/LArSoft/larsimrad.git"
+    git = "https://github.com/LArSoft/larsimrad.git"
     url = "https://github.com/LArSoft/larsimrad/archive/refs/tags/v09_01_17.tar.gz"
     list_url = "https://api.github.com/repos/LArSoft/larsimrad/tags"
 
@@ -57,6 +57,7 @@ class Larsimrad(CMakePackage):
     version(
         "mwm1", tag="mwm1", git="https://github.com/marcmengel/larsimrad.git", get_full_repo=True
     )
+    version("develop", branch="develop", get_full_repo=True)
 
     def url_for_version(self, version):
         url = "https://github.com/LArSoft/{0}/archive/v{1}.tar.gz"

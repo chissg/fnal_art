@@ -29,7 +29,7 @@ class Lardataobj(CMakePackage):
     """Lardataobj"""
 
     homepage = "https://cdcvs.fnal.gov/redmine/projects/lardataobj"
-    git_base = "https://github.com/LArSoft/lardataobj.git"
+    git = "https://github.com/LArSoft/lardataobj.git"
     url = "https://github.com/LArSoft/lardataobj/archive/v01_02_03.tar.gz"
     list_url = "https://api.github.com/repos/LArSoft/lardataobj/tags"
 
@@ -59,6 +59,7 @@ class Lardataobj(CMakePackage):
     version(
         "mwm1", tag="mwm1", git="https://github.com/marcmengel/lardataobj.git", get_full_repo=True
     )
+    version("develop", branch="develop", get_full_repo=True)
 
     variant(
         "cxxstd",
@@ -114,7 +115,7 @@ class Lardataobj(CMakePackage):
            "-DCMAKE_CXX_STANDARD={0}".format(self.spec.variants["cxxstd"].value),
            "-Dlardataobj_FW_DIR=fw"
         ]
-       
+
         return args
 
     def setup_build_environment(self, spack_env):

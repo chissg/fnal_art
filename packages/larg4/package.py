@@ -29,7 +29,7 @@ class Larg4(CMakePackage):
     """Larg4"""
 
     homepage = "https://cdcvs.fnal.gov/redmine/projects/larg4"
-    git_base = "https://github.com/LArSoft/larg4.git"
+    git = "https://github.com/LArSoft/larg4.git"
     url = "https://github.com/LArSoft/larg4/archive/v01_02_03.tar.gz"
     list_url = "https://api.github.com/repos/LArSoft/larg4/tags"
 
@@ -54,6 +54,7 @@ class Larg4(CMakePackage):
     version("09.03.14", sha256="c6b6e06ea6affd2c49b8501bc90e6ae765bc47ef948f34334e401dca752ecc0d")
     version("09.03.13", sha256="c9f6fe589cae2cbcac9204c4a7f8f6a9f3605f66556d4e8412a50066249f709e")
     version("mwm1", tag="mwm1", git="https://github.com/marcmengel/larg4.git", get_full_repo=True)
+    version("develop", branch="develop", get_full_repo=True)
 
     def url_for_version(self, version):
         url = "https://github.com/LArSoft/{0}/archive/v{1}.tar.gz"

@@ -29,7 +29,7 @@ class Larpandora(CMakePackage):
     """Larpandora"""
 
     homepage = "https://cdcvs.fnal.gov/redmine/projects/larpandora"
-    git_base = "https://github.com/LArSoft/larpandora.git"
+    git = "https://github.com/LArSoft/larpandora.git"
     url = "https://github.com/LArSoft/larpandora/archive/v01_02_03.tar.gz"
     list_url = "https://api.github.com/repos/LArSoft/larpandora/tags"
 
@@ -58,6 +58,7 @@ class Larpandora(CMakePackage):
     version(
         "mwm1", tag="mwm1", git="https://github.com/marcmengel/larpandora.git", get_full_repo=True
     )
+    version("develop", branch="develop", get_full_repo=True)
 
     def url_for_version(self, version):
         url = "https://github.com/LArSoft/{0}/archive/v{1}.tar.gz"

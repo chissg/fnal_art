@@ -14,6 +14,10 @@ class Caendigitizer(MakefilePackage):
 
     version("2.17.3", sha256="8337552f390c28f6a9dffed464d668eec07c83d5f2b68cabb77d957ef8592cf6")
 
+    def url_for_version(self, version):
+        url = "https://scisoft.fnal.gov/scisoft/reference_tarballs/CAENDigitizer-v{0}.tgz"
+        return url.format(version)
+
     depends_on("caencomm")
     depends_on("caenvmelib")
 

@@ -29,7 +29,7 @@ class Larrecodnn(CMakePackage):
     """Larrecodnn"""
 
     homepage = "https://cdcvs.fnal.gov/redmine/projects/larrecodnn"
-    git_base = "https://github.com/LArSoft/larrecodnn.git"
+    git = "https://github.com/LArSoft/larrecodnn.git"
     url = "https://github.com/LArSoft/larrecodnn/archive/v01_02_03.tar.gz"
     list_url = "https://api.github.com/repos/LArSoft/larrecodnn/tags"
 
@@ -38,7 +38,7 @@ class Larrecodnn(CMakePackage):
         "09.30.00.rc1", sha256="c69b810f4a7027268d60f52e73da67f797491a8a0d20b80db5c9cdfe615a2e4f"
     )
     version("09.21.12", sha256="ef1c843b2de317bf6a91aa75fd3737f7fb15f6294e81b44a8f88c94261abbf0e")
-    version("09.21.09", sha256="5be674584e3cbb3835a75991786afa26603d8bece1d8e2131f8433274de14a50") # FIX ME
+    version("09.21.09", sha256="5be674584e3cbb3835a75991786afa26603d8bece1d8e2131f8433274de14a50")
     version("09.21.06", sha256="c454cabc5ed191fadb16d9b9837297f653db2affb4d7cb89677a25d6e981cd61")
     version(
         "09.09.09.02", sha256="e820f2c50899979584456bfbfcab9abe27a022bd3ad50c9436167373bda9e9af"
@@ -58,6 +58,7 @@ class Larrecodnn(CMakePackage):
     version(
         "mwm1", tag="mwm1", git="https://github.com/marcmengel/larrecodnn.git", get_full_repo=True
     )
+    version("develop", branch="develop", get_full_repo=True)
 
     def url_for_version(self, version):
         url = "https://github.com/LArSoft/{0}/archive/v{1}.tar.gz"

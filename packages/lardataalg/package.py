@@ -29,7 +29,7 @@ class Lardataalg(CMakePackage):
     """Lardataalg"""
 
     homepage = "https://cdcvs.fnal.gov/redmine/projects/lardataalg"
-    git_base = "https://github.com/LArSoft/lardataalg.git"
+    git = "https://github.com/LArSoft/lardataalg.git"
     url = "https://github.com/LArSoft/lardataalg/archive/v01_02_03.tar.gz"
     list_url = "https://api.github.com/repos/LArSoft/lardataalg/tags"
 
@@ -59,6 +59,7 @@ class Lardataalg(CMakePackage):
     version(
         "mwm1", tag="mwm1", git="https://github.com/marcmengel/lardataalg.git", get_full_repo=True
     )
+    version("develop", branch="develop", get_full_repo=True)
 
     def url_for_version(self, version):
         url = "https://github.com/LArSoft/{0}/archive/v{1}.tar.gz"

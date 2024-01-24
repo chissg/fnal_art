@@ -29,7 +29,7 @@ class Lareventdisplay(CMakePackage):
     """Lareventdisplay"""
 
     homepage = "https://cdcvs.fnal.gov/redmine/projects/lareventdisplay"
-    git_base = "https://github.com/LArSoft/lareventdisplay.git"
+    git = "https://github.com/LArSoft/lareventdisplay.git"
     url = "https://github.com/LArSoft/lareventdisplay/archive/v01_02_03.tar.gz"
     list_url = "https://api.github.com/repos/LArSoft/lareventdisplay/tags"
 
@@ -37,7 +37,7 @@ class Lareventdisplay(CMakePackage):
         "09.30.00.rc1", sha256="c479c376a2f0be7f4584c8a3d4919ad89f1b9e39a4f11a215f616cc729363d5e"
     )
     version("09.10.11", sha256="13dbdac0498248f154ee7abedd813b5f7fb43e93ef5dd8dccceddbc320ca677a")
-    version("09.10.08", sha256="b3875a4fdd011b8ad6c116e7eb8c21c7518e16bdd36eaa95ec4ad0c4f35b739c") # FIX ME
+    version("09.10.08", sha256="b3875a4fdd011b8ad6c116e7eb8c21c7518e16bdd36eaa95ec4ad0c4f35b739c")
     version("09.10.05", sha256="b79ef329c22ea79ab4e4b591b8481d6e08a8d1ec80e83973854f2dd9717e43e8")
     version(
         "09.02.08.02", sha256="fe3623fbc9438f96e66927c8c5b24114b5d0fef0f2e8dd0576b290d0fc9b4147"
@@ -60,6 +60,7 @@ class Lareventdisplay(CMakePackage):
         git="https://github.com/marcmengel/lareventdisplay.git",
         get_full_repo=True,
     )
+    version("develop", branch="develop", get_full_repo=True)
 
     def url_for_version(self, version):
         url = "https://github.com/LArSoft/{0}/archive/v{1}.tar.gz"

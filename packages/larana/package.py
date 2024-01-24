@@ -29,7 +29,7 @@ class Larana(CMakePackage):
     """Larana"""
 
     homepage = "https://cdcvs.fnal.gov/redmine/projects/larana"
-    git_base = "https://github.com/LArSoft/larana.git"
+    git = "https://github.com/LArSoft/larana.git"
     url = "https://github.com/LArSoft/larana/archive/v01_02_03.tar.gz"
     list_url = "https://api.github.com/repos/LArSoft/larana/tags"
 
@@ -51,6 +51,7 @@ class Larana(CMakePackage):
     version("09.02.15", sha256="95653ea8022539bf367da7938f9e9d284ce2791f80a31ba578bfdf5b5c74a75d")
     version("09.02.14", sha256="0aafe08d52d360d648e1d63905384103cfb3d167b632f3b469ad355312209f47")
     version("mwm1", tag="mwm1", git="https://github.com/marcmengel/larana.git", get_full_repo=True)
+    version("develop", branch="develop", get_full_repo=True)
 
     def url_for_version(self, version):
         url = "https://github.com/LArSoft/{0}/archive/v{1}.tar.gz"

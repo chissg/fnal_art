@@ -29,7 +29,7 @@ class Larvecutils(CMakePackage):
 
     homepage = "https://cdcvs.fnal.gov/redmine/projects/larvecutils"
     url = "https://github.com/LArSoft/larvecutils.git"
-    git_base = "https://github.com/LArSoft/larvecutils.git"
+    git = "https://github.com/LArSoft/larvecutils.git"
 
     version(
         "09.00.01",
@@ -37,6 +37,7 @@ class Larvecutils(CMakePackage):
         git="https://github.com/LArSoft/larvecutils.git",
         get_full_repo=True,
     )
+    version("develop", branch="develop", get_full_repo=True)
 
     def url_for_version(self, version):
         url = "https://github.com/LArSoft/{0}/archive/{1}.tar.gz"
