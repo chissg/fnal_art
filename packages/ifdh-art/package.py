@@ -28,11 +28,9 @@ class IfdhArt(CMakePackage):
     from the ifdhc package."""
 
     homepage = "https://cdcvs.fnal.gov/redmine/projects/ifdh-art/wiki"
-    git_base = "https://github.com/art-framework-suite/ifdh-art.git"
+    git = "https://github.com/art-framework-suite/ifdh-art.git"
     url = "https://github.com/art-framework-suite/ifdh-art/archive/refs/tags/v2_12_05.tar.gz"
     list_url = "https://api.github.com/repos/art-framework-suite/ifdh-art/tags"
-
-
 
     version("2.17.01", sha256="40874945c3af876bef9b668e296726ab834bc9bcd6cd11c6ff73fcfc29dd870b")
     version("2.17.00", sha256="d6f10c2516450550f48441f58867456a3dbdccd1c80d6a61bff7095becba3751")
@@ -43,12 +41,8 @@ class IfdhArt(CMakePackage):
     version("2.13.00", sha256="d9b59c4181051d6b86ee346c562faaac7d4c5c0eeef37f159e2b1757859d4516")
     version("2.12.05", sha256="f783e6e06d6d26f58b44c68d76d6b404bfe80a57918f4d7490090495f3ef35d1")
     version("2.12.04", sha256="10999a6cbf1f55f51dcba91c9631a2dc06d04ffc6230bfe3b3421f84ccb207b1")
-    version("develop", git=git_base, branch="develop", get_full_repo=True)
-    version(
-        "MVP1a",
-        git="https://github.com/art-framework-suite/ifdh-art.git",
-        branch="feature/Spack-MVP1a",
-    )
+    version("develop", branch="develop", get_full_repo=True)
+    version("MVP1a", branch="feature/Spack-MVP1a")
 
     def url_for_version(self, version):
         url = "https://github.com/art-framework-suite/{0}/archive/v{1}.tar.gz"

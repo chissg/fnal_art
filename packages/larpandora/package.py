@@ -33,12 +33,11 @@ class Larpandora(CMakePackage):
     url = "https://github.com/LArSoft/larpandora/archive/v01_02_03.tar.gz"
     list_url = "https://api.github.com/repos/LArSoft/larpandora/tags"
 
-
     version(
         "09.30.00.rc1", sha256="13e428169579c7e45246920abb1f9165c067a8b662938a372633f4522ca5d084"
     )
     version("9.21.12", sha256="8b572f10d2fed37de543f75920b306d9404ed52edf3245af127989f4c23c60b2")
-    version("09.21.09", sha256="1acdc3ba6926d4715f0eccd78b1bba4e967e1c5825884a0b30ee55de4cb1cfe2") # FIX ME
+    version("09.21.09", sha256="1acdc3ba6926d4715f0eccd78b1bba4e967e1c5825884a0b30ee55de4cb1cfe2")
     version("09.21.05", sha256="7b0a68ccecd556fcde56dcbbdcde2664d6456778d43ec42d5e7e3518747da88e")
     version(
         "09.10.02.02", sha256="593b9702723987060ac957127e23e306a651a1768221d513e9b437f11d5125eb"
@@ -101,17 +100,15 @@ class Larpandora(CMakePackage):
     depends_on("larpandoracontent")
     depends_on("py-torch")
     depends_on("root")
-    depends_on("postgresql")
     depends_on("cetmodules", type="build")
 
     def cmake_args(self):
         args = [
-            "-DCMAKE_CXX_STANDARD={0}".format(self.spec.variants["cxxstd"].value),
-            "-DCMAKE_PREFIX_PATH={0}/lib/python{1}/site-packages/torch".format(
-                self.spec["py-torch"].prefix, self.spec["python"].version.up_to(2)
+            self.define_from_variant("CMAKE_CXX_STANDARD", "cxxstd"),
+            self.define_from_variant(
+                "CMAKE_PREFIX_PATH", self.spec["py-torch"].package.cmake_prefix_paths[0]
             ),
-            "-DIGNORE_ABSOLUTE_TRANSITIVE_DEPENDENCIES=1",
-            "-Dlarpandora_FW_DIR=fw",
+            self.define("IGNORE_ABSOLUTE_TRANSITIVE_DEPENDENCIES", True),
         ]
         return args
 
@@ -134,9 +131,9 @@ class Larpandora(CMakePackage):
         # Perl modules.
         spack_env.prepend_path("PERL5LIB", os.path.join(self.build_directory, "perllib"))
         # Set path to find fhicl files
-        spack_env.prepend_path("FHICL_INCLUDE_PATH", os.path.join(self.build_directory, "job"))
+        spack_env.prepend_path("FHICL_INCLUDE_PATH", os.path.join(self.build_directory, "fcl"))
         # Set path to find gdml files
-        spack_env.prepend_path("FW_SEARCH_PATH", os.path.join(self.build_directory, "job"))
+        spack_env.prepend_path("FW_SEARCH_PATH", os.path.join(self.build_directory, "fcl"))
         # Cleaup.
         sanitize_environments(spack_env)
 
@@ -152,9 +149,9 @@ class Larpandora(CMakePackage):
         # Perl modules.
         run_env.prepend_path("PERL5LIB", os.path.join(self.prefix, "perllib"))
         # Set path to find fhicl files
-        run_env.prepend_path("FHICL_INCLUDE_PATH", os.path.join(self.prefix, "job"))
+        run_env.prepend_path("FHICL_INCLUDE_PATH", os.path.join(self.prefix, "fcl"))
         # Set path to find gdml files
-        run_env.prepend_path("FW_SEARCH_PATH", os.path.join(self.prefix, "job"))
+        run_env.prepend_path("FW_SEARCH_PATH", os.path.join(self.prefix, "fcl"))
         # Cleaup.
         sanitize_environments(run_env)
 
@@ -163,7 +160,7 @@ class Larpandora(CMakePackage):
         spack_env.prepend_path("CET_PLUGIN_PATH", self.prefix.lib)
         spack_env.prepend_path("PATH", self.prefix.bin)
         spack_env.prepend_path("ROOT_INCLUDE_PATH", self.prefix.include)
-        spack_env.append_path("FHICL_FILE_PATH", "{0}/job".format(self.prefix))
+        spack_env.append_path("FHICL_FILE_PATH", "{0}/fcl".format(self.prefix))
         spack_env.append_path("FW_SEARCH_PATH", "{0}/gdml".format(self.prefix))
         spack_env.append_path("FW_SEARCH_PATH", "{0}/fw".format(self.prefix))
 
@@ -172,6 +169,6 @@ class Larpandora(CMakePackage):
         run_env.prepend_path("CET_PLUGIN_PATH", self.prefix.lib)
         run_env.prepend_path("PATH", self.prefix.bin)
         run_env.prepend_path("ROOT_INCLUDE_PATH", self.prefix.include)
-        run_env.append_path("FHICL_FILE_PATH", "{0}/job".format(self.prefix))
+        run_env.append_path("FHICL_FILE_PATH", "{0}/fcl".format(self.prefix))
         run_env.append_path("FW_SEARCH_PATH", "{0}/gdml".format(self.prefix))
         run_env.append_path("FW_SEARCH_PATH", "{0}/fw".format(self.prefix))

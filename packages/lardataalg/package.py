@@ -33,7 +33,6 @@ class Lardataalg(CMakePackage):
     url = "https://github.com/LArSoft/lardataalg/archive/v01_02_03.tar.gz"
     list_url = "https://api.github.com/repos/LArSoft/lardataalg/tags"
 
-
     version(
         "09.30.00.rc1", sha256="2e2df94da944b1b6bf769e683bae718955ed24b42b15618d7b60254e5ad3a385"
     )
@@ -41,7 +40,7 @@ class Lardataalg(CMakePackage):
         "09.30.00.rc0", sha256="42f9c9009b64a3374d1586e5bfb0cfe159da7ef693ac689d6a41519aae069627"
     )
     version("09.16.04", sha256="014ce4fcb44fdc46e9a778748b13bb6a834bee567abed0be435fb193ce59104f")
-    version("09.16.01", sha256="6787452aebec2e0bfb1d1b5e278547bbc23586e616b6c3f74b393d7b2ded44cb") # FIX ME
+    version("09.16.01", sha256="6787452aebec2e0bfb1d1b5e278547bbc23586e616b6c3f74b393d7b2ded44cb")
     version("09.15.01", sha256="dccffa4c0768ee2ae4252bfc4c3947eaedc6881c7ace7548e483e2c74b5a4603")
     version(
         "09.11.00.rc0", sha256="df723ec1db490fc37398a3e34ef800b191ef185e23b66f93a09adaadbe636179"
@@ -85,13 +84,12 @@ class Lardataalg(CMakePackage):
     patch("v09_07_02.patch", when="@09.07.02")
 
     def patch(self):
-        with(when("@:09.16.04 %gcc@13:")):
+        with when("@:09.16.04 %gcc@13:"):
             filter_file(
-                '#include <string>',
-                '#include <cstdint>\n#include <string>',
-                'lardataalg/DetectorInfo/RunHistoryStandard.h',
+                "#include <string>",
+                "#include <cstdint>\n#include <string>",
+                "lardataalg/DetectorInfo/RunHistoryStandard.h",
             )
-
 
     variant(
         "cxxstd",
@@ -106,7 +104,7 @@ class Lardataalg(CMakePackage):
     depends_on("messagefacility")
 
     def cmake_args(self):
-        args = ["-DCMAKE_CXX_STANDARD={0}".format(self.spec.variants["cxxstd"].value)]
+        args = [self.define_from_variant("CMAKE_CXX_STANDARD", "cxxstd")]
         return args
 
     def setup_build_environment(self, spack_env):
@@ -125,9 +123,9 @@ class Lardataalg(CMakePackage):
         # Perl modules.
         spack_env.prepend_path("PERL5LIB", os.path.join(self.build_directory, "perllib"))
         # Set path to find fhicl files
-        spack_env.prepend_path("FHICL_INCLUDE_PATH", os.path.join(self.build_directory, "job"))
+        spack_env.prepend_path("FHICL_INCLUDE_PATH", os.path.join(self.build_directory, "fcl"))
         # Set path to find gdml files
-        spack_env.prepend_path("FW_SEARCH_PATH", os.path.join(self.build_directory, "job"))
+        spack_env.prepend_path("FW_SEARCH_PATH", os.path.join(self.build_directory, "fcl"))
         # Cleaup.
         sanitize_environments(spack_env)
 
@@ -143,9 +141,9 @@ class Lardataalg(CMakePackage):
         # Perl modules.
         run_env.prepend_path("PERL5LIB", os.path.join(self.prefix, "perllib"))
         # Set path to find fhicl files
-        run_env.prepend_path("FHICL_INCLUDE_PATH", os.path.join(self.prefix, "job"))
+        run_env.prepend_path("FHICL_INCLUDE_PATH", os.path.join(self.prefix, "fcl"))
         # Set path to find gdml files
-        run_env.prepend_path("FW_SEARCH_PATH", os.path.join(self.prefix, "job"))
+        run_env.prepend_path("FW_SEARCH_PATH", os.path.join(self.prefix, "fcl"))
         # Cleaup.
         sanitize_environments(run_env)
 
@@ -157,7 +155,7 @@ class Lardataalg(CMakePackage):
         spack_env.prepend_path("CET_PLUGIN_PATH", self.prefix.lib)
         spack_env.prepend_path("PATH", self.prefix.bin)
         spack_env.prepend_path("ROOT_INCLUDE_PATH", self.prefix.include)
-        spack_env.append_path("FHICL_FILE_PATH", "{0}/job".format(self.prefix))
+        spack_env.append_path("FHICL_FILE_PATH", "{0}/fcl".format(self.prefix))
         spack_env.append_path("FW_SEARCH_PATH", "{0}/gdml".format(self.prefix))
 
     def setup_dependent_run_environment(self, run_env, dspec):
@@ -165,5 +163,5 @@ class Lardataalg(CMakePackage):
         run_env.prepend_path("CET_PLUGIN_PATH", self.prefix.lib)
         run_env.prepend_path("PATH", self.prefix.bin)
         run_env.prepend_path("ROOT_INCLUDE_PATH", self.prefix.include)
-        run_env.append_path("FHICL_FILE_PATH", "{0}/job".format(self.prefix))
+        run_env.append_path("FHICL_FILE_PATH", "{0}/fcl".format(self.prefix))
         run_env.append_path("FW_SEARCH_PATH", "{0}/gdml".format(self.prefix))

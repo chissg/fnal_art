@@ -26,12 +26,13 @@ def sanitize_environments(*args):
 class Wirecell(Package):
     """Wire Cell Toolkit provides simulation, signal processing and reconstruction for LArTPC
     Borrowed from
-    https://github.com/WireCell/wire-cell-spack/blob/master/repo/packages/wirecell-toolkit/package.py"""
+    https://github.com/WireCell/wire-cell-spack/blob/master/repo/packages/wirecell-toolkit/package.py
+    """
 
     homepage = "https://wirecell.github.io"
     url = "https://github.com/WireCell/wire-cell-toolkit/archive/refs/tags/0.13.0.tar.gz"
 
-    version("0.24.3", sha256="040d819a3a81b953a42c8b4bb898acf6978cee45beea0361a2f3cdb602a6028c") # FIX ME
+    version("0.24.3", sha256="040d819a3a81b953a42c8b4bb898acf6978cee45beea0361a2f3cdb602a6028c")
     version("0.24.1", sha256="0467a4dff51abac3661aa99c5f3cc5de1ba1607a7f357631a2fbf7dcdf01c8a9")
     version("0.17.0", sha256="f2807adb83c8c6960ccefe8002bd015d646a96ad181d2092848d2461b3b81eea")
     version("0.16.0", sha256="af04affc1642c6ea534c479f0e1701e74b43674c2ebc025a117849ac0aba9cee")
@@ -65,18 +66,17 @@ class Wirecell(Package):
     depends_on("root@6:")
 
     # match what is listed in wire-cell-build/wscript
-    depends_on("boost +system+filesystem+graph+thread+program_options+iostreams")
-
+    depends_on("boost +system+filesystem+graph+thread+program_options+iostreams+stacktrace")
 
     patch("setprecisionfix.patch", when="@0.14.0")
     patch("boost_spline.patch", when="@0.14.0")
 
     def patch(self):
-        with(when("@:0.24.3 %gcc@13:")):
+        with when("@:0.24.3 %gcc@13:"):
             filter_file(
-                '#include <typeinfo>',
-                '#include <typeinfo>\n#include<cstdint>',
-                'util/inc/WireCellUtil/Dtype.h',
+                "#include <typeinfo>",
+                "#include <typeinfo>\n#include<cstdint>",
+                "util/inc/WireCellUtil/Dtype.h",
             )
 
     def install(self, spec, prefix):
@@ -104,7 +104,7 @@ class Wirecell(Package):
             cfg += " --build-debug=" + cxxstdflag
 
         cfg += " configure"
-        python = which('python')
+        python = which("python")
         python(*cfg.split())
         filter_file(r"-std=c\+\+11", cxxstdflag, "build/c4che/_cache.py")
         python("wcb", "-vv")

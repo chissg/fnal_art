@@ -29,7 +29,7 @@ class Nugen(CMakePackage):
     """Generator interfaces to art for GENIE and GiBUU."""
 
     homepage = "https://cdcvs.fnal.gov/redmine/projects/nugen"
-    git_base = "https://github.com/NuSoftHEP/nugen.git"
+    git = "https://github.com/NuSoftHEP/nugen.git"
     url = "https://github.com/NuSoftHEP/nugen/archive/refs/tags/v1_14_05.tar.gz"
     list_url = "https://api.github.com/repos/NuSoftHEP/nugen/tags"
 
@@ -44,13 +44,8 @@ class Nugen(CMakePackage):
     version("1.15.00", sha256="098c9128b4d938e5a781c0b3535f7bc5f09e33c3b8280f2bc9927634fcdfc2c7")
     version("1.14.06", sha256="99642b9b3f05cf8cc886222303d43d4a4442583ce7a5c7a872871aacdc45df53")
     version("1.14.05", sha256="e2cb16b5855e54a442cdfba42a40ca87e4d17d8156cbb2678205e0e5565a7b6c")
-    version("mwm1", tag="mwm1", git="https://cdcvs.fnal.gov/projects/nugen", get_full_repo=True)
-    version(
-        "develop",
-        commit="dca7eaa2257476033b074e71b78b2f6b23b647be",
-        git=git_base,
-        get_full_repo=True,
-    )
+    version("mwm1", tag="mwm1", get_full_repo=True)
+    version("develop", branch="develop", get_full_repo=True)
 
     def url_for_version(self, version):
         url = "https://github.com/NuSoftHEP/{0}/archive/v{1}.tar.gz"
@@ -88,7 +83,7 @@ class Nugen(CMakePackage):
     depends_on("cmake@3.12:", type="build")
     depends_on("cetmodules", type="build")
     depends_on("catch2@2.3.0:", type="build")
-    depends_on("nufinder",type="build")
+    depends_on("nufinder", type="build")
 
     # Build and link dependencies.
     depends_on("clhep")
@@ -100,7 +95,7 @@ class Nugen(CMakePackage):
     depends_on("hep-concurrency")
     depends_on("messagefacility")
     depends_on("tbb")
-    depends_on("root+python")
+    depends_on("root+fftw+python")
     depends_on("perl")
     depends_on("art-root-io")
     depends_on("perl")
@@ -120,6 +115,7 @@ class Nugen(CMakePackage):
     depends_on("nucondb")
     depends_on("libwda")
     depends_on("log4cpp")
+    depends_on("blas")
 
     if "SPACKDEV_GENERATOR" in os.environ:
         generator = os.environ["SPACKDEV_GENERATOR"]

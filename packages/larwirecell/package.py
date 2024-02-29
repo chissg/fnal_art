@@ -33,12 +33,11 @@ class Larwirecell(CMakePackage):
     url = "https://github.com/LArSoft/larwirecell/archive/v01_02_03.tar.gz"
     list_url = "https://api.github.com/repos/LArSoft/larwirecell/tags"
 
-
     version(
         "09.30.00.rc1", sha256="2d2fdffbda8cb5a16f35b68bc422b6fbebe70af6ac601762f257e4fef0cbf30d"
     )
     version("09.16.07", sha256="6475f020603f9f2758ef43064ba815cc79d28069b6c25f0d6e36a742335c7425")
-    version("09.16.03", sha256="111585550fadeae3d3b8524989a7372e4a99bd96e91e8153301d6ae3f6c73da5") # FIX ME
+    version("09.16.03", sha256="111585550fadeae3d3b8524989a7372e4a99bd96e91e8153301d6ae3f6c73da5")
     version("09.15.00", sha256="b59469c27e62cbb194cc670a057f4708fe7572df92d2deb6679715c533612c40")
     version("09.04.05", sha256="e270deb99f0c2baf96c137d12ed61281ce005f0dfb60fd0d4ee05caf5afcadf3")
     version("09.04.03", sha256="84c7be7e6cf70f57fc53da3fcae7712cac3c748bb21be1ca9a21e9dc976b3021")
@@ -97,40 +96,33 @@ class Larwirecell(CMakePackage):
     depends_on("cetmodules", type="build")
 
     def patch(self):
+        filter_file(r"list\(TRANSFORM _fwc_deps APPEND _FOUND", "", "Modules/FindWireCell.cmake")
         filter_file(
-            r'list\(TRANSFORM _fwc_deps APPEND _FOUND',
-            '',
-            'Modules/FindWireCell.cmake'
-        )
-        filter_file(
-            r'OUTPUT_VARIABLE _fwc_fphsa_extra_required_vars\)',
+            r"OUTPUT_VARIABLE _fwc_fphsa_extra_required_vars\)",
             'set(_fwc_fphsa_extra_required_vars "")',
-            'Modules/FindWireCell.cmake'
+            "Modules/FindWireCell.cmake",
         )
+        filter_file(r"Boost::stacktrace_basic", "", "Modules/FindWireCell.cmake")
         filter_file(
-            r'Boost::stacktrace_basic',
-            '',
-            'Modules/FindWireCell.cmake'
+            r" set\(_fwc_fphsa_extra_args",
+            ' STRING(REPLACE ";" " " _fwc_missing_deps_str "missing dependencies: ${_fwc_missing_deps}")\n    set(_fwc_fphsa_extra_args',
+            "Modules/FindWireCell.cmake",
         )
-        filter_file(
-            r' set\(_fwc_fphsa_extra_args',
-             ' STRING(REPLACE ";" " " _fwc_missing_deps_str "missing dependencies: ${_fwc_missing_deps}")\n    set(_fwc_fphsa_extra_args',
-            'Modules/FindWireCell.cmake')
         filter_file(
             r'REASON_FAILURE_MESSAGE "missing dependencies: \$\{_fwc_missing_deps\}"',
             'REASON_FAILURE_MESSAGE "missing dependencies: ${_fwc_missing_deps_str}"',
-            'Modules/FindWireCell.cmake'
+            "Modules/FindWireCell.cmake",
         )
         filter_file(
-           r'find_package\(art ',
-           'find_package(Boost COMPONENTS graph headers date_time exception filesystem iostreams stacktrace_basic)\nfind_package(art ',
-           'CMakeLists.txt'
+            r"find_package\(art ",
+            "find_package(Boost COMPONENTS graph headers date_time exception filesystem iostreams stacktrace_basic)\nfind_package(art ",
+            "CMakeLists.txt",
         )
 
     def cmake_args(self):
         args = [
-            "-DCMAKE_CXX_STANDARD={0}".format(self.spec.variants["cxxstd"].value),
-            "-DIGNORE_ABSOLUTE_TRANSITIVE_DEPENDENCIES=1",
+            self.define_from_variant("CMAKE_CXX_STANDARD", "cxxstd"),
+            self.define("IGNORE_ABSOLUTE_TRANSITIVE_DEPENDENCIES", True),
         ]
         return args
 
@@ -147,9 +139,9 @@ class Larwirecell(CMakePackage):
         # Perl modules.
         spack_env.prepend_path("PERL5LIB", os.path.join(self.build_directory, "perllib"))
         # Set path to find fhicl files
-        spack_env.prepend_path("FHICL_INCLUDE_PATH", os.path.join(self.build_directory, "job"))
+        spack_env.prepend_path("FHICL_INCLUDE_PATH", os.path.join(self.build_directory, "fcl"))
         # Set path to find gdml files
-        spack_env.prepend_path("FW_SEARCH_PATH", os.path.join(self.build_directory, "job"))
+        spack_env.prepend_path("FW_SEARCH_PATH", os.path.join(self.build_directory, "fcl"))
         # Cleaup.
         sanitize_environments(spack_env)
 
@@ -165,9 +157,9 @@ class Larwirecell(CMakePackage):
         # Perl modules.
         run_env.prepend_path("PERL5LIB", os.path.join(self.prefix, "perllib"))
         # Set path to find fhicl files
-        run_env.prepend_path("FHICL_INCLUDE_PATH", os.path.join(self.prefix, "job"))
+        run_env.prepend_path("FHICL_INCLUDE_PATH", os.path.join(self.prefix, "fcl"))
         # Set path to find gdml files
-        run_env.prepend_path("FW_SEARCH_PATH", os.path.join(self.prefix, "job"))
+        run_env.prepend_path("FW_SEARCH_PATH", os.path.join(self.prefix, "fcl"))
         # Cleaup.
         sanitize_environments(run_env)
 
@@ -176,7 +168,7 @@ class Larwirecell(CMakePackage):
         spack_env.prepend_path("CET_PLUGIN_PATH", self.prefix.lib)
         spack_env.prepend_path("PATH", self.prefix.bin)
         spack_env.prepend_path("ROOT_INCLUDE_PATH", self.prefix.include)
-        spack_env.append_path("FHICL_FILE_PATH", "{0}/job".format(self.prefix))
+        spack_env.append_path("FHICL_FILE_PATH", "{0}/fcl".format(self.prefix))
         spack_env.append_path("FW_SEARCH_PATH", "{0}/gdml".format(self.prefix))
 
     def setup_dependent_run_environment(self, run_env, dspec):
@@ -184,5 +176,5 @@ class Larwirecell(CMakePackage):
         run_env.prepend_path("CET_PLUGIN_PATH", self.prefix.lib)
         run_env.prepend_path("PATH", self.prefix.bin)
         run_env.prepend_path("ROOT_INCLUDE_PATH", self.prefix.include)
-        run_env.append_path("FHICL_FILE_PATH", "{0}/job".format(self.prefix))
+        run_env.append_path("FHICL_FILE_PATH", "{0}/fcl".format(self.prefix))
         run_env.append_path("FW_SEARCH_PATH", "{0}/gdml".format(self.prefix))

@@ -32,8 +32,8 @@ class Larcore(CMakePackage):
     git = "https://github.com/LArSoft/larcore.git"
     url = "https://github.com/LArSoft/larcore/archive/v01_02_03.tar.gz"
     list_url = "https://api.github.com/repos/LArSoft/larcore/tags"
+
     version("09.10.01", sha256="748ce3a30f81f2dc789be8d276fb0831c951eeef514ff4cae6e2d6ff291fb9fb")
-#    version("09.10.01", sha256="639369a8ff0b6290afe3c42e73f935b14aa8b6951a9819e0a629fab042794501")
     version("09.10.00", sha256="0686862a2cce84f54166934e83345cb5e3b23fe659e435c99ca5e368d6ad46b6")
     version("09.03.02", sha256="16f60e05edd620b6a41928f591fe062db2e9d91cf7948fa4f30d688bd547bcbb")
     version("09.03.01", sha256="bab2aa40e0d796c4f11433ea1096e0b44b1b4d1b09b1c531495ad2b19caf879f")
@@ -52,9 +52,7 @@ class Larcore(CMakePackage):
     version(
         "09.02.02.02", sha256="5fa4a0040139f7e06a1219919a876dd4cc56970b01c6d8e8cd32b1119b899f93"
     )
-    version(
-        "mwm1", tag="mwm1", git="https://github.com/marcmengel/larcore.git", get_full_repo=True
-    )
+    version("mwm1", tag="mwm1", git="https://github.com/marcmengel/larcore.git")
     version("develop", branch="develop", get_full_repo=True)
 
     def url_for_version(self, version):
@@ -94,19 +92,19 @@ class Larcore(CMakePackage):
     depends_on("cetmodules", type="build")
 
     def cmake_args(self):
-        args = ["-DCMAKE_CXX_STANDARD={0}".format(self.spec.variants["cxxstd"].value)]
+        args = [self.define_from_variant("CMAKE_CXX_STANDARD", "cxxstd")]
         return args
 
     @run_after("cmake")
     def fix_static_boost(self):
-        print("fixing filesysem.a references..")
+        print("fixing filesystem.a references..")
         os.system(
             "set -x; find %s/test/Geometry/CMakeFiles %s/larcore/Geometry/CMakeFiles "
             "-type f -print  | tee /tmp/fixlist | "
             "xargs perl -pi -e 's/libboost_filesystem.a/libboost_filesystem.so/go;'"
             % (self.build_directory, self.build_directory)
         )
-        print("done fixing filesysem.a references..")
+        print("done fixing filesystem.a references..")
 
     def setup_build_environment(self, spack_env):
         # Binaries.
@@ -121,9 +119,9 @@ class Larcore(CMakePackage):
         # Perl modules.
         spack_env.prepend_path("PERL5LIB", os.path.join(self.build_directory, "perllib"))
         # Set path to find fhicl files
-        spack_env.prepend_path("FHICL_INCLUDE_PATH", os.path.join(self.build_directory, "job"))
+        spack_env.prepend_path("FHICL_INCLUDE_PATH", os.path.join(self.build_directory, "fcl"))
         # Set path to find gdml files
-        spack_env.prepend_path("FW_SEARCH_PATH", os.path.join(self.build_directory, "job"))
+        spack_env.prepend_path("FW_SEARCH_PATH", os.path.join(self.build_directory, "fcl"))
         # Cleaup.
         sanitize_environments(spack_env)
 
@@ -139,9 +137,9 @@ class Larcore(CMakePackage):
         # Perl modules.
         run_env.prepend_path("PERL5LIB", os.path.join(self.prefix, "perllib"))
         # Set path to find fhicl files
-        run_env.prepend_path("FHICL_INCLUDE_PATH", os.path.join(self.prefix, "job"))
+        run_env.prepend_path("FHICL_INCLUDE_PATH", os.path.join(self.prefix, "fcl"))
         # Set path to find gdml files
-        run_env.prepend_path("FW_SEARCH_PATH", os.path.join(self.prefix, "job"))
+        run_env.prepend_path("FW_SEARCH_PATH", os.path.join(self.prefix, "fcl"))
         # Cleaup.
         sanitize_environments(run_env)
 
@@ -150,7 +148,7 @@ class Larcore(CMakePackage):
         spack_env.prepend_path("CET_PLUGIN_PATH", self.prefix.lib)
         spack_env.prepend_path("PATH", self.prefix.bin)
         spack_env.prepend_path("ROOT_INCLUDE_PATH", self.prefix.include)
-        spack_env.append_path("FHICL_FILE_PATH", "{0}/job".format(self.prefix))
+        spack_env.append_path("FHICL_FILE_PATH", "{0}/fcl".format(self.prefix))
         spack_env.append_path("FW_SEARCH_PATH", "{0}/gdml".format(self.prefix))
 
     def setup_dependent_run_environment(self, run_env, dspec):
@@ -158,7 +156,7 @@ class Larcore(CMakePackage):
         run_env.prepend_path("CET_PLUGIN_PATH", self.prefix.lib)
         run_env.prepend_path("PATH", self.prefix.bin)
         run_env.prepend_path("ROOT_INCLUDE_PATH", self.prefix.include)
-        run_env.append_path("FHICL_FILE_PATH", "{0}/job".format(self.prefix))
+        run_env.append_path("FHICL_FILE_PATH", "{0}/fcl".format(self.prefix))
         run_env.append_path("FW_SEARCH_PATH", "{0}/gdml".format(self.prefix))
 
     def flag_handler(self, name, flags):

@@ -29,7 +29,7 @@ class Nuevdb(CMakePackage):
     """Nuevdb"""
 
     homepage = "https://cdcvs.fnal.gov/redmine/projects/nuevdb/wiki"
-    git_base = "https://github.com/NuSoftHEP/nuevdb.git"
+    git = "https://github.com/NuSoftHEP/nuevdb.git"
     url = "https://github.com/NuSoftHEP/nuevdb/archive/refs/tags/v1_05_05.tar.gz"
     list_url = "https://api.github.com/repos/NuSoftHEP/nuevdb/tags"
 
@@ -41,8 +41,8 @@ class Nuevdb(CMakePackage):
     version("1.06.00", sha256="5a9dc5dd235ed4a16f26ebf09070d806f132bb22c6750a019c6ca7a3797d5d51")
     version("1.05.06", sha256="76050a5dea93202b39ce81e09a4b66411ad845340bef935fe50d6d54e1a90126")
     version("1.05.05", sha256="e5bbd1c523f8befcb63b4a6a529e6eed592519ddefd31a2504ffd25e312e1115")
-    version("mwm1", tag="mwm1", git=git_base, get_full_repo=True)
-    version("develop", branch="develop", git=git_base, get_full_repo=True)
+    version("mwm1", tag="mwm1")
+    version("develop", branch="develop", get_full_repo=True)
 
     def url_for_version(self, version):
         url = "https://github.com/NuSoftHEP/{0}/archive/v{1}.tar.gz"
@@ -78,26 +78,17 @@ class Nuevdb(CMakePackage):
 
     depends_on("cetmodules", type="build")
     depends_on("art-root-io")
-    depends_on("dk2nudata")
-    depends_on("perl")
-    depends_on("pythia6")
+    depends_on("art")
+    depends_on("root")
     depends_on("libwda")
-    depends_on("postgresql")
-    depends_on("libxml2")
     depends_on("nusimdata")
-    depends_on("cry")
-    depends_on("ifdh-art")
-    depends_on("ifdhc")
-    depends_on("ifbeam")
-    depends_on("nucondb")
-    depends_on("libwda")
+    depends_on("postgresql")
 
     def cmake_args(self):
         args = [
-            "-DCMAKE_CXX_STANDARD={0}".format(self.spec.variants["cxxstd"].value),
-            "-DCRYHOME={0}".format(self.spec["cry"].prefix),
-            "-DIGNORE_ABSOLUTE_TRANSITIVE_DEPENDENCIES=1",
-            "-Ddk2nudata_DIR:PATH={0}".format(self.spec["dk2nudata"].prefix),
+            self.define_from_variant("CMAKE_CXX_STANDARD", "cxxstd"),
+            self.define("CRYHOME", self.spec["cry"].prefix),
+            self.define("IGNORE_ABSOLUTE_TRANSITIVE_DEPENDENCIES", 1),
             "-Dlibwda_DIR:PATH={0}".format(self.spec["libwda"].prefix),
         ]
         return args
@@ -113,8 +104,6 @@ class Nuevdb(CMakePackage):
             root=False, cover="nodes", order="post", deptype=("link"), direction="children"
         ):
             spack_env.prepend_path("ROOT_INCLUDE_PATH", str(self.spec[d.name].prefix.include))
-        # Perl modules.
-        spack_env.prepend_path("PERL5LIB", os.path.join(self.build_directory, "perllib"))
         # Cleaup.
         sanitize_environments(spack_env)
 
@@ -129,8 +118,6 @@ class Nuevdb(CMakePackage):
         ):
             run_env.prepend_path("ROOT_INCLUDE_PATH", str(self.spec[d.name].prefix.include))
         run_env.prepend_path("ROOT_INCLUDE_PATH", self.prefix.include)
-        # Perl modules.
-        run_env.prepend_path("PERL5LIB", os.path.join(self.prefix, "perllib"))
         # Cleaup.
         sanitize_environments(run_env)
 

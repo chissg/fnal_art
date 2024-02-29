@@ -33,12 +33,11 @@ class Larevt(CMakePackage):
     url = "https://github.com/LArSoft/larevt/archive/v01_02_03.tar.gz"
     list_url = "https://api.github.com/repos/LArSoft/larevt/tags"
 
-
     version(
         "09.30.00.rc1", sha256="0bb9897c953a9bb69e2c1bd5be4c8c7586d577b0fb572e6cc1cdc5c0e337637f"
     )
     version("09.09.07", sha256="e579056bcb7cdfc8ec44cc73fdbd2ef5ab4d30442733b03e97482637687dbc29")
-    version("09.09.04", sha256="5c12e59d01b29f93e09fb31b70956792dbc0cc1b956f90ec7687415f30298276") # FIX ME
+    version("09.09.04", sha256="5c12e59d01b29f93e09fb31b70956792dbc0cc1b956f90ec7687415f30298276")
     version("09.09.01", sha256="a2e44a299d9a962241f1bdb9c77dccd46ef852f005e149a8300bdb56e7030496")
     version("09.03.05", sha256="fc3084ff2441a8358c549a0f23fae39c7b37f977ef29c0c573b2a8aeb9a07cf8")
     version("09.03.03", sha256="7ce85f65911034c354517800dd041e7a00afe7b1838168911fea5809199f5dc1")
@@ -93,8 +92,8 @@ class Larevt(CMakePackage):
 
     def cmake_args(self):
         args = [
-            "-DCMAKE_CXX_STANDARD={0}".format(self.spec.variants["cxxstd"].value),
-            "-DIGNORE_ABSOLUTE_TRANSITIVE_DEPENDENCIES=1",
+            self.define_from_variant("CMAKE_CXX_STANDARD", "cxxstd"),
+            self.define("IGNORE_ABSOLUTE_TRANSITIVE_DEPENDENCIES", True),
         ]
         return args
 
@@ -111,9 +110,9 @@ class Larevt(CMakePackage):
         # Perl modules.
         spack_env.prepend_path("PERL5LIB", os.path.join(self.build_directory, "perllib"))
         # Set path to find fhicl files
-        spack_env.prepend_path("FHICL_INCLUDE_PATH", os.path.join(self.build_directory, "job"))
+        spack_env.prepend_path("FHICL_INCLUDE_PATH", os.path.join(self.build_directory, "fcl"))
         # Set path to find gdml files
-        spack_env.prepend_path("FW_SEARCH_PATH", os.path.join(self.build_directory, "job"))
+        spack_env.prepend_path("FW_SEARCH_PATH", os.path.join(self.build_directory, "fcl"))
         # Cleaup.
         sanitize_environments(spack_env)
 
@@ -129,9 +128,9 @@ class Larevt(CMakePackage):
         # Perl modules.
         run_env.prepend_path("PERL5LIB", os.path.join(self.prefix, "perllib"))
         # Set path to find fhicl files
-        run_env.prepend_path("FHICL_INCLUDE_PATH", os.path.join(self.prefix, "job"))
+        run_env.prepend_path("FHICL_INCLUDE_PATH", os.path.join(self.prefix, "fcl"))
         # Set path to find gdml files
-        run_env.prepend_path("FW_SEARCH_PATH", os.path.join(self.prefix, "job"))
+        run_env.prepend_path("FW_SEARCH_PATH", os.path.join(self.prefix, "fcl"))
         # Cleaup.
         sanitize_environments(run_env)
 
@@ -140,7 +139,7 @@ class Larevt(CMakePackage):
         spack_env.prepend_path("CET_PLUGIN_PATH", self.prefix.lib)
         spack_env.prepend_path("PATH", self.prefix.bin)
         spack_env.prepend_path("ROOT_INCLUDE_PATH", self.prefix.include)
-        spack_env.append_path("FHICL_FILE_PATH", "{0}/job".format(self.prefix))
+        spack_env.append_path("FHICL_FILE_PATH", "{0}/fcl".format(self.prefix))
         spack_env.append_path("FW_SEARCH_PATH", "{0}/gdml".format(self.prefix))
 
     def setup_dependent_run_environment(self, run_env, dspec):
@@ -148,5 +147,5 @@ class Larevt(CMakePackage):
         run_env.prepend_path("CET_PLUGIN_PATH", self.prefix.lib)
         run_env.prepend_path("PATH", self.prefix.bin)
         run_env.prepend_path("ROOT_INCLUDE_PATH", self.prefix.include)
-        run_env.append_path("FHICL_FILE_PATH", "{0}/job".format(self.prefix))
+        run_env.append_path("FHICL_FILE_PATH", "{0}/fcl".format(self.prefix))
         run_env.append_path("FW_SEARCH_PATH", "{0}/gdml".format(self.prefix))

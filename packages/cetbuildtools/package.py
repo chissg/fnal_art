@@ -32,6 +32,7 @@ class Cetbuildtools(CMakePackage):
     url = "https://github.com/art-framework-suite/cetbuildtools/archive/refs/tags/v8_15_00.tar.gz"
     list_url = "https://api.github.com/repos/art-framework-suite/cetbuildtools/tags"
 
+    version("8.20.00", sha256="e61a69d02b39ecbf9b8d15ba6e97a8b8dde299b7b0bbd3496852d7a7a50e6c0d")
     version("8.18.05", sha256="009a82d56f2149399de45eb81d3ed021b83b3e8c8c3fcc4f3db13b7d49d51759")
     version("8.18.04", sha256="6ef9838ceeb361d41a36edc9c83b6c7ce13899ea543022cb94cac4df00386aad")
     version("8.18.03", sha256="de4db6e4066668f24620d5ca1a8f00036c5afdb65f8a649855ee75e9fe7232a4")
@@ -65,7 +66,8 @@ class Cetbuildtools(CMakePackage):
             )
         )
 
-    depends_on("cetmodules@2:")
+    depends_on("cetmodules@3.13.02")
+    depends_on("cmake@3.21:", type="build")
 
     maintainers = ["marc_mengel"]
 

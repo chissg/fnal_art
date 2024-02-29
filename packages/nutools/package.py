@@ -29,7 +29,7 @@ class Nutools(CMakePackage):
     """Nutools"""
 
     homepage = "https://cdcvs.fnal.gov/redmine/projects/nutools/wiki"
-    git_base = "https://github.com/NuSoftHEP/nutools.git"
+    git = "https://github.com/NuSoftHEP/nutools.git"
     url = "https://github.com/NuSoftHEP/nutools/archive/refs/tags/v3_11_05.tar.gz"
     list_url = "https://api.github.com/repos/NuSoftHEP/nutools/tags"
 
@@ -38,14 +38,9 @@ class Nutools(CMakePackage):
     version("3.12.00", sha256="6c2e70f6550c0e26c8457ec9876dd18d3f943ad00f1a1db65a3d0ab7f7449aa6")
     version("3.11.06", sha256="994f30da77259b83c549a44b9a90ccae90a28010b164f0e53aee5ca476ebf95e")
     version("3.11.05", sha256="c58c254de91c94739a23c6de454640fe096561358205ea8ed86afc28171e3e5e")
-    version(
-        "develop",
-        git=git_base,
-        commit="53595b9a9a03bd53e3264ef761e2c5c627288459",
-        get_full_repo=True,
-    )
-    version("mwm1", tag="mwm1", git=git_base, get_full_repo=True)
-    version("MVP1a", git=git_base, branch="feature/MVP1a")
+    version("develop", branch="develop", get_full_repo=True)
+    version("mwm1", tag="mwm1", get_full_repo=True)
+    version("MVP1a", branch="feature/MVP1a")
 
     def url_for_version(self, version):
         url = "https://github.com/NuSoftHEP/{0}/archive/v{1}.tar.gz"
