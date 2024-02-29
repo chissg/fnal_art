@@ -31,7 +31,7 @@ class Bxdecay0(CMakePackage):
     """
 
     homepage = "https://cdcvs.fnal.gov/redmine/projects/bxdecay0"
-    git_base = "https://github.com/BxCppDev/bxdecay0.git"
+    git = "https://github.com/BxCppDev/bxdecay0.git"
     url = "https://github.com/BxCppDev/bxdecay0/archive/bxdecay0.1.0.5.tar.gz"
     list_url = "https://api.github.com/repos/BxCppDev/bxdecay0/tags"
 
@@ -39,7 +39,7 @@ class Bxdecay0(CMakePackage):
     version("1.0.9", sha256="82c2373f10b41709030b8769a39ad8174beeaa04da524aaf2deba2493eef582d")
     version("1.0.7", sha256="f11f3f7e0bdcbdd73efe1e0eb28b5c004c18aee3c6ce359af9c0d8b4cab58469")
 
-    version("develop", branch="develop", git=git_base)
+    version("develop", branch="develop", get_full_repo=True)
 
     def fetch_remote_versions(self, concurrency=None):
         return dict(
@@ -77,16 +77,10 @@ class Bxdecay0(CMakePackage):
 
     # Build-only dependencies.
     depends_on("cmake@3.11:")
-    depends_on("cetmodules", type="build")
     depends_on("pkgconfig", type="build")
 
     # Build and link dependencies.
-    depends_on("boost", type=("build", "run"))
-    depends_on("canvas-root-io", type=("build", "run"))
-    depends_on("clhep", type=("build", "run"))
-    depends_on("hep-concurrency", type=("build", "run"))
     depends_on("gsl", type=("build", "run"))
-    depends_on("geant4", type=("build", "run"))
 
     if "SPACKDEV_GENERATOR" in os.environ:
         generator = os.environ["SPACKDEV_GENERATOR"]
@@ -99,63 +93,45 @@ class Bxdecay0(CMakePackage):
 
     def cmake_args(self):
         # Set CMake args.
-        args = [
-          "-DCMAKE_CXX_STANDARD={0}".format(self.spec.variants["cxxstd"].value),
+        args = [self.define_from_variant("CMAKE_CXX_STANDARD", "cxxstd"),
           "-DGSL_ROOT_DIR={0}".format(self.spec["gsl"].prefix),
-          "-DBxDecay0_WITH_DBD_GA=OFF",
         ]
         return args
 
     def setup_build_environment(self, spack_env):
         # Binaries.
         spack_env.prepend_path("PATH", os.path.join(self.build_directory, "bin"))
-        # Ensure we can find plugin libraries.
-        spack_env.prepend_path("CET_PLUGIN_PATH", os.path.join(self.build_directory, "lib"))
         # Ensure Root can find headers for autoparsing.
         for d in self.spec.traverse(
             root=False, cover="nodes", order="post", deptype=("link"), direction="children"
         ):
             spack_env.prepend_path("ROOT_INCLUDE_PATH", str(self.spec[d.name].prefix.include))
         spack_env.prepend_path("ROOT_INCLUDE_PATH", self.prefix.include)
-        # Perl modules.
-        spack_env.prepend_path("PERL5LIB", os.path.join(self.build_directory, "perllib"))
         # Cleaup.
         sanitize_environments(spack_env)
 
     def setup_run_environment(self, run_env):
-        # Ensure we can find plugin libraries.
-        run_env.prepend_path("CET_PLUGIN_PATH", self.prefix.lib)
         # Ensure Root can find headers for autoparsing.
         for d in self.spec.traverse(
             root=False, cover="nodes", order="post", deptype=("link"), direction="children"
         ):
             run_env.prepend_path("ROOT_INCLUDE_PATH", str(self.spec[d.name].prefix.include))
         run_env.prepend_path("ROOT_INCLUDE_PATH", self.prefix.include)
-        # Perl modules.
-        run_env.prepend_path("PERL5LIB", os.path.join(self.prefix, "perllib"))
         # Cleaup.
         sanitize_environments(run_env)
 
     def setup_dependent_build_environment(self, spack_env, dependent_spec):
         # Binaries.
         spack_env.prepend_path("PATH", self.prefix.bin)
-        # Ensure we can find plugin libraries.
-        spack_env.prepend_path("CET_PLUGIN_PATH", self.prefix.lib)
         # Ensure Root can find headers for autoparsing.
         spack_env.prepend_path("ROOT_INCLUDE_PATH", self.prefix.include)
-        # Perl modules.
-        spack_env.prepend_path("PERL5LIB", os.path.join(self.prefix, "perllib"))
         # Cleanup.
         sanitize_environments(spack_env)
 
     def setup_dependent_run_environment(self, run_env, dependent_spec):
         # Binaries.
         run_env.prepend_path("PATH", self.prefix.bin)
-        # Ensure we can find plugin libraries.
-        run_env.prepend_path("CET_PLUGIN_PATH", self.prefix.lib)
         # Ensure Root can find headers for autoparsing.
         run_env.prepend_path("ROOT_INCLUDE_PATH", self.prefix.include)
-        # Perl modules.
-        run_env.prepend_path("PERL5LIB", os.path.join(self.prefix, "perllib"))
         # Cleanup.
         sanitize_environments(run_env)

@@ -29,16 +29,15 @@ class Larg4(CMakePackage):
     """Larg4"""
 
     homepage = "https://cdcvs.fnal.gov/redmine/projects/larg4"
-    git_base = "https://github.com/LArSoft/larg4.git"
+    git = "https://github.com/LArSoft/larg4.git"
     url = "https://github.com/LArSoft/larg4/archive/v01_02_03.tar.gz"
     list_url = "https://api.github.com/repos/LArSoft/larg4/tags"
-
 
     version(
         "09.30.00.rc1", sha256="d16f63e88177ea7f1c48b4e6fc306ffbb0d6880ac23f411036d78e985eafc8d9"
     )
     version("09.16.07", sha256="79d26dd47873bfea349d485241583743d83b7d0452e6f362a48c44b9d726c90f")
-    version("09.16.04", sha256="8344d183ca35e5c2f50986b4228d7c569269373dca0994beab137ec9c831cdf0") # FIX ME
+    version("09.16.04", sha256="8344d183ca35e5c2f50986b4228d7c569269373dca0994beab137ec9c831cdf0")
     version("09.16.01", sha256="e17520b7074a3d2ab064c40ef654a694d04770741d2c406e336fa7b5ae987f30")
     version(
         "09.06.02.01", sha256="bf7cc46e222dc095bd9b980bc1987236e6e35dd4d0453c8258705ba02facbc9f"
@@ -54,6 +53,7 @@ class Larg4(CMakePackage):
     version("09.03.14", sha256="c6b6e06ea6affd2c49b8501bc90e6ae765bc47ef948f34334e401dca752ecc0d")
     version("09.03.13", sha256="c9f6fe589cae2cbcac9204c4a7f8f6a9f3605f66556d4e8412a50066249f709e")
     version("mwm1", tag="mwm1", git="https://github.com/marcmengel/larg4.git", get_full_repo=True)
+    version("develop", branch="develop", get_full_repo=True)
 
     def url_for_version(self, version):
         url = "https://github.com/LArSoft/{0}/archive/v{1}.tar.gz"
@@ -89,7 +89,6 @@ class Larg4(CMakePackage):
 
     depends_on("clhep")
     depends_on("artg4tk")
-    depends_on("larevt")
     depends_on("art")
     depends_on("canvas-root-io")
     depends_on("art-root-io")
@@ -99,10 +98,7 @@ class Larg4(CMakePackage):
     depends_on("cetmodules", type="build")
 
     def cmake_args(self):
-        args = [
-            "-DCMAKE_CXX_STANDARD={0}".format(self.spec.variants["cxxstd"].value),
-            "-Dlarg4_FW_DIR=fw",
-        ]
+        args = [self.define_from_variant("CMAKE_CXX_STANDARD", "cxxstd")]
         return args
 
     def flag_handler(self, name, flags):
@@ -138,9 +134,9 @@ class Larg4(CMakePackage):
         # Perl modules.
         run_env.prepend_path("PERL5LIB", os.path.join(self.prefix, "perllib"))
         # Set path to find fhicl files
-        run_env.prepend_path("FHICL_INCLUDE_PATH", os.path.join(self.prefix, "job"))
+        run_env.prepend_path("FHICL_INCLUDE_PATH", os.path.join(self.prefix, "fcl"))
         # Set path to find gdml files
-        run_env.prepend_path("FW_SEARCH_PATH", os.path.join(self.prefix, "job"))
+        run_env.prepend_path("FW_SEARCH_PATH", os.path.join(self.prefix, "fcl"))
         # Cleaup.
         sanitize_environments(run_env)
 
@@ -149,7 +145,7 @@ class Larg4(CMakePackage):
         spack_env.prepend_path("CET_PLUGIN_PATH", self.prefix.lib)
         spack_env.prepend_path("PATH", self.prefix.bin)
         spack_env.prepend_path("ROOT_INCLUDE_PATH", self.prefix.include)
-        spack_env.append_path("FHICL_FILE_PATH", "{0}/job".format(self.prefix))
+        spack_env.append_path("FHICL_FILE_PATH", "{0}/fcl".format(self.prefix))
         spack_env.append_path("FW_SEARCH_PATH", "{0}/gdml".format(self.prefix))
 
     def setup_dependent_run_environment(self, run_env, dspec):
@@ -157,5 +153,5 @@ class Larg4(CMakePackage):
         run_env.prepend_path("CET_PLUGIN_PATH", self.prefix.lib)
         run_env.prepend_path("PATH", self.prefix.bin)
         run_env.prepend_path("ROOT_INCLUDE_PATH", self.prefix.include)
-        run_env.append_path("FHICL_FILE_PATH", "{0}/job".format(self.prefix))
+        run_env.append_path("FHICL_FILE_PATH", "{0}/fcl".format(self.prefix))
         run_env.append_path("FW_SEARCH_PATH", "{0}/gdml".format(self.prefix))

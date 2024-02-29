@@ -13,7 +13,7 @@ class Marley(Package):
     homepage = "httpd://github.com/sjgardiner/marley"
     url = "https://github.com/sjgardiner/marley/archive/v1.0.0.tar.gz"
 
-    version("1.2.0", sha256="8bb0a68924c8e5d7773904151e3134c6c59837723ecf4e1b586a6cb5b48b520d") # FIX ME
+    version("1.2.0", sha256="8bb0a68924c8e5d7773904151e3134c6c59837723ecf4e1b586a6cb5b48b520d")
     version("1.0.0", sha256="4dea9918cff0aed3b9c38f74351c373c32235496ca6e321078f2c7b56bce719e")
     version("1.1.0", sha256="04d484468d08e5447dfd2fde20bea5bbebfd04ecb6eb34ad65b30f3825bcd577")
     version("1.1.1", sha256="214f8a40e59d47dd563be53640c5f197f5529bcb0ee65a9402cca450a611c0f8")
@@ -34,6 +34,14 @@ class Marley(Package):
     patch("marley-1.1.0.patch", when="@1.1.0")
     patch("marley-1.1.1.patch", when="@1.1.1")
     patch("marley-1.2.0.patch", when="@1.2.0")
+
+    def patch(self):
+        cxxstd = self.spec.variants["cxxstd"].value
+        filter_file("CXX_STD=c\+\+14", f"CXX_STD=c\+\+{cxxstd}", "build/Makefile")
+
+    def cmake_args(self):
+        args = [self.define_from_variant("CMAKE_CXX_STANDARD", "cxxstd")]
+        return args
 
     def setup_run_environment(self, spack_env):
         spack_env.append_flags("CPPFLAGS", "-I../include")

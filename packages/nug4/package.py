@@ -29,7 +29,7 @@ class Nug4(CMakePackage):
     """Generator interfaces to art for GENIE and GiBUU."""
 
     homepage = "https://cdcvs.fnal.gov/redmine/projects/nug4"
-    git_base = "https://github.com/NuSoftHEP/nug4.git"
+    git = "https://github.com/NuSoftHEP/nug4.git"
     url = "https://github.com/NuSoftHEP/nug4/archive/refs/tags/v1_10_00.tar.gz"
     list_url = "https://api.github.com/repos/NuSoftHEP/nug4/tags"
 
@@ -43,13 +43,8 @@ class Nug4(CMakePackage):
     version("1.12.00", sha256="392e5c8bee1cad0dd997b134de1e7c1ab9e580e7dd87600927a4c4f595afa081")
     version("1.11.01", sha256="18b00de65e442c45fcc1f91c3ef17d79c83aea9b0e1b73acfca53fd21da2d706")
     version("1.11.00", sha256="e612e229100a1cc3e25b390460da208c5e18f858627f441b7959dbb957e2bcf9")
-    version(
-        "develop",
-        commit="7fe7b040da2bba9ea7d0ec6726c408bc5013d863",
-        git=git_base,
-        get_full_repo=True,
-    )
-    version("mwm1", tag="mwm1", git=git_base, get_full_repo=True)
+    version("develop", branch="develop", get_full_repo=True)
+    version("mwm1", tag="mwm1", get_full_repo=True)
 
     def url_for_version(self, version):
         url = "https://github.com/NuSoftHEP/{0}/archive/v{1}.tar.gz"

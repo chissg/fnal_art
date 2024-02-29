@@ -29,6 +29,7 @@ class Castxml(CMakePackage):
     homepage = "https://github.com/CastXML/CastXML"
     url = "https://github.com/CastXML/CastXML/archive/v0.2.0.tar.gz"
 
+    version("0.5.1", sha256="a7b40b1530585672f9cf5d7a6b6dd29f20c06cd5edf34ef34c89a184a4d1a006")
     version("0.3.6", sha256="e51a26704864c89036a0a69d9f29c2a522a9fa09c1009e8b8169a26480bb2993")
     version("0.3.5", sha256="397044081363da0f3e50aff995f71b68aedd194d034caa50869224a4e6784c3b")
     version("0.3.4", sha256="a597ef37fe2b43fe3cf2c0c4e2ed0069d5aba2714016c319ac47787760859df4")
@@ -40,7 +41,7 @@ class Castxml(CMakePackage):
     version("0.2.0", sha256="626c395d0d3c777b5a1582cdfc4d33d142acfb12204ebe251535209126705ec1")
 
     # FIXME: Add dependencies if required.
-    # depends_on('llvm')
+    depends_on('llvm')
 
     def cmake_args(self):
         # FIXME: Add arguments other than

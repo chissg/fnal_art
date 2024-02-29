@@ -29,12 +29,12 @@ class Larana(CMakePackage):
     """Larana"""
 
     homepage = "https://cdcvs.fnal.gov/redmine/projects/larana"
-    git_base = "https://github.com/LArSoft/larana.git"
+    git = "https://github.com/LArSoft/larana.git"
     url = "https://github.com/LArSoft/larana/archive/v01_02_03.tar.gz"
     list_url = "https://api.github.com/repos/LArSoft/larana/tags"
 
     version("09.14.11", sha256="fbcdf7a2bcef81fb31a10b87b86d8f3af2b1de7dbde192e4a6caf2d2e6fe00bf")
-    version("09.14.08", sha256="61fa67c3764f37112af55fff17ab3e573a9ae4b068b3c8e437aca184741d14a3") # FIX ME
+    version("09.14.08", sha256="61fa67c3764f37112af55fff17ab3e573a9ae4b068b3c8e437aca184741d14a3")
     version("09.14.05", sha256="f67962e535fd68e5d3b69fa875edbcf0248a021d161136eaee409fed0e4104a2")
     version(
         "09.03.09.01", sha256="162712cd2506c443799b5e055a63370977ce9384d7a88925f0fda030362b95bf"
@@ -51,6 +51,7 @@ class Larana(CMakePackage):
     version("09.02.15", sha256="95653ea8022539bf367da7938f9e9d284ce2791f80a31ba578bfdf5b5c74a75d")
     version("09.02.14", sha256="0aafe08d52d360d648e1d63905384103cfb3d167b632f3b469ad355312209f47")
     version("mwm1", tag="mwm1", git="https://github.com/marcmengel/larana.git", get_full_repo=True)
+    version("develop", branch="develop", get_full_repo=True)
 
     def url_for_version(self, version):
         url = "https://github.com/LArSoft/{0}/archive/v{1}.tar.gz"
@@ -87,10 +88,7 @@ class Larana(CMakePackage):
     depends_on("cetmodules", type="build")
 
     def cmake_args(self):
-        args = [
-           "-DCMAKE_CXX_STANDARD={0}".format(self.spec.variants["cxxstd"].value),
-           "-Dlarana_FW_DIR=fw",
-        ]
+        args = [self.define_from_variant("CMAKE_CXX_STANDARD", "cxxstd")]
         return args
 
     def setup_build_environment(self, spack_env):
@@ -129,7 +127,7 @@ class Larana(CMakePackage):
         spack_env.prepend_path("CET_PLUGIN_PATH", self.prefix.lib)
         spack_env.prepend_path("PATH", self.prefix.bin)
         spack_env.prepend_path("ROOT_INCLUDE_PATH", self.prefix.include)
-        spack_env.append_path("FHICL_FILE_PATH", "{0}/job".format(self.prefix))
+        spack_env.append_path("FHICL_FILE_PATH", "{0}/fcl".format(self.prefix))
         spack_env.append_path("FW_SEARCH_PATH", "{0}/gdml".format(self.prefix))
 
     def setup_dependent_run_environment(self, run_env, dspec):
@@ -137,7 +135,7 @@ class Larana(CMakePackage):
         run_env.prepend_path("CET_PLUGIN_PATH", self.prefix.lib)
         run_env.prepend_path("PATH", self.prefix.bin)
         run_env.prepend_path("ROOT_INCLUDE_PATH", self.prefix.include)
-        run_env.append_path("FHICL_FILE_PATH", "{0}/job".format(self.prefix))
+        run_env.append_path("FHICL_FILE_PATH", "{0}/fcl".format(self.prefix))
         run_env.append_path("FW_SEARCH_PATH", "{0}/gdml".format(self.prefix))
 
     def flag_handler(self, name, flags):

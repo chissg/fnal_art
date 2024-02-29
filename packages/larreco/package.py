@@ -29,12 +29,12 @@ class Larreco(CMakePackage):
     """Larreco"""
 
     homepage = "https://cdcvs.fnal.gov/redmine/projects/larreco"
-    git_base = "https://github.com/LArSoft/larreco.git"
+    git = "https://github.com/LArSoft/larreco.git"
     url = "https://github.com/LArSoft/larreco/archive/v01_02_03.tar.gz"
     list_url = "https://api.github.com/repos/LArSoft/larreco/tags"
 
     version("09.23.01", sha256="168dcf19c40295cc98b6549866520da78c2a1fbaf91680b41a3255793f87e232")
-    version("09.22.03", sha256="6e7c0e11bd70fb47f4f0f39e211a60dcf3c4d888415eb2cf7a48070b43aa1a7b") 
+    version("09.22.03", sha256="6e7c0e11bd70fb47f4f0f39e211a60dcf3c4d888415eb2cf7a48070b43aa1a7b")
     version("09.22.00", sha256="b7389f283b1ba23571022af44f3d62006d5b5e0c0f3d3b9f653e2d983c1d8541")
     version(
         "09.07.08.02", sha256="eba7aba2443f4c9efdb0f071db9ca6ffb7f6e0630283f235759c51586e33c449"
@@ -61,6 +61,7 @@ class Larreco(CMakePackage):
     version(
         "mwm1", tag="mwm1", git="https://github.com/marcmengel/larreco.git", get_full_repo=True
     )
+    version("develop", branch="develop", get_full_repo=True)
 
     def url_for_version(self, version):
         url = "https://github.com/LArSoft/{0}/archive/v{1}.tar.gz"
@@ -116,16 +117,15 @@ class Larreco(CMakePackage):
     depends_on("marley")
     depends_on("nutools")
     depends_on("py-tensorflow", when="+tf")
-    depends_on("root")
+    depends_on("root+tmva")
     depends_on("rstartree")
     depends_on("tbb")
 
     def cmake_args(self):
         args = [
-            "-DCMAKE_CXX_STANDARD={0}".format(self.spec.variants["cxxstd"].value),
-            "-DIGNORE_ABSOLUTE_TRANSITIVE_DEPENDENCIES=1",
-            "-DRStarTree_INCLUDE_DIR={0}".format(self.spec['rstartree'].prefix.include),
-            "-Dlarreco_FW_DIR=fw",
+            self.define_from_variant("CMAKE_CXX_STANDARD", "cxxstd"),
+            self.define("IGNORE_ABSOLUTE_TRANSITIVE_DEPENDENCIES", True),
+            self.define("RStarTree_INCLUDE_DIR", self.spec["rstartree"].prefix.include),
         ]
         return args
 
@@ -142,9 +142,9 @@ class Larreco(CMakePackage):
         # Perl modules.
         spack_env.prepend_path("PERL5LIB", os.path.join(self.build_directory, "perllib"))
         # Set path to find fhicl files
-        spack_env.prepend_path("FHICL_INCLUDE_PATH", os.path.join(self.build_directory, "job"))
+        spack_env.prepend_path("FHICL_INCLUDE_PATH", os.path.join(self.build_directory, "fcl"))
         # Set path to find gdml files
-        spack_env.prepend_path("FW_SEARCH_PATH", os.path.join(self.build_directory, "job"))
+        spack_env.prepend_path("FW_SEARCH_PATH", os.path.join(self.build_directory, "fcl"))
         # Cleaup.
         sanitize_environments(spack_env)
 
@@ -160,9 +160,9 @@ class Larreco(CMakePackage):
         # Perl modules.
         run_env.prepend_path("PERL5LIB", os.path.join(self.prefix, "perllib"))
         # Set path to find fhicl files
-        run_env.prepend_path("FHICL_INCLUDE_PATH", os.path.join(self.prefix, "job"))
+        run_env.prepend_path("FHICL_INCLUDE_PATH", os.path.join(self.prefix, "fcl"))
         # Set path to find gdml files
-        run_env.prepend_path("FW_SEARCH_PATH", os.path.join(self.prefix, "job"))
+        run_env.prepend_path("FW_SEARCH_PATH", os.path.join(self.prefix, "fcl"))
         # Cleaup.
         sanitize_environments(run_env)
 
@@ -173,8 +173,8 @@ class Larreco(CMakePackage):
         spack_env.prepend_path("CET_PLUGIN_PATH", self.prefix.lib)
         spack_env.prepend_path("PATH", self.prefix.bin)
         spack_env.prepend_path("ROOT_INCLUDE_PATH", self.prefix.include)
-        spack_env.append_path("FHICL_FILE_PATH", "{0}/job".format(self.prefix))
-        spack_env.append_path("FW_SEARCH_PATH", "{0}/gdml".format(self.prefix))
+        spack_env.append_path("FHICL_FILE_PATH", "{0}/fcl".format(self.prefix))
+        spack_env.append_path("FW_SEARCH_PATH", "{0}/fw".format(self.prefix))
         sanitize_environments(spack_env)
 
     def setup_dependent_run_environment(self, run_env, dspec):
@@ -182,6 +182,6 @@ class Larreco(CMakePackage):
         run_env.prepend_path("CET_PLUGIN_PATH", self.prefix.lib)
         run_env.prepend_path("PATH", self.prefix.bin)
         run_env.prepend_path("ROOT_INCLUDE_PATH", self.prefix.include)
-        run_env.append_path("FHICL_FILE_PATH", "{0}/job".format(self.prefix))
-        run_env.append_path("FW_SEARCH_PATH", "{0}/gdml".format(self.prefix))
+        run_env.append_path("FHICL_FILE_PATH", "{0}/fcl".format(self.prefix))
+        run_env.append_path("FW_SEARCH_PATH", "{0}/fw".format(self.prefix))
         sanitize_environments(run_env)

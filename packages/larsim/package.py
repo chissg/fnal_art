@@ -29,12 +29,12 @@ class Larsim(CMakePackage):
     """Larsim"""
 
     homepage = "https://cdcvs.fnal.gov/redmine/projects/larsim"
-    git_base = "https://github.com/LArSoft/larsim.git"
+    git = "https://github.com/LArSoft/larsim.git"
     url = "https://github.com/LArSoft/larsim/archive/v01_02_03.tar.gz"
     list_url = "https://api.github.com/repos/LArSoft/larsim/tags"
 
     version("09.38.06", sha256="be8cc87ea901a5efdcfb91bb9810eee94a0cf860316174ab6ab1cf20c147883b")
-    version("09.38.03", sha256="e16fd69ed9acc368563334efbc986d73fb7a085c8201670822d97a314566f52b") # FIX ME
+    version("09.38.03", sha256="e16fd69ed9acc368563334efbc986d73fb7a085c8201670822d97a314566f52b")
     version("09.38.00", sha256="7f68cacf3cc838f4d5e94f8cc9a59f678fea202694f5c837295d5682e09bd5aa")
     version(
         "09.30.00.rc1", sha256="8371ab32c43b702337d7022fee255eb2a86164a7ee8edc91781f4b0494890142"
@@ -55,6 +55,7 @@ class Larsim(CMakePackage):
     version("09.14.07", sha256="a0a235caf17b5d9d2b3959ed967a5cdb2cc1851d3d696976a656c2f48834cadc")
     version("09.14.06", sha256="5d729da4515d0315d123724b411c4e81e191ea88ed37692b5a037b7b7d94fbfb")
     version("mwm1", tag="mwm1", git="https://github.com/marcmengel/larsim.git", get_full_repo=True)
+    version("develop", branch="develop", get_full_repo=True)
 
     def url_for_version(self, version):
         url = "https://github.com/LArSoft/{0}/archive/v{1}.tar.gz"
@@ -107,24 +108,28 @@ class Larsim(CMakePackage):
     depends_on("cetmodules", type="build")
 
     def patch(self):
-        filter_file(r'find_package\(nug4 ', 'find_package(nufinder)\nfind_package(nug4 ', 'CMakeLists.txt')
-        filter_file(r'math_tr1', '', 'CMakeLists.txt')
-        filter_file(r'Boost::math_tr1', '', 'larsim/LegacyLArG4/CMakeLists.txt')
-        filter_file(r'Boost::math_tr1', '', 'larsim/PhotonPropagation/CMakeLists.txt')
-        
+        filter_file(
+            r"find_package\(nug4 ", "find_package(nufinder)\nfind_package(nug4 ", "CMakeLists.txt"
+        )
+        filter_file(r"math_tr1", "", "CMakeLists.txt")
+        filter_file(r"Boost::math_tr1", "", "larsim/LegacyLArG4/CMakeLists.txt")
+        filter_file(r"Boost::math_tr1", "", "larsim/PhotonPropagation/CMakeLists.txt")
 
     def cmake_args(self):
         args = [
-            "-DCMAKE_CXX_STANDARD={0}".format(self.spec.variants["cxxstd"].value),
-            "-DIFDH_INC={0}".format(self.spec["ifdhc"].prefix.include),
-            "-DIFDH_LIB={0}".format(self.spec["ifdhc"].prefix),
-            "-DGENIE_INC={0}".format(self.spec["genie"].prefix.include),
-            "-DGENIE_VERSION=v{0}".format(self.spec["genie"].version.underscored),
-            "-DLARSOFT_DATA_DIR=v{0}".format(self.spec["larsoft-data"].prefix),
-            "-DLARSOFT_DATA_VERSION=v{0}".format(self.spec["larsoft-data"].version.underscored),
-            "-DIGNORE_ABSOLUTE_TRANSITIVE_DEPENDENCIES=1",
-            "-Dlarsim_MODULE_PLUGINS=FALSE",
-            "-Dlarsim_FW_DIR=fw",
+            self.define_from_variant("CMAKE_CXX_STANDARD", "cxxstd"),
+            self.define("IFDH_INC", self.spec["ifdhc"].prefix.include),
+            self.define("IFDH_LIB", self.spec["ifdhc"].prefix),
+            self.define("GENIE_INC", self.spec["genie"].prefix.include),
+            self.define("GENIE_VERSION", "v" + self.spec["genie"].version.underscored),
+            self.define("LARSOFT_DATA_DIR", "v" + self.spec["larsoft-data"].prefix),
+            self.define(
+                "LARSOFT_DATA_VERSION", "v" + self.spec["larsoft-data"].version.underscored
+            ),
+            self.define("IGNORE_ABSOLUTE_TRANSITIVE_DEPENDENCIES", True),
+            # The following lines should be removed once the larsim/CMakePresets.json file is fixed
+            self.define("larsim_MODULE_PLUGINS", False),
+            self.define("larsim_FW_DIR", "fw"),
         ]
         return args
 
@@ -148,9 +153,9 @@ class Larsim(CMakePackage):
         # Perl modules.
         spack_env.prepend_path("PERL5LIB", os.path.join(self.build_directory, "perllib"))
         # Set path to find fhicl files
-        spack_env.prepend_path("FHICL_INCLUDE_PATH", os.path.join(self.build_directory, "job"))
+        spack_env.prepend_path("FHICL_INCLUDE_PATH", os.path.join(self.build_directory, "fcl"))
         # Set path to find gdml files
-        spack_env.prepend_path("FW_SEARCH_PATH", os.path.join(self.build_directory, "job"))
+        spack_env.prepend_path("FW_SEARCH_PATH", os.path.join(self.build_directory, "fcl"))
         # Cleaup.
         sanitize_environments(spack_env)
 
@@ -174,9 +179,9 @@ class Larsim(CMakePackage):
         # Perl modules.
         run_env.prepend_path("PERL5LIB", os.path.join(self.prefix, "perllib"))
         # Set path to find fhicl files
-        run_env.prepend_path("FHICL_INCLUDE_PATH", os.path.join(self.prefix, "job"))
+        run_env.prepend_path("FHICL_INCLUDE_PATH", os.path.join(self.prefix, "fcl"))
         # Set path to find gdml files
-        run_env.prepend_path("FW_SEARCH_PATH", os.path.join(self.prefix, "job"))
+        run_env.prepend_path("FW_SEARCH_PATH", os.path.join(self.prefix, "fcl"))
         # Cleaup.
         sanitize_environments(run_env)
 
@@ -185,7 +190,7 @@ class Larsim(CMakePackage):
         spack_env.prepend_path("CET_PLUGIN_PATH", self.prefix.lib)
         spack_env.prepend_path("PATH", self.prefix.bin)
         spack_env.prepend_path("ROOT_INCLUDE_PATH", self.prefix.include)
-        spack_env.append_path("FHICL_FILE_PATH", "{0}/job".format(self.prefix))
+        spack_env.append_path("FHICL_FILE_PATH", "{0}/fcl".format(self.prefix))
         spack_env.append_path("FW_SEARCH_PATH", "{0}/gdml".format(self.prefix))
         spack_env.append_path("FW_SEARCH_PATH", "{0}/fw".format(self.prefix))
 
@@ -194,6 +199,6 @@ class Larsim(CMakePackage):
         run_env.prepend_path("CET_PLUGIN_PATH", self.prefix.lib)
         run_env.prepend_path("PATH", self.prefix.bin)
         run_env.prepend_path("ROOT_INCLUDE_PATH", self.prefix.include)
-        run_env.append_path("FHICL_FILE_PATH", "{0}/job".format(self.prefix))
+        run_env.append_path("FHICL_FILE_PATH", "{0}/fcl".format(self.prefix))
         run_env.append_path("FW_SEARCH_PATH", "{0}/gdml".format(self.prefix))
         run_env.append_path("FW_SEARCH_PATH", "{0}/fw".format(self.prefix))

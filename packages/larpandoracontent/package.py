@@ -27,10 +27,13 @@ class Larpandoracontent(CMakePackage):
     """Larpandoracontent"""
 
     homepage = "https://cdcvs.fnal.gov/redmine/projects/larpandoracontent/wiki"
+    git = "https://github.com/LArSoft/larpandoracontent.git"
     url = "https://github.com/LArSoft/larpandoracontent/archive/refs/tags/v03_26_01.tar.gz"
     list_url = "https://api.github.com/repos/LArSoft/larpandoracontent/tags"
+
+    version("develop", branch="develop", get_full_repo=True)
     version("04.06.00", sha256="c78118cf8bebace0922a9561f06f6359b54bc69d3a7a1ae59b5bb2fa32f9565a")
-    version("04.05.01", sha256="97b1d27fb9652cfa36e14bcdc5385914ba1c79c747b182b64c7f0f3861336136") # FIX ME
+    version("04.05.01", sha256="97b1d27fb9652cfa36e14bcdc5385914ba1c79c747b182b64c7f0f3861336136")
     version("04.05.00", sha256="6556e1ebbd1d1a68b876ac0e732c38b90cdc8896ea5f6d2c5bddafec6506b439")
     version(
         "03.26.01.01", sha256="f7c38678f3b7631df1287ca63ee3479d62c33b6d82134e9b98b7e6de90c4ce5c"
@@ -42,12 +45,7 @@ class Larpandoracontent(CMakePackage):
         git="https://github.com/marcmengel/larpandoracontent.git",
         get_full_repo=True,
     )
-    version(
-        "03.22.11.01",
-        tag="v03_22_11_01",
-        git="https://github.com/LArSoft/larpandoracontent.git",
-        get_full_repo=True,
-    )
+    version("03.22.11.01", tag="v03_22_11_01", get_full_repo=True)
 
     def url_for_version(self, version):
         url = "https://github.com/LArSoft/{0}/archive/v{1}.tar.gz"
@@ -80,35 +78,31 @@ class Larpandoracontent(CMakePackage):
         description="Use the specified C++ standard when building.",
     )
 
-    variant(
-       "monitoring",
-       default=True,
-       description="Enable PandoraMonitoring when building."
-    )
+    variant("monitoring", default=True, description="Enable PandoraMonitoring when building.")
 
     depends_on("cetmodules", type="build")
     depends_on("eigen")
-    depends_on("pandora +monitoring" , when="+monitoring")
-    depends_on("pandora ~monitoring" , when="~monitoring")
+    depends_on("pandora +monitoring", when="+monitoring")
+    depends_on("pandora ~monitoring", when="~monitoring")
     depends_on("py-torch")
 
-
     def patch(self):
-        filter_file(r"set\(PANDORA_MONITORING TRUE\)","","CMakeLists.txt")
+        filter_file(r"set\(PANDORA_MONITORING TRUE\)", "", "CMakeLists.txt")
 
-        if not self.spec.variants["monitoring"].value: 
+        if not self.spec.variants["monitoring"].value:
             filter_file(
-               r"(PandoraPFA::PandoraMonitoring|MONITORING)",
-               "", 
-               "larpandoracontent/CMakeLists.txt",
+                r"(PandoraPFA::PandoraMonitoring|MONITORING)",
+                "",
+                "larpandoracontent/CMakeLists.txt",
             )
-
 
     def cmake_args(self):
         args = [
             "-DCMAKE_CXX_STANDARD={0}".format(self.spec.variants["cxxstd"].value),
             "-DCMAKE_MODULE_PATH={0}/cmakemodules".format(self.spec["pandora"].prefix),
-            "-DPANDORA_MONITORING={0}".format("ON" if self.spec.variants["monitoring"].value else "OFF"),
+            "-DPANDORA_MONITORING={0}".format(
+                "ON" if self.spec.variants["monitoring"].value else "OFF"
+            ),
             "-DLAR_CONTENT_LIBRARY_NAME=LArPandoraContent",
             "-DPandoraSDK_DIR={0}/cmakemodules".format(self.spec["pandora"].prefix),
             "-DPandoraMonitoring_DIR={0}/cmakemodules".format(self.spec["pandora"].prefix),

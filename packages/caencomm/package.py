@@ -10,9 +10,14 @@ class Caencomm(Package):
     """CAEN Communications library"""
 
     homepage = "https://www.caen.it/products/caencomm-library/"
-    url = "https://scisoft.fnal.gov/scisoft/reference_tarballs/CAENComm-v1.6.0.tgz"
+    url = "https://scisoft.fnal.gov/scisoft/reference_tarballs/CAENComm-v1.7.0.tgz"
 
+    version("1.7.0", sha256="c71c3e5023c67b963b4431387d5ed509e2d76f3220a34e237f8fadc1aa46e47b")
     version("1.6.0", sha256="d6fea92074c78a8c030664a0086dd26820d25ab200444db5cd4f088bb5760334")
+
+    def url_for_version(self, version):
+        url = "https://scisoft.fnal.gov/scisoft/reference_tarballs/CAENComm-v{0}.tgz"
+        return url.format(version)
 
     depends_on("caenvmelib")
 

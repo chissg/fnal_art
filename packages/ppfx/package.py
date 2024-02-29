@@ -12,8 +12,9 @@ class Ppfx(CMakePackage):
 
     homepage = "https://cdcvs.fnal.gov/redmine/projects/ppfx"
     homepage_soon = "https://github.com/kordosky/ppfx"
+    git = "https://cdcvs.fnal.gov/redmine/projects/ppfx"
     url = "https://cdcvs.fnal.gov/cgi-bin/git_archive.cgi/cvs/projects/ppfx.v02_18_03.tbz2"
-    url_soon =  "https://github.com/kordosky/ppfx/archive/tag/v02.13.03.tar.gz"
+    url_soon = "https://github.com/kordosky/ppfx/archive/tag/v02.13.03.tar.gz"
 
     maintainers = ["marcmengel", "kordosky"]
 
@@ -22,6 +23,7 @@ class Ppfx(CMakePackage):
         return urlf.format(version.underscored)
 
     version("02.18.03", sha256="32bab85a7d98b06ecfd76fe57df28cef7fb826ab8fd89ab1bb56f34ab8260040")
+    version("develop", branch="develop", get_full_repo=True)
 
     variant(
         "cxxstd",
@@ -60,28 +62,24 @@ class Ppfx(CMakePackage):
     depends_on("xerces-c")
 
     def cmake_args(self):
-        args = [
-           self.define_from_variant("CMAKE_CXX_STANDARD", "cxxstd"),
-           "-Dppfx_FW_DIR=fw",
-        ]
+        args = [self.define_from_variant("CMAKE_CXX_STANDARD", "cxxstd"), "-Dppfx_FW_DIR=fw"]
         return args
 
     def setup_build_environment(self, env):
-        env.set("CANVAS_ROOT_IO_DIR", self.spec['canvas'].prefix)
-        env.set("CETBUILDTOOLS_DIR", self.spec['cetbuildtools'].prefix)
-        env.set("CRYHOME", self.spec['cry'].prefix)
-        env.set("DK2NUDATA_LIB", self.spec['dk2nudata'].prefix)
-        env.set("DK2NUGENIE_INC", self.spec['dk2nugenie'].prefix)
-        env.set("GENIE_INC", self.spec['genie'].prefix)
-        env.set("GENIE_LIB", self.spec['genie'].prefix)
-        env.set("IFDH_ART_FQ_DIR", self.spec['ifdh-art'].prefix)
-        env.set("IFDH_ART_LIB", self.spec['ifdh-art'].prefix)
-        env.set("IFDHC_FQ_DIR", self.spec['ifdhc'].prefix)
-        env.set("IFDHC_LIB", self.spec['ifdhc'].prefix)
-        env.set("LHAPDF_LIB", self.spec['lhapdf'].prefix)
-        env.set("LIBXML2_INC", self.spec['libxml2'].prefix)
-        env.set("LOG4CPP_INC", self.spec['log4cpp'].prefix)
-        env.set("LOG4CPP_LIB", self.spec['log4cpp'].prefix)
-        env.set("PYLIB", self.spec['pythia6'].prefix)
-        env.set("XERCES_C_INC", self.spec['xerces-c'].prefix)
-
+        env.set("CANVAS_ROOT_IO_DIR", self.spec["canvas"].prefix)
+        env.set("CETBUILDTOOLS_DIR", self.spec["cetbuildtools"].prefix)
+        env.set("CRYHOME", self.spec["cry"].prefix)
+        env.set("DK2NUDATA_LIB", self.spec["dk2nudata"].prefix)
+        env.set("DK2NUGENIE_INC", self.spec["dk2nugenie"].prefix)
+        env.set("GENIE_INC", self.spec["genie"].prefix)
+        env.set("GENIE_LIB", self.spec["genie"].prefix)
+        env.set("IFDH_ART_FQ_DIR", self.spec["ifdh-art"].prefix)
+        env.set("IFDH_ART_LIB", self.spec["ifdh-art"].prefix)
+        env.set("IFDHC_FQ_DIR", self.spec["ifdhc"].prefix)
+        env.set("IFDHC_LIB", self.spec["ifdhc"].prefix)
+        env.set("LHAPDF_LIB", self.spec["lhapdf"].prefix)
+        env.set("LIBXML2_INC", self.spec["libxml2"].prefix)
+        env.set("LOG4CPP_INC", self.spec["log4cpp"].prefix)
+        env.set("LOG4CPP_LIB", self.spec["log4cpp"].prefix)
+        env.set("PYLIB", self.spec["pythia6"].prefix)
+        env.set("XERCES_C_INC", self.spec["xerces-c"].prefix)

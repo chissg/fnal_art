@@ -50,6 +50,9 @@ class Jsonnet(Package):
         mkdirp(prefix.include)
         install("include/libjsonnet.h", prefix.include)
         install("include/libjsonnet++.h", prefix.include)
+        libs = find(prefix.lib, "libjsonnet*")
+        for lib in libs:
+            symlink(lib, prefix.lib + "%s.0" % lib)
 
     def setup_build_environment(self, spack_env):
         for cflag in ("-O3", "-DNDEBUG", "-g", "-fno-omit-frame-pointer"):
