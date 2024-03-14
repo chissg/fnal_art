@@ -22,6 +22,7 @@ class Art(CMakePackage):
     git = "https://github.com/art-framework-suite/art.git"
     url = "https://github.com/art-framework-suite/art/archive/refs/tags/v3_13_01.tar.gz"
 
+    version("3.14.04", sha256="2b930299e1f3fe52544fe0a8f7beaba614c1aea56efe832fffb7117f497e110c")
     version("3.14.03", sha256="c16b8b69a540fe00090e56ff6911c356615dd2c82179d57373024bcb01984434")
     version("3.14.02", sha256="8cc7340a1a92ee22ddeacc3b1ad8a0688561d4fb2a790f42be791534bce8ea2e")
     version("3.14.01", sha256="29489e0dc7abf2756c9081569a54dbb49c8cbb472c651e343d6ce2d49fc1cac2")

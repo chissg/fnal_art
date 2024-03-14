@@ -41,6 +41,7 @@ class Critic(CMakePackage):
     url = "https://github.com/art-framework-suite/critic/archive/refs/tags/v2_12_03.tar.gz"
 
     version("develop", branch="develop", get_full_repo=True)
+    version("2.13.05", sha256="7f2470ef8360423e0b1f509538a1ae2df0e42cd231ea48fd2fc225b7181f96f2")
     version("2.13.03", sha256="96f62ff84e09fab7359f4d890e1bb9939cdea35b702a733663187483536da74e")
     version("2.13.01", sha256="bc5aac156904a34161db5af23a0e0952c648614a91961ae631dace815a903ec4")
     version("2.12.04", sha256="0ec37fe12f9433ea9df4ec0bd33e667b3dd10a45137b2abc4292f6b08460b225")
