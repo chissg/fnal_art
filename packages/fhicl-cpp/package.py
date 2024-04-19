@@ -6,17 +6,18 @@
 import os
 
 from spack.package import *
-from spack.pkg.fnal_art.utilities import *
+from spack.pkg.fnal_art.fnal_github_package import *
 
 
-class FhiclCpp(CMakePackage):
+class FhiclCpp(CMakePackage, FnalGithubPackage):
     """A C++ implementation of the FHiCL configuration language for the art
     suite.
     """
 
     homepage = "https://art.fnal.gov/"
-    git = "https://github.com/art-framework-suite/fhicl-cpp.git"
-    url = "https://github.com/art-framework-suite/fhicl-cpp/archive/refs/tags/v4_18_02.tar.gz"
+    repo = "art-framework-suite/fhicl-cpp"
+
+    version_patterns = ["v4_15_03"]
 
     version("4.19.00", sha256="25163d17a9a6c8509d326785a78e399fdc33e231ad393edc0ae34b1d9b56b9f9")
     version("4.18.04", sha256="d0b8beca890707d0bbf35678c3b6bddd1b02b3ab7654801abbe31525dacdd7b5")
@@ -57,14 +58,9 @@ class FhiclCpp(CMakePackage):
         if generator.endswith("Ninja"):
             depends_on("ninja@1.10:", type="build")
 
-    def url_for_version(self, version):
-        url = "https://github.com/art-framework-suite/fhicl-cpp/archive/refs/tags/v{0}.tar.gz"
-        return url.format(version.underscored)
-
+    @cmake_preset
     def cmake_args(self):
-        return preset_args(self.stage.source_path) + [
-            self.define_from_variant("CMAKE_CXX_STANDARD", "cxxstd")
-        ]
+        return [self.define_from_variant("CMAKE_CXX_STANDARD", "cxxstd")]
 
     def setup_build_environment(self, env):
         # Path for tests.

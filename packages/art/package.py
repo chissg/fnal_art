@@ -6,18 +6,19 @@
 import os
 
 from spack import *
-from spack.pkg.fnal_art.utilities import *
+from spack.pkg.fnal_art.fnal_github_package import *
 from spack.util.prefix import Prefix
 
 
-class Art(CMakePackage):
+class Art(CMakePackage, FnalGithubPackage):
     """The eponymous package of the art suite; art is an event-processing
     framework for particle physics experiments.
     """
 
     homepage = "https://art.fnal.gov/"
-    git = "https://github.com/art-framework-suite/art.git"
-    url = "https://github.com/art-framework-suite/art/archive/refs/tags/v3_13_01.tar.gz"
+    repo = "art-framework-suite/art"
+
+    version_patterns = ["v3_04_00"]
 
     version("3.15.00", sha256="3faa8c90d85b5ac100c56584f2bf05a664ed6d5243e53df1fe9e4372d4136eed")
     version("3.14.04", sha256="2b930299e1f3fe52544fe0a8f7beaba614c1aea56efe832fffb7117f497e110c")
@@ -71,14 +72,9 @@ class Art(CMakePackage):
         if generator.endswith("Ninja"):
             depends_on("ninja@1.10:", type="build")
 
-    def url_for_version(self, version):
-        url = "https://github.com/art-framework-suite/art/archive/refs/tags/v{0}.tar.gz"
-        return url.format(version.underscored)
-
+    @cmake_preset
     def cmake_args(self):
-        return preset_args(self.stage.source_path) + [
-            self.define_from_variant("CMAKE_CXX_STANDARD", "cxxstd")
-        ]
+        return [self.define_from_variant("CMAKE_CXX_STANDARD", "cxxstd")]
 
     def setup_build_environment(self, env):
         prefix = Prefix(self.build_directory)

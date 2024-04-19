@@ -6,16 +6,17 @@
 import os
 
 from spack.package import *
-from spack.pkg.fnal_art.utilities import *
+from spack.pkg.fnal_art.fnal_github_package import *
 from spack.util.prefix import Prefix
 
 
-class CanvasRootIo(CMakePackage):
+class CanvasRootIo(CMakePackage, FnalGithubPackage):
     """A Root I/O library for the art suite."""
 
     homepage = "https://art.fnal.gov/"
-    git = "https://github.com/art-framework-suite/canvas-root-io.git"
-    url = "https://github.com/art-framework-suite/canvas-root-io/archive/refs/tags/v1_13_01.tar.gz"
+    repo = "art-framework-suite/canvas-root-io"
+
+    version_patterns = ["v1_09_04"]
 
     version("develop", branch="develop", get_full_repo=True)
 
@@ -64,14 +65,9 @@ class CanvasRootIo(CMakePackage):
         if generator.endswith("Ninja"):
             depends_on("ninja@1.10:", type="build")
 
+    @cmake_preset
     def cmake_args(self):
-        return preset_args(self.stage.source_path) + [
-            self.define_from_variant("CMAKE_CXX_STANDARD", "cxxstd")
-        ]
-
-    def url_for_version(self, version):
-        url = "https://github.com/art-framework-suite/canvas-root-io/archive/refs/tags/v{0}.tar.gz"
-        return url.format(version.underscored)
+        return [self.define_from_variant("CMAKE_CXX_STANDARD", "cxxstd")]
 
     def setup_build_environment(self, env):
         prefix = Prefix(self.build_directory)

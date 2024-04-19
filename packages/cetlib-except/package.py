@@ -6,15 +6,16 @@
 import os
 
 from spack.package import *
-from spack.pkg.fnal_art.utilities import *
+from spack.pkg.fnal_art.fnal_github_package import *
 
 
-class CetlibExcept(CMakePackage):
+class CetlibExcept(CMakePackage, FnalGithubPackage):
     """Exception libraries for the art suite."""
 
     homepage = "https://art.fnal.gov/"
-    git = "https://github.com/art-framework-suite/cetlib-except.git"
-    url = "https://github.com/art-framework-suite/cetlib-except/archive/refs/tags/v1_09_00.tar.gz"
+    repo = "art-framework-suite/cetlib-except"
+
+    version_patterns = ["v1_07_04"]
 
     version("1.10.00", sha256="69960e18e80ee76ce7437366d3d916e653ced32aae0365362750d8226e51f87b")
     version("1.09.01", sha256="72ed76819ce98c1629e55931a939374d386070b77070b849e029d095097240fd")
@@ -44,14 +45,9 @@ class CetlibExcept(CMakePackage):
         if generator.endswith("Ninja"):
             depends_on("ninja@1.10:", type="build")
 
-    def url_for_version(self, version):
-        url = "https://github.com/art-framework-suite/cetlib-except/archive/refs/tags/v{0}.tar.gz"
-        return url.format(version.underscored)
-
+    @cmake_preset
     def cmake_args(self):
-        return preset_args(self.stage.source_path) + [
-            self.define_from_variant("CMAKE_CXX_STANDARD", "cxxstd")
-        ]
+        return [self.define_from_variant("CMAKE_CXX_STANDARD", "cxxstd")]
 
     def setup_build_environment(self, env):
         # For tests.

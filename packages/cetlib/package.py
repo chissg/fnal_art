@@ -7,16 +7,17 @@ import os
 import sys
 
 from spack.package import *
-from spack.pkg.fnal_art.utilities import *
+from spack.pkg.fnal_art.fnal_github_package import *
 from spack.util.prefix import Prefix
 
 
-class Cetlib(CMakePackage):
+class Cetlib(CMakePackage, FnalGithubPackage):
     """A utility library for the art suite."""
 
     homepage = "https://art.fnal.gov/"
-    git = "https://github.com/art-framework-suite/cetlib.git"
-    url = "https://github.com/art-framework-suite/cetlib/archive/refs/tags/v3_17_00.tar.gz"
+    repo = "art-framework-suite/cetlib"
+
+    version_patterns = ["v3_13_04"]
 
     version("3.19.00", sha256="696ef0e98dde96a5f34fa38db9adfdcceed325b04c64f0b70d9cc27986d8f28c")
     version("3.18.02", sha256="230c0d5d5082e878e1afa7fe9b5b54e52f9ec70373c7000a5775351817fb95d7")
@@ -63,14 +64,9 @@ class Cetlib(CMakePackage):
         if generator.endswith("Ninja"):
             depends_on("ninja@1.10:", type="build")
 
-    def url_for_version(self, version):
-        url = "https://github.com/art-framework-suite/cetlib/archive/refs/tags/v{0}.tar.gz"
-        return url.format(version.underscored)
-
+    @cmake_preset
     def cmake_args(self):
-        return preset_args(self.stage.source_path) + [
-            self.define_from_variant("CMAKE_CXX_STANDARD", "cxxstd")
-        ]
+        return [self.define_from_variant("CMAKE_CXX_STANDARD", "cxxstd")]
 
     def setup_build_environment(self, env):
         prefix = Prefix(self.build_directory)
