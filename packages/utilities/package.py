@@ -33,10 +33,11 @@ def github_version_url(organization, repo_name, native_version_str):
 
 
 def fetch_remote_tags(organization, repo_name, url):
-    _, _, request = spack.util.web.read_from_url(
-        url, accept_content_type="application/json"
-    )
-    return {dotted_version_str(d["name"]): github_version_url(organization, repo_name, d["name"]) for d in sjson.load(request)}
+    _, _, request = spack.util.web.read_from_url(url, accept_content_type="application/json")
+    return {
+        dotted_version_str(d["name"]): github_version_url(organization, repo_name, d["name"])
+        for d in sjson.load(request)
+    }
 
 
 class Utilities(Package):
