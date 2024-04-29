@@ -88,4 +88,4 @@ class Critic(CMakePackage, FnalGithubPackage):
         # ... and in the interpreter.
         env.env_modifications.append(PrependEnv("LD_LIBRARY_PATH", "CET_PLUGIN_PATH"))
         # Cleanup.
-        sanitize_environments(env, "PATH", "CET_PLUGIN_PATH", "LD_LIBRARY_PATH")
+        sanitize_environment(env, "PATH", "CET_PLUGIN_PATH", "LD_LIBRARY_PATH")

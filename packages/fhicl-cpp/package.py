@@ -62,12 +62,12 @@ class FhiclCpp(CMakePackage, FnalGithubPackage):
     def cmake_args(self):
         return [self.define_from_variant("CMAKE_CXX_STANDARD", "cxxstd")]
 
+    @sanitize_paths
     def setup_build_environment(self, env):
         # Path for tests.
         env.prepend_path("PATH", os.path.join(self.build_directory, "bin"))
-        # Cleanup
-        sanitize_environments(env, "PATH")
 
+    @sanitize_paths
     def setup_run_environment(self, env):
         # Bash completions.
         bindir = self.prefix.bin

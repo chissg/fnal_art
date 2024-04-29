@@ -5,6 +5,7 @@
 
 import llnl.util.tty as tty
 import spack.util.spack_json as sjson
+from spack.util.environment import PrependPath
 from spack.package import *
 from spack.version import *
 from functools import wraps
@@ -36,10 +37,20 @@ def cmake_preset(f):
     return wrapped_cmake_args
 
 
-def sanitize_environments(env, *env_vars):
-    for var in env_vars:
-        env.prune_duplicate_paths(var)
-        env.deprioritize_system_paths(var)
+def sanitize_environment(env, *env_paths):
+    for path in env_paths:
+        env.prune_duplicate_paths(path)
+        env.deprioritize_system_paths(path)
+
+
+def sanitize_paths(f):
+    @wraps(f)
+    def wrapped_setup_build_environment(pkg, env, *extra_args):
+        f(pkg, env, *extra_args)
+        paths = [mod.name for mod in env.env_modifications if type(mod) == PrependPath]
+        sanitize_environment(env, *paths)
+
+    return wrapped_setup_build_environment
 
 
 def dotted_version_str(name):

@@ -65,6 +65,7 @@ class Messagefacility(CMakePackage, FnalGithubPackage):
     def cmake_args(self):
         return [self.define_from_variant("CMAKE_CXX_STANDARD", "cxxstd")]
 
+    @sanitize_paths
     def setup_build_environment(self, env):
         prefix = Prefix(self.build_directory)
         # Binaries.
@@ -73,23 +74,19 @@ class Messagefacility(CMakePackage, FnalGithubPackage):
         env.prepend_path("CET_PLUGIN_PATH", prefix.lib)
         # Perl modules.
         env.prepend_path("PERL5LIB", prefix.perllib)
-        # Cleaup.
-        sanitize_environments(env, "PATH", "CET_PLUGIN_PATH", "PERL5LIB")
 
+    @sanitize_paths
     def setup_run_environment(self, env):
         prefix = self.prefix
         # Ensure we can find plugin libraries.
         env.prepend_path("CET_PLUGIN_PATH", prefix.lib)
         # Perl modules.
         env.prepend_path("PERL5LIB", prefix.perllib)
-        # Cleaup.
-        sanitize_environments(env, "CET_PLUGIN_PATH", "PERL5LIB")
 
+    @sanitize_paths
     def setup_dependent_build_environment(self, env, dependent_spec):
         prefix = self.prefix
         # Ensure we can find plugin libraries.
         env.prepend_path("CET_PLUGIN_PATH", prefix.lib)
         # Perl modules.
         env.prepend_path("PERL5LIB", prefix.perllib)
-        # Cleaup.
-        sanitize_environments(env, "CET_PLUGIN_PATH", "PERL5LIB")

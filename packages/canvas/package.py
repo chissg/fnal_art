@@ -62,8 +62,7 @@ class Canvas(CMakePackage, FnalGithubPackage):
     def cmake_args(self):
         return [self.define_from_variant("CMAKE_CXX_STANDARD", "cxxstd")]
 
+    @sanitize_paths
     def setup_build_environment(self, env):
         # Binaries.
         env.prepend_path("PATH", os.path.join(self.build_directory, "bin"))
-        # Cleanup.
-        sanitize_environments(env, "PATH")

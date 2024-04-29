@@ -69,6 +69,7 @@ class CanvasRootIo(CMakePackage, FnalGithubPackage):
     def cmake_args(self):
         return [self.define_from_variant("CMAKE_CXX_STANDARD", "cxxstd")]
 
+    @sanitize_paths
     def setup_build_environment(self, env):
         prefix = Prefix(self.build_directory)
         # Binaries.
@@ -80,9 +81,8 @@ class CanvasRootIo(CMakePackage, FnalGithubPackage):
             root=False, cover="nodes", order="post", deptype=("link"), direction="children"
         ):
             env.prepend_path("ROOT_INCLUDE_PATH", self.spec[d.name].prefix.include)
-        # Cleanup.
-        sanitize_environments(env, "PATH", "LD_LIBRARY_PATH", "ROOT_INCLUDE_PATH")
 
+    @sanitize_paths
     def setup_run_environment(self, env):
         prefix = self.prefix
         # Set LD_LIBRARY_PATH so that dictionaries are available downstream
@@ -94,9 +94,7 @@ class CanvasRootIo(CMakePackage, FnalGithubPackage):
             env.prepend_path("ROOT_INCLUDE_PATH", self.spec[d.name].prefix.include)
         env.prepend_path("ROOT_INCLUDE_PATH", prefix.include)
 
-        # Cleanup.
-        sanitize_environments(env, "CET_PLUGIN_PATH", "ROOT_INCLUDE_PATH")
-
+    @sanitize_paths
     def setup_dependent_build_environment(self, env, dependent_spec):
         # Set LD_LIBRARY_PATH so CheckClassVersion.py can find cppyy lib
         env.prepend_path("LD_LIBRARY_PATH", self.spec["root"].prefix.lib)
@@ -105,5 +103,3 @@ class CanvasRootIo(CMakePackage, FnalGithubPackage):
             root=False, cover="nodes", order="post", deptype=("link"), direction="children"
         ):
             env.prepend_path("ROOT_INCLUDE_PATH", dependent_spec[d.name].prefix.include)
-        # Cleanup.
-        sanitize_environments(env, "CET_PLUGIN_PATH", "LD_LIBRARY_PATH", "ROOT_INCLUDE_PATH")

@@ -69,23 +69,20 @@ class ArtRootIo(CMakePackage, FnalGithubPackage):
     def cmake_args(self):
         return ["--trace-expand", self.define_from_variant("CMAKE_CXX_STANDARD", "cxxstd")]
 
+    @sanitize_paths
     def setup_build_environment(self, env):
         prefix = Prefix(self.build_directory)
         # Binaries.
         env.prepend_path("PATH", prefix.bin)
         # Ensure we can find plugin libraries.
         env.prepend_path("CET_PLUGIN_PATH", prefix.lib)
-        # Cleanup.
-        sanitize_environments(env, "PATH", "CET_PLUGIN_PATH")
 
+    @sanitize_paths
     def setup_run_environment(self, env):
         # Ensure we can find plugin libraries.
         env.prepend_path("CET_PLUGIN_PATH", self.prefix.lib)
-        # Cleanup.
-        sanitize_environments(env, "CET_PLUGIN_PATH")
 
+    @sanitize_paths
     def setup_dependent_build_environment(self, env, dependent_spec):
         # Ensure we can find plugin libraries.
         env.prepend_path("CET_PLUGIN_PATH", self.prefix.lib)
-        # Cleanup.
-        sanitize_environments(env, "CET_PLUGIN_PATH")

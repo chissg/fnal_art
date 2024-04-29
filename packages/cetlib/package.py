@@ -68,6 +68,7 @@ class Cetlib(CMakePackage, FnalGithubPackage):
     def cmake_args(self):
         return [self.define_from_variant("CMAKE_CXX_STANDARD", "cxxstd")]
 
+    @sanitize_paths
     def setup_build_environment(self, env):
         prefix = Prefix(self.build_directory)
         # Binaries required for some of the tests.
@@ -76,17 +77,13 @@ class Cetlib(CMakePackage, FnalGithubPackage):
         env.prepend_path("CET_PLUGIN_PATH", prefix.lib)
         # Perl modules.
         env.prepend_path("PERL5LIB", prefix.perllib)
-        # Cleanup.
-        sanitize_environments(env, "PATH", "CET_PLUGIN_PATH", "PERL5LIB")
 
+    @sanitize_paths
     def setup_run_environment(self, env):
         # Perl modules.
         env.prepend_path("PERL5LIB", self.prefix.perllib)
-        # Cleanup.
-        sanitize_environments(env, "PATH", "PERL5LIB")
 
+    @sanitize_paths
     def setup_dependent_build_environment(self, env, dependent_spec):
         # Perl modules.
         env.prepend_path("PERL5LIB", self.prefix.perllib)
-        # Cleanup.
-        sanitize_environments(env, "PERL5LIB")
