@@ -7,6 +7,7 @@ import os
 
 from spack import *
 from spack.pkg.fnal_art.utilities import *
+from spack.util.prefix import Prefix
 
 
 class Art(CMakePackage):
@@ -79,7 +80,7 @@ class Art(CMakePackage):
         ]
 
     def setup_build_environment(self, env):
-        prefix = self.build_directory
+        prefix = Prefix(self.build_directory)
         # Binaries.
         env.prepend_path("PATH", prefix.bin)
         # Ensure we can find plugin libraries.

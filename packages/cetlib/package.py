@@ -8,6 +8,7 @@ import sys
 
 from spack.package import *
 from spack.pkg.fnal_art.utilities import *
+from spack.util.prefix import Prefix
 
 
 class Cetlib(CMakePackage):
@@ -71,7 +72,7 @@ class Cetlib(CMakePackage):
         ]
 
     def setup_build_environment(self, env):
-        prefix = self.build_directory
+        prefix = Prefix(self.build_directory)
         # Binaries required for some of the tests.
         env.prepend_path("PATH", prefix.bin)
         # For plugin tests (not needed for installed package).

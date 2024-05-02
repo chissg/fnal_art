@@ -7,6 +7,7 @@ import os
 
 from spack.package import *
 from spack.pkg.fnal_art.utilities import *
+from spack.util.prefix import Prefix
 
 
 class ArtRootIo(CMakePackage):
@@ -73,7 +74,7 @@ class ArtRootIo(CMakePackage):
         ]
 
     def setup_build_environment(self, env):
-        prefix = self.build_directory
+        prefix = Prefix(self.build_directory)
         # Binaries.
         env.prepend_path("PATH", prefix.bin)
         # Ensure we can find plugin libraries.
@@ -83,7 +84,7 @@ class ArtRootIo(CMakePackage):
 
     def setup_run_environment(self, env):
         # Ensure we can find plugin libraries.
-        env.prepend_path("CET_PLUGIN_PATH", prefix.lib)
+        env.prepend_path("CET_PLUGIN_PATH", self.prefix.lib)
         # Cleanup.
         sanitize_environments(env, "CET_PLUGIN_PATH")
 

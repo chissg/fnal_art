@@ -7,6 +7,7 @@ import os
 
 from spack.package import *
 from spack.pkg.fnal_art.utilities import *
+from spack.util.prefix import Prefix
 
 
 class CanvasRootIo(CMakePackage):
@@ -70,7 +71,7 @@ class CanvasRootIo(CMakePackage):
         return url.format(version.underscored)
 
     def setup_build_environment(self, env):
-        prefix = self.build_directory
+        prefix = Prefix(self.build_directory)
         # Binaries.
         env.prepend_path("PATH", prefix.bin)
         # Set LD_LIBRARY_PATH so CheckClassVersion.py can find cppyy lib
@@ -98,7 +99,6 @@ class CanvasRootIo(CMakePackage):
         sanitize_environments(env, "CET_PLUGIN_PATH", "ROOT_INCLUDE_PATH")
 
     def setup_dependent_build_environment(self, env, dependent_spec):
-        prefix = self.prefix
         # Set LD_LIBRARY_PATH so CheckClassVersion.py can find cppyy lib
         env.prepend_path("LD_LIBRARY_PATH", self.spec["root"].prefix.lib)
         # Ensure Root can find headers for autoparsing.
