@@ -33,17 +33,10 @@ class Larcoreobj(CMakePackage):
     url = "https://github.com/LArSoft/larcoreobj/archive/v01_02_03.tar.gz"
     list_url = "https://api.github.com/repos/LArSoft/larcoreobj/tags"
 
-    version(
-        "09.30.00.rc1", sha256="01c6095d4123270b5c72cb49edb87d276d6d4955bcbc45b2af209058a2556e44"
-    )
-    version(
-        "09.30.00.rc0", sha256="136e7bcaf395103a437dea51d3fa60201ea0c95c919df271e7e82f698cd2e134"
-    )
+    version("09.10.01", sha256="08414d16d95286c0bc19fbafdbc5ac95646a27f5f4e6b461365742476c366c69")
+    version("09.10.00", sha256="90f02aeb66c5dbe9cd1ad0900112bafb19b84087b34c0110af1815001913c093")
     version("09.09.01", sha256="0bfd4bd7754e6b49eef163dea8888098a37ca362b7802046e8243026895bfe07")
     version("09.09.00", sha256="d0410cb9172cb0adcb10e12eb9530a603b0fbf318cd53d0c043e3587c282e93b")
-    version(
-        "09.11.00.rc0", sha256="a472f20d85ebcb73125f857fd51669da28f298b9ddf538da0f7a476a7995b920"
-    )
     version("09.03.01", sha256="ba687dc47bf9972f2760ccbfd4d7406f8c54a860cfd9f1459025d58c0901f8a2")
     version("09.03.00", sha256="00142588189c3371b7103a90247dfaf9e8cc5057311d48aeb3eef8d1e8b5f883")
     version(

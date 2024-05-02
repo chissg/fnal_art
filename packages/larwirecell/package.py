@@ -33,9 +33,17 @@ class Larwirecell(CMakePackage):
     url = "https://github.com/LArSoft/larwirecell/archive/v01_02_03.tar.gz"
     list_url = "https://api.github.com/repos/LArSoft/larwirecell/tags"
 
-    version(
-        "09.30.00.rc1", sha256="2d2fdffbda8cb5a16f35b68bc422b6fbebe70af6ac601762f257e4fef0cbf30d"
-    )
+    version("09.18.03", sha256="6bed8a15623b56f15288114501a2a040d4fda5ddcaa4b9c7552e122392159278")
+    version("09.18.02", sha256="7ebbc573bcf55dba25127e13b60d34fd972686f6dbe1981a68d535b15526ed55")
+    version("09.18.01", sha256="1185bbf1a0453a8db884f6f5a42cecb2cde70e7534fbaa5422fc05d32ca5bba9")
+    version("09.18.00", sha256="82d093dacc3d1be2a7efcb041899ceef6b59fb54cc6249efe4dda6990307ebf3")
+    version("09.17.05", sha256="6ff8666bd5ce5f6dc1b3fb22ec989c9d99f3215e56a824b48f665f657496bf91")
+    version("09.17.04", sha256="7af4c761a9ed1b4b05a0eaf9208d2a5eee002b2b27aae4cdb3f51431c4df3319")
+    version("09.17.03", sha256="cca1bf41a3fa3df0d2b16dda80ba301f2f10b646554698f1a221291c3b03e585")
+    version("09.17.02", sha256="85aef755a20144af7f14861b4d8576d5be546c3f7493e429fd2439458eb16263")
+    version("09.17.01", sha256="04d9ddd6de3cd2a6f1bbc5f7d032b375e7628fccd8674cacd9fc83bf3d3bbcc1")
+    version("09.17.00", sha256="db8e66b0314bfc09183317a181ab3ed6c8f8fa17bbaa3e0d12619bd837a20e98")
+    version("09.16.08", sha256="83381f661309605b64b89770fd0e5b969a3ba7187a5a3470b3fc8c07ed77b068")
     version("09.16.07", sha256="6475f020603f9f2758ef43064ba815cc79d28069b6c25f0d6e36a742335c7425")
     version("09.16.03", sha256="111585550fadeae3d3b8524989a7372e4a99bd96e91e8153301d6ae3f6c73da5")
     version("09.15.00", sha256="b59469c27e62cbb194cc670a057f4708fe7572df92d2deb6679715c533612c40")

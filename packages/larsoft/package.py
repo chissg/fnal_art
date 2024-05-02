@@ -30,6 +30,7 @@ class Larsoft(CMakePackage):
     git = "https://github.com/LArSoft/larsoft.git"
     url = "https://github.com/LArSoft/larsoft/archive/v01_02_03.tar.gz"
     list_url = "https://api.github.com/repos/LArSoft/larsoft/tags"
+    version("09.89.01", sha256="6a4eb0685a9a5db989d416b03b4b062a3e887f44dc1339d27d32644b1dec14e0")
     version("09.81.00", sha256="0e09c369b03b1189cc38db9d7d2ec6a711a1c8dfb99e2b0badb2726c7826aa5d")
     version("09.78.06", sha256="3733332dcf15189688476558fc617873634e75d110fc816eb82305818a5f6f7b")
     version("09.78.00", sha256="c02d744cf66b2494316392a105c2ab8a2224ce5e33ae8e4f695054db77f13a12")
@@ -41,9 +42,6 @@ class Larsoft(CMakePackage):
     version("09.32.01", sha256="d5cebda4bda7db7cb7500f88aa7549a109b226d2550c292dbe7df55354f735ce")
     version("09.32.00", sha256="d65e7a41807659f0eec023fb977c8ec883059f29d04b37812a7d7b91273a4976")
     version("09.31.00", sha256="5ab2dff9cf5a8c9b5c0020f69451f8d4d90b7adda098566c1deeaa09244886aa")
-    version(
-        "09.30.00.rc1", sha256="c40ae251f5a13c08438eb48abaf5700419e8886444f206654db20feda3d704b9"
-    )
     version("09.30.00", sha256="8808f02f97b61b45d5a875d90975f89d0999940857cc67a8bf73113ac90d45b7")
     version("09.29.00", sha256="82a34fda06ecfc5c0b51bbd2f456ccb5c2b7ef3e2040a39809e018d0716e4f1d")
     version("09.28.05", sha256="ba65da4275d9433527c75d8a7f187ebb515a64efcbeaaef3c2a4d5f25e0c8266")

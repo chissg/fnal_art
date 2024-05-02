@@ -33,9 +33,20 @@ class Lareventdisplay(CMakePackage):
     url = "https://github.com/LArSoft/lareventdisplay/archive/v01_02_03.tar.gz"
     list_url = "https://api.github.com/repos/LArSoft/lareventdisplay/tags"
 
-    version(
-        "09.30.00.rc1", sha256="c479c376a2f0be7f4584c8a3d4919ad89f1b9e39a4f11a215f616cc729363d5e"
-    )
+    version("09.11.05", sha256="538260a9f7e80a9e82daa94b63a2f8dd438f3d2eb54b3044f682bc5e921e40d7")
+    version("09.11.04", sha256="ff9455cf8afc062f8820404928296092f0101bb608b855943aa2c06ad58aa506")
+    version("09.11.03", sha256="4604b321d5ab09ac394cb4c9147a575e7b33dc82cfb477bb260f1b03ba87ba9a")
+    version("09.11.02", sha256="e9e51fa501547440f2caafc167f558d6653d0eee4e4c922400739200e972e494")
+    version("09.11.01", sha256="4c0c4ac67f2e96976f1583ca7459d727a4b087be51f329d9e57b5c521e65ae92")
+    version("09.11.00", sha256="64bdb9092aa823e9df7fa118c9228186e7b53084e1af61054a4db4ea56aa33a9")
+    version("09.10.19", sha256="d224dec13a3a9b84178cf61723e707cee771ac00b80044f65b7bd397bc820037")
+    version("09.10.18", sha256="766d1f2cd32da58770d4d1bfa370569eeb123389520f6bc913a5a86a9e70d1da")
+    version("09.10.17", sha256="ceec0495a2b1e6b80f1b3870b53b45336919864d8aa5be35b89e71254ff4fce8")
+    version("09.10.16", sha256="edff43455ce2ab5b8186072897dc1b143fd59326658a366277ed9a7f3b68da70")
+    version("09.10.15", sha256="b698a575e4ec576d3c217fdb8a9f0e40e50a517a13dbc00ec09aacc2ad4034c3")
+    version("09.10.14", sha256="5cc2bfa3d931cb36e6fbb147e40c61928fb7f715cea4894c80a8f403972f2edf")
+    version("09.10.13", sha256="5018d40992750f6a9dbc7987ffeb96cbd19d5f0d7357c3528d95d22d45e3a1e7")
+    version("09.10.12", sha256="686ec8bfa5c7cb1ecea4b08c3fe268f216387a75638509c99d03c36dd006662b")
     version("09.10.11", sha256="13dbdac0498248f154ee7abedd813b5f7fb43e93ef5dd8dccceddbc320ca677a")
     version("09.10.08", sha256="b3875a4fdd011b8ad6c116e7eb8c21c7518e16bdd36eaa95ec4ad0c4f35b739c")
     version("09.10.05", sha256="b79ef329c22ea79ab4e4b591b8481d6e08a8d1ec80e83973854f2dd9717e43e8")

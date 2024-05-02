@@ -32,6 +32,12 @@ class Larvecutils(CMakePackage):
     git = "https://github.com/LArSoft/larvecutils.git"
 
     version(
+        "09.79.00",
+        tag="v09_79_00",
+        git="https://github.com/LArSoft/larvecutils.git",
+        get_full_repo=True,
+    )
+    version(
         "09.00.01",
         tag="v09_00_01",
         git="https://github.com/LArSoft/larvecutils.git",

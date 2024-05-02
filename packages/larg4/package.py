@@ -33,9 +33,17 @@ class Larg4(CMakePackage):
     url = "https://github.com/LArSoft/larg4/archive/v01_02_03.tar.gz"
     list_url = "https://api.github.com/repos/LArSoft/larg4/tags"
 
-    version(
-        "09.30.00.rc1", sha256="d16f63e88177ea7f1c48b4e6fc306ffbb0d6880ac23f411036d78e985eafc8d9"
-    )
+    version("09.19.03", sha256="265f26727e1aecd13c8e7a9ebb1a139fd173fd7c49a2e8173ebbd6c7df556c92")
+    version("09.19.02", sha256="cb96a048634173c28da11335347a283379032667eb58f710cd3aa39a87e6dc9d")
+    version("09.19.01", sha256="d4c08223b4d21d9623e4c67096ffe92bd104d20bc2ec758cad24729d7aaeb182")
+    version("09.19.00", sha256="d9a7e6949e681250ad84468edbcf1ade358954b6d9e1602c353e4cb7dbbea818")
+    version("09.18.00", sha256="74af4a344eff3d3338d3ff43d84e52b6221d1ef4a24252a8ed938e7fa8db257f")
+    version("09.17.03", sha256="12193b87192f944c8bfc6af5b8ec4777c18e24ab35ecbc9f0146123418cf752b")
+    version("09.17.02", sha256="0d6005229e3d92c004d0ec8e746e2fe08b377310d74727cde7353619bb0735bf")
+    version("09.17.01", sha256="11b29dc52423a31a66ea32c348d52e9e9853d4867d93d611768820314a1f687a")
+    version("09.17.00", sha256="714df4db0ba2ccc866f555c204bdf5672b7391cd85e8b123bdb1b5bafcc50514")
+    version("09.16.09", sha256="905dda72df7fc83d35b9dce89e5d344dd8af78af96e0f30253263730d0853ecf")
+    version("09.16.08", sha256="170d1aafe62123aa3cb043a2a2348c9623167efc43e6ded78787f562c465d9a4")
     version("09.16.07", sha256="79d26dd47873bfea349d485241583743d83b7d0452e6f362a48c44b9d726c90f")
     version("09.16.04", sha256="8344d183ca35e5c2f50986b4228d7c569269373dca0994beab137ec9c831cdf0")
     version("09.16.01", sha256="e17520b7074a3d2ab064c40ef654a694d04770741d2c406e336fa7b5ae987f30")

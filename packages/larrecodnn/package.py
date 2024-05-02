@@ -33,10 +33,21 @@ class Larrecodnn(CMakePackage):
     url = "https://github.com/LArSoft/larrecodnn/archive/v01_02_03.tar.gz"
     list_url = "https://api.github.com/repos/LArSoft/larrecodnn/tags"
 
-
-    version(
-        "09.30.00.rc1", sha256="c69b810f4a7027268d60f52e73da67f797491a8a0d20b80db5c9cdfe615a2e4f"
-    )
+    version("09.23.00", sha256="b6e202219627a82f219d4589a423b22b205c6a22d73bc4f0616b5b7d56492810")
+    version("09.22.04", sha256="603381fff03b457ea11905528b68fb176f393962579398a99fa8ab51dd00cb31")
+    version("09.22.03", sha256="77f0ddda1dc14199bd08a98dc00d410307d250e6c6f4e3a02048a3f1bedc99d8")
+    version("09.22.02", sha256="c992201b21ee306c1da5137bc7e9a200a58ef4fe5cd40bae199e235964857f31")
+    version("09.22.01", sha256="4f7ed447b6055a2da55d0f9e830274b2b9bd867f171a27664bf03ed9ab58e82f")
+    version("09.22.00", sha256="d909861a8f6d56e9ae8e87f8ab67cecc848d617435e799397d02d1378c9c6e68")
+    version("09.21.21", sha256="b088847e9191e0cae8d5de731ca6365b4ba6bbf1fbbb8df6afb6636382d55fb6")
+    version("09.21.20", sha256="8a797afc8ab96dc8beeb4ea495e3cc33a04520159e59f4d66f88365fa0d75569")
+    version("09.21.19", sha256="45383cd91bcb15f66c5adfe5c8b9a2a9df2b73bc1255273af612ff311a825607")
+    version("09.21.18", sha256="b5ae20fc3a385f78de1daad1b979652c542ffe8b540c34908f0a6d8ff4ec13ef")
+    version("09.21.17", sha256="ba5f5f67949f757ce8c34b876966e5a3a437bff6ae26975d5603901343c463ba")
+    version("09.21.16", sha256="f3e444674c7ef47da7421644f4293a22edf58f6073c6a51cd87e3099c5a72702")
+    version("09.21.15", sha256="1d2d0efacbca49a0473609e66211851ebfeb6cbceb05acb593ebd8efd6b87b7c")
+    version("09.21.14", sha256="7669fec90064f4614caf85d84205da8641c90442b9edf2030049bbad3d9cbf39")
+    version("09.21.13", sha256="581075143b99691128c394075ab26df83c65b623954c76fca4e8d0cf23e54ba5")
     version("09.21.12", sha256="ef1c843b2de317bf6a91aa75fd3737f7fb15f6294e81b44a8f88c94261abbf0e")
     version("09.21.09", sha256="5be674584e3cbb3835a75991786afa26603d8bece1d8e2131f8433274de14a50")
     version("09.21.06", sha256="c454cabc5ed191fadb16d9b9837297f653db2affb4d7cb89677a25d6e981cd61")

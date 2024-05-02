@@ -33,12 +33,24 @@ class Larsim(CMakePackage):
     url = "https://github.com/LArSoft/larsim/archive/v01_02_03.tar.gz"
     list_url = "https://api.github.com/repos/LArSoft/larsim/tags"
 
+    version("09.43.00", sha256="a3519c1f412a4350913d6bc3a11d561eef924d35afd618c88401d79266f59e49")
+    version("09.42.01", sha256="8e4c74df7056a680090226b43f01d6ab73c105087b472fb036d7ce1a43596818")
+    version("09.42.00", sha256="925e09fb06f30e08c160dcd806de332d8e0c3c4c172f52921b24543a76a06bd4")
+    version("09.41.02", sha256="4aa8f0d28ea1eea097a0312bacf3d9b98b2602fa4e40ad303531b45afac2919b")
+    version("09.41.01", sha256="3618d4e5d7f63efae72540b1eb84189afce126d4d7e72903ffb214fa32e58bb0")
+    version("09.41.00", sha256="8667a024f1336ea467859b5ee65c4f0e306de588d3e22f53f224b599e0475fe8")
+    version("09.40.01", sha256="e22ed49ac60ca64009d353c54bfa95519473a2dbd57f964799ac9d3e078fe823")
+    version("09.40.00", sha256="ccaff0d8b9f8d15083573f1bce4da08f070218e553fc97a4b5f5007e6eac7dd0")
+    version("09.39.03", sha256="9624ee4168a2c95a6ed6dd79ce1c3a3cb6bcce97708744df6fc9c50e9f3690d4")
+    version("09.39.02", sha256="addb91de7ea3163e174975b61a0fc15e2b87711a252427178ebde63345d94ea1")
+    version("09.39.01", sha256="540bd0fdae7c009dfe676e6bcb758a24d16e745e6b0c55b1783b065e5340c9e0")
+    version("09.39.00", sha256="c21d7b7f8ac0a1713ee07155a076af48f954039dad1c78fad9fa470a2b166c43")
+    version("09.38.08", sha256="ee01023017f48040793a98d2078b55729342c3827fbfa27d04b102cf2e816852")
+    version("09.38.07", sha256="4dab71d08a4cbcf65ef0b81b7da903286a4eeea96141310ade9f1b701425272e")
+
     version("09.38.06", sha256="be8cc87ea901a5efdcfb91bb9810eee94a0cf860316174ab6ab1cf20c147883b")
     version("09.38.03", sha256="e16fd69ed9acc368563334efbc986d73fb7a085c8201670822d97a314566f52b")
     version("09.38.00", sha256="7f68cacf3cc838f4d5e94f8cc9a59f678fea202694f5c837295d5682e09bd5aa")
-    version(
-        "09.30.00.rc1", sha256="8371ab32c43b702337d7022fee255eb2a86164a7ee8edc91781f4b0494890142"
-    )
     version(
         "09.19.01.02", sha256="d87742ee6711ad5cdd1ff02421797eb97b92fdfb335532acbab6fca788ab6b68"
     )

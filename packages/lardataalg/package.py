@@ -33,18 +33,17 @@ class Lardataalg(CMakePackage):
     url = "https://github.com/LArSoft/lardataalg/archive/v01_02_03.tar.gz"
     list_url = "https://api.github.com/repos/LArSoft/lardataalg/tags"
 
-    version(
-        "09.30.00.rc1", sha256="2e2df94da944b1b6bf769e683bae718955ed24b42b15618d7b60254e5ad3a385"
-    )
-    version(
-        "09.30.00.rc0", sha256="42f9c9009b64a3374d1586e5bfb0cfe159da7ef693ac689d6a41519aae069627"
-    )
+    version("09.17.03", sha256="138a67d9ff190540fb6e095639aa6b0c60b753e5fdc005304b8244f0f97ffe4f")
+    version("09.17.02", sha256="e4f8328453d093d0f0a792c5a6868bf93541a47fa5f7b039ef44635695846f66")
+    version("09.17.01", sha256="ed899b7750c4887cb871717ae3533b29af9b9d6c754a9b9c12c3b8e41316d445")
+    version("09.17.00", sha256="940836a78a98b653eb82f3083aea2817195657d71bbb7b77d7667193151caef9")
+    version("09.16.08", sha256="e8b21e9016597aab9130d94562ca6c190d7e28e41d665c4d66dfe2e05f7d4941")
+    version("09.16.07", sha256="45df899a22428d0d025deb703228bcc66871b912e5a1c9fbf22da8c9bd0d1ed3")
+    version("09.16.06", sha256="6e670352ad2485eaa8ee93c8dec1611b6c0281291d34fa102a0ee24cfb687b97")
+    version("09.16.05", sha256="1f11031e44f36a83ccc8b53fbf3eb9621678028eb53caddb81f30b924f2bf948")
     version("09.16.04", sha256="014ce4fcb44fdc46e9a778748b13bb6a834bee567abed0be435fb193ce59104f")
     version("09.16.01", sha256="6787452aebec2e0bfb1d1b5e278547bbc23586e616b6c3f74b393d7b2ded44cb")
     version("09.15.01", sha256="dccffa4c0768ee2ae4252bfc4c3947eaedc6881c7ace7548e483e2c74b5a4603")
-    version(
-        "09.11.00.rc0", sha256="df723ec1db490fc37398a3e34ef800b191ef185e23b66f93a09adaadbe636179"
-    )
     version("09.07.02", sha256="bf213045ddb589c2399baee2ecf4374f7953f25b1e3f9fca8443ae27f8eb5460")
     version("09.07.00", sha256="6dd6974a7f8898e8ba4f7319b9609bd14ec5ebd52b0b7e10ba63ff7fe4d7fb7a")
     version("09.06.02", sha256="4f2a53a37952af45e1d9e89739aa084364850853c969924b6a5d21f50dcdc1ce")
