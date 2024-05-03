@@ -34,6 +34,7 @@ class Larevt(CMakePackage):
     list_url = "https://api.github.com/repos/LArSoft/larevt/tags"
 
     version("09.10.03", sha256="2ae46ffb4d5cf79fe4b1f75a3c97f31a93e3e9734815cfa1e4f1a830227075b6")
+    version("09.10.02", sha256="321b5757c06d8eecaba2aea9c129ffeea8b8462bc82628e4464902e61cb841a4")
     version("09.09.07", sha256="e579056bcb7cdfc8ec44cc73fdbd2ef5ab4d30442733b03e97482637687dbc29")
     version("09.09.04", sha256="5c12e59d01b29f93e09fb31b70956792dbc0cc1b956f90ec7687415f30298276")
     version("09.09.01", sha256="a2e44a299d9a962241f1bdb9c77dccd46ef852f005e149a8300bdb56e7030496")

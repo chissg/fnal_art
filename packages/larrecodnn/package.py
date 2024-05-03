@@ -34,6 +34,7 @@ class Larrecodnn(CMakePackage):
     list_url = "https://api.github.com/repos/LArSoft/larrecodnn/tags"
 
     version("09.23.00", sha256="b6e202219627a82f219d4589a423b22b205c6a22d73bc4f0616b5b7d56492810")
+    version("09.22.04", sha256="603381fff03b457ea11905528b68fb176f393962579398a99fa8ab51dd00cb31")
     version("09.21.12", sha256="ef1c843b2de317bf6a91aa75fd3737f7fb15f6294e81b44a8f88c94261abbf0e")
     version("09.21.09", sha256="5be674584e3cbb3835a75991786afa26603d8bece1d8e2131f8433274de14a50")
     version("09.21.06", sha256="c454cabc5ed191fadb16d9b9837297f653db2affb4d7cb89677a25d6e981cd61")

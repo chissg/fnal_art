@@ -34,6 +34,7 @@ class Lardataalg(CMakePackage):
     list_url = "https://api.github.com/repos/LArSoft/lardataalg/tags"
 
     version("09.17.03", sha256="138a67d9ff190540fb6e095639aa6b0c60b753e5fdc005304b8244f0f97ffe4f")
+    version("09.17.02", sha256="e4f8328453d093d0f0a792c5a6868bf93541a47fa5f7b039ef44635695846f66")
     version("09.16.04", sha256="014ce4fcb44fdc46e9a778748b13bb6a834bee567abed0be435fb193ce59104f")
     version("09.16.01", sha256="6787452aebec2e0bfb1d1b5e278547bbc23586e616b6c3f74b393d7b2ded44cb")
     version("09.15.01", sha256="dccffa4c0768ee2ae4252bfc4c3947eaedc6881c7ace7548e483e2c74b5a4603")

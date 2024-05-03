@@ -34,6 +34,7 @@ class Lardataobj(CMakePackage):
     list_url = "https://api.github.com/repos/LArSoft/lardataobj/tags"
 
     version("09.18.03", sha256="598cb29ca66d2bf6bc05e158093fa8de6b0a235db5d81493359b37e9f2945d60")
+    version("09.18.02", sha256="5a77fd3357b6ff25e071514717418bcf018c6a2b2b96505e17fd8279997e3ab2")
     version("09.17.01", sha256="1649ec98059ae05d579ce2d330f6e7c439627a1cb74d3a0be8f22d963665b859")
     version("09.16.02", sha256="567a55134c963bcec72c6fc6db6660694dda7bc300a487c58901057d0fb8c293")
     version("09.16.01", sha256="98e2ab76f7c512c863e7491749f97d0a0e829bbc30d521a69deecea48f292728")
