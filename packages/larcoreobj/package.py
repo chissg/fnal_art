@@ -34,7 +34,6 @@ class Larcoreobj(CMakePackage):
     list_url = "https://api.github.com/repos/LArSoft/larcoreobj/tags"
 
     version("09.10.01", sha256="08414d16d95286c0bc19fbafdbc5ac95646a27f5f4e6b461365742476c366c69")
-    version("09.10.00", sha256="90f02aeb66c5dbe9cd1ad0900112bafb19b84087b34c0110af1815001913c093")
     version("09.09.01", sha256="0bfd4bd7754e6b49eef163dea8888098a37ca362b7802046e8243026895bfe07")
     version("09.09.00", sha256="d0410cb9172cb0adcb10e12eb9530a603b0fbf318cd53d0c043e3587c282e93b")
     version("09.03.01", sha256="ba687dc47bf9972f2760ccbfd4d7406f8c54a860cfd9f1459025d58c0901f8a2")

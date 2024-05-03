@@ -34,7 +34,6 @@ class Larcorealg(CMakePackage):
     list_url = "https://api.github.com/repos/LArSoft/larcorealg/tags"
 
     version("09.13.01", sha256="0a6220bb65093eec610de8c666fb0a3a302a8a25aabac65cf8cf2b4181b3ef8b")
-    version("09.13.00", sha256="f92be746dc2456ec78ea6aa7511f5149d000347feeb1c33ecf61130614903e5a")
     version("09.12.01", sha256="d85881b207008f6efb980899789757a30acbf4236965ce1a6fe941c7806f82e0")
     version("09.12.00", sha256="026ceeb0d0b776baac13184c8e1310edaa4e99cdc53bdbe37c0011f5b8d07496")
     version("09.04.00", sha256="7da808226873972bf97ca9bb3413e2fcbb1d6cf5765f218a4c04a94c236e8462")

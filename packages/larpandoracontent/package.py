@@ -33,12 +33,6 @@ class Larpandoracontent(CMakePackage):
 
     version("develop", branch="develop", get_full_repo=True)
     version("04.08.01", sha256="6fecd809d9736a61f324a7bbb60baf0d6f36908470e233fc71b73ce455cc3f4f")
-    version("04.08.00", sha256="0baa41654f706244dc2585565c675475c59ab99c7d97fadd4bbd6e991d64fe92")
-    version("04.07.02", sha256="cfeccd40c01245b92446dc1043b7914641f3487d1c43c44a3a2b676a320fca50")
-    version("04.07.01", sha256="d0161c65b15c976f63b1712a0d1b1c1ba13cd019b5e3208d20059cb063a6e70b")
-    version("04.07.00", sha256="1b8649d221ec03d3521b6dc69863e23b7fafc3e4c56a29560b3fe0d58ff70bbb")
-    version("04.06.02", sha256="6727acb9cd22827b993eb69091037ab1434ef61369495f5abc7ac3b6b1c982a9")
-    version("04.06.01", sha256="8125390bf354e7da7be41870cfb3c3bf65dd021a9b55eb0545a95c60fdcdfb9b")
     version("04.06.00", sha256="c78118cf8bebace0922a9561f06f6359b54bc69d3a7a1ae59b5bb2fa32f9565a")
     version("04.05.01", sha256="97b1d27fb9652cfa36e14bcdc5385914ba1c79c747b182b64c7f0f3861336136")
     version("04.05.00", sha256="6556e1ebbd1d1a68b876ac0e732c38b90cdc8896ea5f6d2c5bddafec6506b439")
