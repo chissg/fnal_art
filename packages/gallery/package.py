@@ -19,6 +19,7 @@ class Gallery(CMakePackage):
     url = "https://github.com/art-framework-suite/gallery/archive/refs/tags/v1_21_01.tar.gz"
 
     version("develop", branch="develop", get_full_repo=True)
+    version("1.23.00", sha256="610a01297a1c7b3509989084a34903714ce23cb052a71d54f9a2afff7547f2e8")
     version("1.22.06", sha256="d92203e49703e1c97acb9865e3d90c77045dbbf8f6dcedf76d1e68f9ee3bf719")
     version("1.22.05", sha256="0aaee9c0473fcc6ee2588f8a552b64616ef5c32e6ad38b48548efa00c807001b")
     version("1.22.03", sha256="a215a89933500082e8ddd1a6bcfc5c01c4f07c041b552788364868cfc2baa004")
@@ -36,7 +37,7 @@ class Gallery(CMakePackage):
         sticky=True,
         description="C++ standard",
     )
-    conflicts("cxxstd=17", when="@develop")
+    conflicts("cxxstd=17", when="@1.23.00:")
 
     depends_on("canvas")
     depends_on("canvas-root-io")
