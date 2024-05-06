@@ -18,6 +18,7 @@ class ArtRootIo(CMakePackage):
     url = "https://github.com/art-framework-suite/art-root-io/archive/refs/tags/v1_13_01.tar.gz"
 
     version("develop", branch="develop", get_full_repo=True)
+    version("1.14.00", sha256="c5ae18411766c088eee1643eeb8a5d85683902134529eb6d6e7540368c8e5d6e")
     version("1.13.06", sha256="4216491031b547a46ee53b85db2905f3be98b81d3bfae3d57a1830065e6c0b7a")
     version("1.13.05", sha256="b60b44776c6b9ffb4ea554b30f4c5c58e9f297ce546d5b0ac30b6c47f1e102bb")
     version("1.13.03", sha256="507181c5caa8a53017783415509b3a01d152864a6ed0334c925eac11d47f6fb9")
@@ -39,7 +40,7 @@ class ArtRootIo(CMakePackage):
         sticky=True,
         description="C++ standard",
     )
-    conflicts("cxxstd=17", when="@develop")
+    conflicts("cxxstd=17", when="@1.14.00:")
 
     depends_on("art")
     depends_on("boost+filesystem+date_time+program_options")

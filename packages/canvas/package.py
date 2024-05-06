@@ -16,6 +16,7 @@ class Canvas(CMakePackage):
     git = "https://github.com/art-framework-suite/canvas.git"
     url = "https://github.com/art-framework-suite/canvas/archive/refs/tags/v3_16_01.tar.gz"
 
+    version("3.17.00", sha256="05c08194b49e5467bffbd89dc99d2b7ec357c8ae021445b32a190509a9bb60dc")
     version("3.16.04", sha256="11278f758e40e96f1d1ffad61625e4bfc6067e0623cd191c6c8227c265e2c44f")
     version("3.16.03", sha256="150f82d37c402b4e428b040f047ef9e2b9613a8d8d8803aba03137a754bb7a47")
     version("3.16.01", sha256="e8eb606d38dfa8d5c56cf6074212e83cbf55de80c3bff51b1167704d9adb4169")
@@ -37,7 +38,7 @@ class Canvas(CMakePackage):
         sticky=True,
         description="C++ standard",
     )
-    conflicts("cxxstd=17", when="@develop")
+    conflicts("cxxstd=17", when="@3.17.00:")
 
     depends_on("boost+date_time+test")
     depends_on("cetlib")

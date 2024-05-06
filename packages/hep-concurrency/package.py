@@ -18,6 +18,7 @@ class HepConcurrency(CMakePackage):
         "https://github.com/art-framework-suite/hep-concurrency/archive/refs/tags/v1_09_00.tar.gz"
     )
 
+    version("1.10.00", sha256="04b050c89257ac07beef24d8dc4b8eb0184bf7e8390083da62293c02001a28bc")
     version("1.09.02", sha256="86666c0c8c8dc87358a0158d7d01df1d6cc65932f6064782b36b842ae8e5d8a2")
     version("1.09.01", sha256="1fb91a35c244013f48cb1dd34c39ece87431ce23ee383f9be23773e0a585ae43")
     version("1.09.00", sha256="075d24af843f76a8559dc1fdc91b076b91ab3152c618aed9ba6bdad61d745846")
@@ -33,7 +34,7 @@ class HepConcurrency(CMakePackage):
         sticky=True,
         description="C++ standard",
     )
-    conflicts("cxxstd=17", when="@develop")
+    conflicts("cxxstd=17", when="@1.10.00:")
 
     depends_on("catch2@2.3.0:2", when="@:1.08", type=("build", "test"))
     depends_on("catch2@3.3.0:", when="@1.09:", type=("build", "test"))
