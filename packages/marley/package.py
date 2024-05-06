@@ -11,7 +11,7 @@ class Marley(Package):
     interactions in liquid argon"""
 
     homepage = "httpd://github.com/sjgardiner/marley"
-    url = "https://github.com/sjgardiner/marley/archive/v1.0.0.tar.gz"
+    url = "https://github.com/sjgardiner/marley/archive/v1.2.1.tar.gz"
 
     version("1.2.0", sha256="8bb0a68924c8e5d7773904151e3134c6c59837723ecf4e1b586a6cb5b48b520d")
     version("1.0.0", sha256="4dea9918cff0aed3b9c38f74351c373c32235496ca6e321078f2c7b56bce719e")

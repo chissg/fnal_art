@@ -33,9 +33,8 @@ class Larwirecell(CMakePackage):
     url = "https://github.com/LArSoft/larwirecell/archive/v01_02_03.tar.gz"
     list_url = "https://api.github.com/repos/LArSoft/larwirecell/tags"
 
-    version(
-        "09.30.00.rc1", sha256="2d2fdffbda8cb5a16f35b68bc422b6fbebe70af6ac601762f257e4fef0cbf30d"
-    )
+    version("09.18.03", sha256="6bed8a15623b56f15288114501a2a040d4fda5ddcaa4b9c7552e122392159278")
+    version("09.18.02", sha256="7ebbc573bcf55dba25127e13b60d34fd972686f6dbe1981a68d535b15526ed55")
     version("09.16.07", sha256="6475f020603f9f2758ef43064ba815cc79d28069b6c25f0d6e36a742335c7425")
     version("09.16.03", sha256="111585550fadeae3d3b8524989a7372e4a99bd96e91e8153301d6ae3f6c73da5")
     version("09.15.00", sha256="b59469c27e62cbb194cc670a057f4708fe7572df92d2deb6679715c533612c40")

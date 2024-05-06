@@ -33,6 +33,7 @@ class Nusimdata(CMakePackage):
     url = "https://github.com/NuSoftHEP/nusimdata/archive/refs/tags/v1_24_05.tar.gz"
     list_url = "https://api.github.com/repos/NuSoftHEP/nusimdata/tags"
 
+    version("1.28.05", sha256="5346ded3a6e499fa2dbc06f8be7b93c2f755601c2047069468ff82e3b41aad72")
     version("1.27.02", sha256="ed61e94ef931ed6383299db281c54df82136dfe5331492072ac1a3f08770b6a8")
     version("1.27.01", sha256="957ea62a507c567dbd57ff3477835e75019b9149cc93c16b63ea5934c72a9aa7")
     version("1.25.00", sha256="5fdc12bce3db71e030c976cc970eccc58df9bf88558bb0ea4dd870d333b6ef10")

@@ -33,9 +33,8 @@ class Larg4(CMakePackage):
     url = "https://github.com/LArSoft/larg4/archive/v01_02_03.tar.gz"
     list_url = "https://api.github.com/repos/LArSoft/larg4/tags"
 
-    version(
-        "09.30.00.rc1", sha256="d16f63e88177ea7f1c48b4e6fc306ffbb0d6880ac23f411036d78e985eafc8d9"
-    )
+    version("09.19.03", sha256="265f26727e1aecd13c8e7a9ebb1a139fd173fd7c49a2e8173ebbd6c7df556c92")
+    version("09.19.02", sha256="cb96a048634173c28da11335347a283379032667eb58f710cd3aa39a87e6dc9d")
     version("09.16.07", sha256="79d26dd47873bfea349d485241583743d83b7d0452e6f362a48c44b9d726c90f")
     version("09.16.04", sha256="8344d183ca35e5c2f50986b4228d7c569269373dca0994beab137ec9c831cdf0")
     version("09.16.01", sha256="e17520b7074a3d2ab064c40ef654a694d04770741d2c406e336fa7b5ae987f30")

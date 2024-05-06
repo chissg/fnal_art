@@ -33,6 +33,8 @@ class Larreco(CMakePackage):
     url = "https://github.com/LArSoft/larreco/archive/v01_02_03.tar.gz"
     list_url = "https://api.github.com/repos/LArSoft/larreco/tags"
 
+    version("09.25.00", sha256="2525808cc5257a9eb5ef253fb7d3d0078fe4abaa9b22c01f06bf1c69e9b1caf0")
+    version("09.24.04", sha256="6af645abf213b9b474e404ebcf5339e0d07243ff046d730f5005b37f555d3aa7")
     version("09.23.01", sha256="168dcf19c40295cc98b6549866520da78c2a1fbaf91680b41a3255793f87e232")
     version("09.22.03", sha256="6e7c0e11bd70fb47f4f0f39e211a60dcf3c4d888415eb2cf7a48070b43aa1a7b")
     version("09.22.00", sha256="b7389f283b1ba23571022af44f3d62006d5b5e0c0f3d3b9f653e2d983c1d8541")
@@ -43,9 +45,6 @@ class Larreco(CMakePackage):
         "09.07.08.vec01",
         branch="larvecutils-v09_37_01_01",
         git="https://github.com/cerati/larreco.git",
-    )
-    version(
-        "09.30.00.rc1", sha256="3c3c52247075dd8f9c002517168159d7ac2c7319ca246d729a677a91d39149d8"
     )
     version(
         "09.07.08.01", sha256="6406a601f3f00ba1626f9f6c5ebbddf8aa6759e95da5b4d409db3131b031445a"

@@ -33,9 +33,8 @@ class Lareventdisplay(CMakePackage):
     url = "https://github.com/LArSoft/lareventdisplay/archive/v01_02_03.tar.gz"
     list_url = "https://api.github.com/repos/LArSoft/lareventdisplay/tags"
 
-    version(
-        "09.30.00.rc1", sha256="c479c376a2f0be7f4584c8a3d4919ad89f1b9e39a4f11a215f616cc729363d5e"
-    )
+    version("09.11.05", sha256="538260a9f7e80a9e82daa94b63a2f8dd438f3d2eb54b3044f682bc5e921e40d7")
+    version("09.11.04", sha256="ff9455cf8afc062f8820404928296092f0101bb608b855943aa2c06ad58aa506")
     version("09.10.11", sha256="13dbdac0498248f154ee7abedd813b5f7fb43e93ef5dd8dccceddbc320ca677a")
     version("09.10.08", sha256="b3875a4fdd011b8ad6c116e7eb8c21c7518e16bdd36eaa95ec4ad0c4f35b739c")
     version("09.10.05", sha256="b79ef329c22ea79ab4e4b591b8481d6e08a8d1ec80e83973854f2dd9717e43e8")

@@ -33,17 +33,9 @@ class Larcorealg(CMakePackage):
     url = "https://github.com/LArSoft/larcorealg/archive/v01_02_03.tar.gz"
     list_url = "https://api.github.com/repos/LArSoft/larcorealg/tags"
 
-    version(
-        "09.30.00.rc1", sha256="6c8be493c1ef8ba349cafefc6304a3c850fef47a87dc593b73662db4da4afc61"
-    )
-    version(
-        "09.30.00.rc0", sha256="9633e3b03c2e411894141d14d8423f0813f114926e4840df18046bd668967a52"
-    )
+    version("09.13.01", sha256="0a6220bb65093eec610de8c666fb0a3a302a8a25aabac65cf8cf2b4181b3ef8b")
     version("09.12.01", sha256="d85881b207008f6efb980899789757a30acbf4236965ce1a6fe941c7806f82e0")
     version("09.12.00", sha256="026ceeb0d0b776baac13184c8e1310edaa4e99cdc53bdbe37c0011f5b8d07496")
-    version(
-        "09.11.00.rc0", sha256="0e8d83ea7a6e9386e3e67410e68801d122a3da18715bb83f48c327a36110fca4"
-    )
     version("09.04.00", sha256="7da808226873972bf97ca9bb3413e2fcbb1d6cf5765f218a4c04a94c236e8462")
     version("09.03.01", sha256="7280de6bc7949d6c2db1315b8700e518cff11f1527758996b22cb22f6ea7f7fb")
     version("09.03.00", sha256="343e1b833561912e743c867ccc7699c6fdd2c56d6da78cc5368291662f533d86")

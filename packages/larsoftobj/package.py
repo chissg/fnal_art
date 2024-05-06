@@ -31,18 +31,11 @@ class Larsoftobj(CMakePackage):
     url = "https://github.com/LArSoft/larsoftobj/archive/v01_02_03.tar.gz"
     list_url = "https://api.github.com/repos/LArSoft/larsoftobj/tags"
 
+    version("09.35.03", sha256="5ea48218ddc8b4f185899b57abe7ea5408f3fa27ece5fc018915e95bd174e0e7")
+    version("09.35.02", sha256="f8007f38f3596eaea7ae5e5100e39b122512e4453499b54b96223ecaf5efa0b6")
     version("09.34.01", sha256="292d5fdd5f47601fb3f736aee5f98ebc0739060307aeff2df034754c64be6248")
     version("09.32.01", sha256="665d91113e12a36b7cb289337ed66d371c1d48f880fc1b68b7f64d42b37468c3") # FIX ME
     version("09.31.01", sha256="68b6a1e9204e72f508cf54f8f02515c283b5a67d1b5d0bba2a49c000f7f679e3")
-    version(
-        "09.30.00.rc1", sha256="5acb66660d6650fefb4c936885c1ea96cdd55bff80ef0207bf28b92a9660553f"
-    )
-    version(
-        "09.30.00.rc0", sha256="79016314a80ce17633b157e7ce201385f88bbc94ab2bd6a9973edf74358e20c1"
-    )
-    version(
-        "09.11.00.rc0", sha256="47954fde11089c0277505a8a7deea9ac10428cfa204994fb209003c12efd45cf"
-    )
     version(
         "09.12.00.01", sha256="c3e9a901fca51f521fa2299182a15b50eacdc702ae0018d6e458627122b5b147"
     )

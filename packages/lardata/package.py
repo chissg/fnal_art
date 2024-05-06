@@ -33,15 +33,14 @@ class Lardata(CMakePackage):
     url = "https://github.com/LArSoft/lardata/archive/v01_02_03.tar.gz"
     list_url = "https://api.github.com/repos/LArSoft/lardata/tags"
 
+    version("09.16.03", sha256="e73f75875a8e769ccc684d4adc670d5d74e4d936657b9dc9a9f3aa3631b0682e")
+    version("09.16.02", sha256="e544952c9c7ef6b225a4d91654e9d57fe83d2feccca31d5c5b6f34eeee8ee4c0")
     version("09.15.07", sha256="378cf1df2b1192d2a9e704cc5605b136660ec2d22c83afa91baeb80e964b6929")
     version("09.15.04", sha256="1d480660bbd2fe4afcd7e55427531bd11d69a61d3e3814d6965e67df13e47c08")
     version(
         "09.04.vec02",
         branch="larvecutils-v09_37_01_01",
         git="https://github.com/cerati/lardata.git",
-    )
-    version(
-        "09.30.00.rc1", sha256="62068b739d636374f56250d944283bda7dbb532d5f4a02dd38e9b105ce51c90c"
     )
     version("09.15.01", sha256="c88fac18495aff9e245c18e288a121ed1b0fc4e78148e4483a4e8d3b0ec80ba1")
     version("09.04.02", sha256="ebca1134427b493d7f1a4a278441b59802bd05662ec995dee2ad91e489c8b454")
