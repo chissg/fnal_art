@@ -13,6 +13,8 @@ class ArtSuite(BundlePackage):
 
     homepage="https://github.com/art-framework-suite/"
 
+    version("s132")
+    version("s131")
     version("s130")
     version("s128")
     version("s126")
