@@ -16,6 +16,7 @@ class CetlibExcept(CMakePackage):
     git = "https://github.com/art-framework-suite/cetlib-except.git"
     url = "https://github.com/art-framework-suite/cetlib-except/archive/refs/tags/v1_09_00.tar.gz"
 
+    version("1.10.00", sha256="69960e18e80ee76ce7437366d3d916e653ced32aae0365362750d8226e51f87b")
     version("1.09.01", sha256="72ed76819ce98c1629e55931a939374d386070b77070b849e029d095097240fd")
     version("1.09.00", sha256="49d28d96fe2ae96aeb1c636b356e731dda60c4b69b0c7759de484225f4e4a380")
     version("1.08.00", sha256="2951be7cd7b58c05c09a89fdd8b2b287262447d7e69e13bef7a15a98040d4efd")
@@ -31,7 +32,7 @@ class CetlibExcept(CMakePackage):
         sticky=True,
         description="C++ standard",
     )
-    conflicts("cxxstd=17", when="@develop")
+    conflicts("cxxstd=17", when="@1.10.00:")
 
     depends_on("catch2@2.3.0:2", when="@:1.08", type=("build", "test"))
     depends_on("catch2@3.3.0:", when="@1.09:", type=("build", "test"))

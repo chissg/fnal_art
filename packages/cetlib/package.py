@@ -18,6 +18,7 @@ class Cetlib(CMakePackage):
     git = "https://github.com/art-framework-suite/cetlib.git"
     url = "https://github.com/art-framework-suite/cetlib/archive/refs/tags/v3_17_00.tar.gz"
 
+    version("3.19.00", sha256="696ef0e98dde96a5f34fa38db9adfdcceed325b04c64f0b70d9cc27986d8f28c")
     version("3.18.02", sha256="230c0d5d5082e878e1afa7fe9b5b54e52f9ec70373c7000a5775351817fb95d7")
     version("3.18.01", sha256="7e8b39e6ad0dce26d7fa41985d962fd2f97113403511bad0134c86ccee0e17ae")
     version("3.18.00", sha256="bf559b054af5881ef9e1b7ef91bb722fd255e178edbeca204d201584ee277fee")
@@ -35,7 +36,7 @@ class Cetlib(CMakePackage):
         sticky=True,
         description="C++ standard",
     )
-    conflicts("cxxstd=17", when="@develop")
+    conflicts("cxxstd=17", when="@3.19.00:")
 
     patch("test_build.patch", when="@:3.16.00")
 

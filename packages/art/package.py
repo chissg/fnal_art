@@ -19,6 +19,7 @@ class Art(CMakePackage):
     git = "https://github.com/art-framework-suite/art.git"
     url = "https://github.com/art-framework-suite/art/archive/refs/tags/v3_13_01.tar.gz"
 
+    version("3.15.00", sha256="3faa8c90d85b5ac100c56584f2bf05a664ed6d5243e53df1fe9e4372d4136eed")
     version("3.14.04", sha256="2b930299e1f3fe52544fe0a8f7beaba614c1aea56efe832fffb7117f497e110c")
     version("3.14.03", sha256="c16b8b69a540fe00090e56ff6911c356615dd2c82179d57373024bcb01984434")
     version("3.14.02", sha256="8cc7340a1a92ee22ddeacc3b1ad8a0688561d4fb2a790f42be791534bce8ea2e")
@@ -44,7 +45,7 @@ class Art(CMakePackage):
         sticky=True,
         description="C++ standard",
     )
-    conflicts("cxxstd=17", when="@develop")
+    conflicts("cxxstd=17", when="@3.15.00:")
 
     depends_on("boost+date_time+graph+program_options+regex")
     depends_on("boost@1.75: +filesystem+json+test+thread", type=("build"))

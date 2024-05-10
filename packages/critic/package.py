@@ -37,6 +37,7 @@ class Critic(CMakePackage):
     url = "https://github.com/art-framework-suite/critic/archive/refs/tags/v2_12_03.tar.gz"
 
     version("develop", branch="develop", get_full_repo=True)
+    version("2.14.00", sha256="cefb90d3ab4de47a3a06fddf8f8c5fd4bf7fde62ab24b24a5bb1b97758c2e972")
     version("2.13.06", sha256="92359d75c947047a5a8753de3cbdcfa36dcf320420ed46ac3c0c39ea41cfb4a4")
     version("2.13.05", sha256="7f2470ef8360423e0b1f509538a1ae2df0e42cd231ea48fd2fc225b7181f96f2")
     version("2.13.03", sha256="96f62ff84e09fab7359f4d890e1bb9939cdea35b702a733663187483536da74e")
@@ -53,7 +54,7 @@ class Critic(CMakePackage):
         sticky=True,
         description="C++ standard",
     )
-    conflicts("cxxstd=17", when="@develop")
+    conflicts("cxxstd=17", when="@2.14.00:")
 
     depends_on("art")
     depends_on("art-root-io")

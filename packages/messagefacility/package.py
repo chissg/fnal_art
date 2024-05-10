@@ -20,6 +20,7 @@ class Messagefacility(CMakePackage):
         "https://github.com/art-framework-suite/messagefacility/archive/refs/tags/v2_10_03.tar.gz"
     )
 
+    version("2.11.00", sha256="6b3f7a8ef870bbea7e1127f4f841d1ecac4fca57509b4108cd284d6b7813d360")
     version("2.10.05", sha256="cd99c85b81f7d4d23195fb6f84d8815c73d6eedbb4c543dc10c9616a5c31368d")
     version("2.10.04", sha256="5c63a26c974c69677eeb8c927a581aa40bd7ff8f6abf6ebcdd20cc423e145df9")
     version("2.10.03", sha256="94700d414a59111200dff1d77839d2edcb72f05530c039f6bdddb470be6e2252")
@@ -39,7 +40,7 @@ class Messagefacility(CMakePackage):
         sticky=True,
         description="C++ standard",
     )
-    conflicts("cxxstd=17", when="@develop")
+    conflicts("cxxstd=17", when="@2.11.00:")
 
     depends_on("boost+filesystem+program_options+system")
     depends_on("catch2@3.3.0:", when="@2.10.00:")

@@ -19,6 +19,7 @@ class CanvasRootIo(CMakePackage):
 
     version("develop", branch="develop", get_full_repo=True)
 
+    version("1.14.00", sha256="77ce8277704451aaa0eb003298b47accbf302a55f044fc330bf43040495684bd")
     version("1.13.06", sha256="a0b7fdbc0f8f52b39a289f97c1354e304794beae87e8128099ffada5460ef72f")
     version("1.13.05", sha256="34c8b31cd6e769a1fc0afb3758071827202f11bcc218f37bbac6071a9a55fecf")
     version("1.13.03", sha256="4ef6333ac780591821364d51ef926b512a1e806b1b39f1ba8dacc97f9a0e20a7")
@@ -40,7 +41,7 @@ class CanvasRootIo(CMakePackage):
         sticky=True,
         description="C++ standard",
     )
-    conflicts("cxxstd=17", when="@develop")
+    conflicts("cxxstd=17", when="@1.14.00:")
 
     depends_on("boost+thread")
     depends_on("canvas")
@@ -53,6 +54,8 @@ class CanvasRootIo(CMakePackage):
     depends_on("hep-concurrency")
     depends_on("catch2", type=("build", "test"))
     depends_on("messagefacility")
+    depends_on("root@6.30:+python", when="@1.14:")
+    depends_on("root@6.28:+python", when="@1.12:")
     depends_on("root@6.26:+python", when="@1.11:")
     depends_on("root@6.22:+python", when="@1.09:")
 
