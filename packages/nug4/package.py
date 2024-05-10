@@ -33,6 +33,7 @@ class Nug4(CMakePackage):
     url = "https://github.com/NuSoftHEP/nug4/archive/refs/tags/v1_10_00.tar.gz"
     list_url = "https://api.github.com/repos/NuSoftHEP/nug4/tags"
 
+    version("1.16.06", sha256="e6b09f229e055c4baa57622875ed90c9ca33028cc3e246cd0be9275fcf9268a0")
     version("1.16.05", sha256="48e435424e6dccb424c5b83807c6bec31f9968ddb394309d144cfae0dcd6e5db")
     version("1.15.02", sha256="53dcc4998a9e4841739cfbc7ee2e5cb312321cb1be2591af891f39ff7d306ed7")
     version("1.15.01", sha256="839ff89b3f85b9482384df946d5c13a0c7c941e4bdfd2d2955e36c290811d926")

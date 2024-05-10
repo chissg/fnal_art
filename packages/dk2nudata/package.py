@@ -10,18 +10,16 @@ import os
 class Dk2nudata(CMakePackage):
     """This package consolidates the disparate formats of neutrino beam simulation "flux" files."""
 
-    homepage = "https://cdcvs.fnal.gov/redmine/projects/dk2nu"
-    url = "https://cdcvs.fnal.gov/subversion/dk2nu/tags/v01_07_02"
+    url = "https://github.com/NuSoftHEP/dk2nu/archive/refs/tags/v01_10_01.tar.gz"
 
-    version("01.10.01", revision="155", svn="https://cdcvs.fnal.gov/subversion/dk2nu/trunk")
-    version("01.10.00", revision="154", svn="https://cdcvs.fnal.gov/subversion/dk2nu/trunk")
-    version("01.09.02", revision="153", svn="https://cdcvs.fnal.gov/subversion/dk2nu/trunk")
-    version("01.09.01", revision="152", svn="https://cdcvs.fnal.gov/subversion/dk2nu/trunk")
-    version("01.09.00", revision="148", svn="https://cdcvs.fnal.gov/subversion/dk2nu/trunk")
-    version("01.08.00", revision="146", svn="https://cdcvs.fnal.gov/subversion/dk2nu/trunk")
-    version("01.07.02", revision="140", svn="https://cdcvs.fnal.gov/subversion/dk2nu/trunk")
+    version("01.10.01", sha256="8680ffae5182dc1c0a04a3410cf687c4b7c0d9420e2aabc5c3c4bb42c69c3dd0")
+    version("01_10_01", sha256="8680ffae5182dc1c0a04a3410cf687c4b7c0d9420e2aabc5c3c4bb42c69c3dd0")
 
-    # Variant is still important even though it's not passed to compiler
+    def url_for_version(self, version):
+        url = "https://github.com/NuSoftHEP/dk2nu/archive/refs/tags/v{0}.tar.gz"
+        return url.format(version.underscored)
+
+# Variant is still important even though it's not passed to compiler
     # flags (use of ROOT, etc.).
     variant(
         "cxxstd",
@@ -39,7 +37,7 @@ class Dk2nudata(CMakePackage):
 
     parallel = False
 
-    root_cmakelists_dir = "dk2nu"
+   # root_cmakelists_dir = "dk2nu"
 
     def cmake_args(self):
         if os.path.exists(self.spec["tbb"].prefix.lib64):
