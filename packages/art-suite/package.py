@@ -44,7 +44,7 @@ class ArtSuite(BundlePackage):
         depends_on("cetmodules@3.25.00")
         depends_on("clhep@2.4.7.1")
         depends_on("fftw@3.3.10")
-        depends_on("fhicl-cpp@4.19.00%gcc@13: cxxstd=20")
+        depends_on("fhicl-cpp@4.19.00 cxxstd=20")
         depends_on("gsl@2.7")
         depends_on("hep-concurrency@1.10.00 cxxstd=20")
         depends_on("libxml2@2.9.12")
