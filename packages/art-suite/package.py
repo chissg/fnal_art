@@ -39,7 +39,7 @@ class ArtSuite(BundlePackage):
         depends_on("canvas@3.17.00 cxxstd=20")
         depends_on("canvas-root-io@1.14.00 cxxstd=20", when="+root")
         depends_on("catch2@3.3.2")
-        depends_on("cetlib@3.19.00 cxxstd=20")
+        depends_on("cetlib@3.19.00%gcc@13: cxxstd=20")
         depends_on("cetlib-except@1.10.00 cxxstd=20")
         depends_on("cetmodules@3.25.00")
         depends_on("clhep@2.4.7.1")
