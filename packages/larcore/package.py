@@ -84,7 +84,6 @@ class Larcore(CMakePackage):
     depends_on("larcorealg")
     depends_on("art-root-io")
     depends_on("cetmodules", type="build")
-    depends_on("cetbuildtools", type="build" , when="@:09.05.00")
 
     def cmake_args(self):
         args = [self.define_from_variant("CMAKE_CXX_STANDARD", "cxxstd")]
