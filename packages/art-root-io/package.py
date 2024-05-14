@@ -6,16 +6,17 @@
 import os
 
 from spack.package import *
-from spack.pkg.fnal_art.utilities import *
+from spack.pkg.fnal_art.fnal_github_package import *
 from spack.util.prefix import Prefix
 
 
-class ArtRootIo(CMakePackage):
+class ArtRootIo(CMakePackage, FnalGithubPackage):
     """Root-based input/output for the art suite."""
 
     homepage = "https://art.fnal.gov/"
-    git = "https://github.com/art-framework-suite/art-root-io.git"
-    url = "https://github.com/art-framework-suite/art-root-io/archive/refs/tags/v1_13_01.tar.gz"
+    repo = "art-framework-suite/art-root-io"
+
+    version_patterns = ["v1_08_03"]
 
     version("develop", branch="develop", get_full_repo=True)
     version("1.14.00", sha256="c5ae18411766c088eee1643eeb8a5d85683902134529eb6d6e7540368c8e5d6e")
@@ -64,33 +65,24 @@ class ArtRootIo(CMakePackage):
         if generator.endswith("Ninja"):
             depends_on("ninja@1.10:", type="build")
 
-    def url_for_version(self, version):
-        url = "https://github.com/art-framework-suite/art-root-io/archive/refs/tags/v{0}.tar.gz"
-        return url.format(version.underscored)
-
+    @cmake_preset
     def cmake_args(self):
-        return preset_args(self.stage.source_path) + [
-            "--trace-expand",
-            self.define_from_variant("CMAKE_CXX_STANDARD", "cxxstd"),
-        ]
+        return ["--trace-expand", self.define_from_variant("CMAKE_CXX_STANDARD", "cxxstd")]
 
+    @sanitize_paths
     def setup_build_environment(self, env):
         prefix = Prefix(self.build_directory)
         # Binaries.
         env.prepend_path("PATH", prefix.bin)
         # Ensure we can find plugin libraries.
         env.prepend_path("CET_PLUGIN_PATH", prefix.lib)
-        # Cleanup.
-        sanitize_environments(env, "PATH", "CET_PLUGIN_PATH")
 
+    @sanitize_paths
     def setup_run_environment(self, env):
         # Ensure we can find plugin libraries.
         env.prepend_path("CET_PLUGIN_PATH", self.prefix.lib)
-        # Cleanup.
-        sanitize_environments(env, "CET_PLUGIN_PATH")
 
+    @sanitize_paths
     def setup_dependent_build_environment(self, env, dependent_spec):
         # Ensure we can find plugin libraries.
         env.prepend_path("CET_PLUGIN_PATH", self.prefix.lib)
-        # Cleanup.
-        sanitize_environments(env, "CET_PLUGIN_PATH")

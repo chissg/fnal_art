@@ -6,16 +6,17 @@
 import os
 
 from spack.package import *
-from spack.pkg.fnal_art.utilities import *
+from spack.pkg.fnal_art.fnal_github_package import *
 from spack.util.prefix import Prefix
 
 
-class CanvasRootIo(CMakePackage):
+class CanvasRootIo(CMakePackage, FnalGithubPackage):
     """A Root I/O library for the art suite."""
 
     homepage = "https://art.fnal.gov/"
-    git = "https://github.com/art-framework-suite/canvas-root-io.git"
-    url = "https://github.com/art-framework-suite/canvas-root-io/archive/refs/tags/v1_13_01.tar.gz"
+    repo = "art-framework-suite/canvas-root-io"
+
+    version_patterns = ["v1_09_04"]
 
     version("develop", branch="develop", get_full_repo=True)
 
@@ -64,15 +65,11 @@ class CanvasRootIo(CMakePackage):
         if generator.endswith("Ninja"):
             depends_on("ninja@1.10:", type="build")
 
+    @cmake_preset
     def cmake_args(self):
-        return preset_args(self.stage.source_path) + [
-            self.define_from_variant("CMAKE_CXX_STANDARD", "cxxstd")
-        ]
+        return [self.define_from_variant("CMAKE_CXX_STANDARD", "cxxstd")]
 
-    def url_for_version(self, version):
-        url = "https://github.com/art-framework-suite/canvas-root-io/archive/refs/tags/v{0}.tar.gz"
-        return url.format(version.underscored)
-
+    @sanitize_paths
     def setup_build_environment(self, env):
         prefix = Prefix(self.build_directory)
         # Binaries.
@@ -84,9 +81,8 @@ class CanvasRootIo(CMakePackage):
             root=False, cover="nodes", order="post", deptype=("link"), direction="children"
         ):
             env.prepend_path("ROOT_INCLUDE_PATH", self.spec[d.name].prefix.include)
-        # Cleanup.
-        sanitize_environments(env, "PATH", "LD_LIBRARY_PATH", "ROOT_INCLUDE_PATH")
 
+    @sanitize_paths
     def setup_run_environment(self, env):
         prefix = self.prefix
         # Set LD_LIBRARY_PATH so that dictionaries are available downstream
@@ -98,9 +94,7 @@ class CanvasRootIo(CMakePackage):
             env.prepend_path("ROOT_INCLUDE_PATH", self.spec[d.name].prefix.include)
         env.prepend_path("ROOT_INCLUDE_PATH", prefix.include)
 
-        # Cleanup.
-        sanitize_environments(env, "CET_PLUGIN_PATH", "ROOT_INCLUDE_PATH")
-
+    @sanitize_paths
     def setup_dependent_build_environment(self, env, dependent_spec):
         # Set LD_LIBRARY_PATH so CheckClassVersion.py can find cppyy lib
         env.prepend_path("LD_LIBRARY_PATH", self.spec["root"].prefix.lib)
@@ -109,5 +103,3 @@ class CanvasRootIo(CMakePackage):
             root=False, cover="nodes", order="post", deptype=("link"), direction="children"
         ):
             env.prepend_path("ROOT_INCLUDE_PATH", dependent_spec[d.name].prefix.include)
-        # Cleanup.
-        sanitize_environments(env, "CET_PLUGIN_PATH", "LD_LIBRARY_PATH", "ROOT_INCLUDE_PATH")

@@ -6,17 +6,18 @@
 import os
 
 from spack.package import *
-from spack.pkg.fnal_art.utilities import *
+from spack.pkg.fnal_art.fnal_github_package import *
 
 
-class Gallery(CMakePackage):
+class Gallery(CMakePackage, FnalGithubPackage):
     """A library to allow reading of Root output files produced by the art
     suite.
     """
 
     homepage = "https://art.fnal.gov/"
-    git = "https://github.com/art-framework-suite/gallery.git"
-    url = "https://github.com/art-framework-suite/gallery/archive/refs/tags/v1_21_01.tar.gz"
+    repo = "art-framework-suite/gallery"
+
+    version_patterns = ["v1_20_02"]
 
     version("develop", branch="develop", get_full_repo=True)
     version("1.23.00", sha256="610a01297a1c7b3509989084a34903714ce23cb052a71d54f9a2afff7547f2e8")
@@ -52,21 +53,16 @@ class Gallery(CMakePackage):
         if generator.endswith("Ninja"):
             depends_on("ninja@1.10:", type="build")
 
-    def url_for_version(self, version):
-        url = "https://github.com/art-framework-suite/gallery/archive/refs/tags/v{0}.tar.gz"
-        return url.format(version.underscored)
-
+    @cmake_preset
     def cmake_args(self):
-        return preset_args(self.stage.source_path) + [
-            self.define_from_variant("CMAKE_CXX_STANDARD", "cxxstd")
-        ]
+        return [self.define_from_variant("CMAKE_CXX_STANDARD", "cxxstd")]
 
+    @sanitize_paths
     def setup_dependent_build_environment(self, env, dependent_spec):
         prefix = self.prefix
         # Ensure we can find plugin libraries.
         env.prepend_path("CET_PLUGIN_PATH", prefix.lib)
-        # Cleaup.
-        sanitize_environments(env, "CET_PLUGIN_PATH")
 
+    @sanitize_paths
     def setup_run_environment(self, run_env):
         run_env.prepend_path("ROOT_INCLUDE_PATH", self.prefix.include)

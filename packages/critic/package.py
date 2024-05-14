@@ -8,7 +8,7 @@ import os
 import llnl.util.tty as tty
 
 from spack.package import *
-from spack.pkg.fnal_art.utilities import *
+from spack.pkg.fnal_art.fnal_github_package import *
 from spack.util.environment import NameValueModifier
 from spack.util.prefix import Prefix
 
@@ -27,14 +27,15 @@ class PrependEnv(NameValueModifier):
             env[self.name] = self.separator.join(directories)
 
 
-class Critic(CMakePackage):
+class Critic(CMakePackage, FnalGithubPackage):
     """Compatibility tests for the art and gallery applications of the art
     suite.
     """
 
     homepage = "https://art.fnal.gov/"
-    git = "https://github.com/art-framework-suite/critic.git"
-    url = "https://github.com/art-framework-suite/critic/archive/refs/tags/v2_12_03.tar.gz"
+    repo = "art-framework-suite/critic"
+
+    version_patterns = ["v2_12_02"]
 
     version("develop", branch="develop", get_full_repo=True)
     version("2.14.00", sha256="cefb90d3ab4de47a3a06fddf8f8c5fd4bf7fde62ab24b24a5bb1b97758c2e972")
@@ -74,14 +75,9 @@ class Critic(CMakePackage):
         if generator.endswith("Ninja"):
             depends_on("ninja@1.10:", type="build")
 
-    def url_for_version(self, version):
-        url = "https://github.com/art-framework-suite/critic/archive/refs/tags/v{0}.tar.gz"
-        return url.format(version.underscored)
-
+    @cmake_preset
     def cmake_args(self):
-        return preset_args(self.stage.source_path) + [
-            self.define_from_variant("CMAKE_CXX_STANDARD", "cxxstd")
-        ]
+        return [self.define_from_variant("CMAKE_CXX_STANDARD", "cxxstd")]
 
     def setup_build_environment(self, env):
         prefix = Prefix(self.build_directory)
@@ -92,4 +88,4 @@ class Critic(CMakePackage):
         # ... and in the interpreter.
         env.env_modifications.append(PrependEnv("LD_LIBRARY_PATH", "CET_PLUGIN_PATH"))
         # Cleanup.
-        sanitize_environments(env, "PATH", "CET_PLUGIN_PATH", "LD_LIBRARY_PATH")
+        sanitize_environment(env, "PATH", "CET_PLUGIN_PATH", "LD_LIBRARY_PATH")
