@@ -81,13 +81,9 @@ class Larsoft(CMakePackage):
     )
     variant(
         "eventdisplay",
-        default=True,
+        default=False,
         description = "Include lareventisplay and root/geant4 with opengl and x."
     )
-
-    variant(
-        "eventdisplay",
-        default=False)
 
     patch("v09_35_00.patch", when="@09.35.00")
     patch("v09_37_01_01.patch", when="@09.37.01.01")
