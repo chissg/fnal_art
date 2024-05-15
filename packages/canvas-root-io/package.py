@@ -34,14 +34,7 @@ class CanvasRootIo(CMakePackage, FnalGithubPackage):
 
     patch("test_build.patch", when="@:1.11.00")
 
-    variant(
-        "cxxstd",
-        default="17",
-        values=("17", "20", "23"),
-        multi=False,
-        sticky=True,
-        description="C++ standard",
-    )
+    cxxstd_variant("17", "20", "23", default="17", sticky=True)
     conflicts("cxxstd=17", when="@1.14.00:")
 
     depends_on("boost+thread")

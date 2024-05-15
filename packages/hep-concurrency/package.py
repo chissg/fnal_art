@@ -25,14 +25,7 @@ class HepConcurrency(CMakePackage, FnalGithubPackage):
     version("1.07.04", sha256="442db7ea3c0057e86165a001ef77c1fc0e5ed65c62fd1dd53e68fb8fe9a5fef3")
     version("develop", branch="develop", get_full_repo=True)
 
-    variant(
-        "cxxstd",
-        default="17",
-        values=("17", "20", "23"),
-        multi=False,
-        sticky=True,
-        description="C++ standard",
-    )
+    cxxstd_variant("17", "20", "23", default="17", sticky=True)
     conflicts("cxxstd=17", when="@1.10.00:")
 
     depends_on("catch2@2.3.0:2", when="@:1.08", type=("build", "test"))

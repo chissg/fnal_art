@@ -31,15 +31,7 @@ class Canvas(CMakePackage, FnalGithubPackage):
 
     version("develop", branch="develop", get_full_repo=True)
 
-    variant(
-        "cxxstd",
-        default="17",
-        values=("17", "20", "23"),
-        multi=False,
-        sticky=True,
-        description="C++ standard",
-    )
-    conflicts("cxxstd=17", when="@3.17.00:")
+    cxxstd_variant("17", "20", "23", default="17", sticky=True)
 
     depends_on("boost+date_time+test")
     depends_on("cetlib")

@@ -5,6 +5,7 @@
 
 import llnl.util.tty as tty
 import spack.util.spack_json as sjson
+from spack.directives import variant
 from spack.util.environment import PrependPath
 from spack.package import *
 from spack.version import *
@@ -68,6 +69,26 @@ def fetch_remote_tags(organization, repo_name, url):
         dotted_version_str(d["name"]): github_version_url(organization, repo_name, d["name"])
         for d in sjson.load(request)
     }
+
+
+# wrapped variant to remove boilerplate for "cxxstd"
+_disallowed_kwargs = {"multi", "description", "values"}
+
+
+def cxxstd_variant(*cxxstd_options, **kwargs):
+    disallowed_present = set(kwargs.keys()) & _disallowed_kwargs
+    if disallowed_present:
+        tty.die(
+            f"The following keyword arguments cannot be specified to cxxstd_variant: {disallowed_present}"
+        )
+
+    variant(
+        "cxxstd",
+        values=cxxstd_options,
+        **kwargs,
+        multi=False,
+        description="Use the specified C++ standard when building.",
+    )
 
 
 class FnalGithubPackage(Package):
