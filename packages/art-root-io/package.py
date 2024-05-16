@@ -33,14 +33,7 @@ class ArtRootIo(CMakePackage, FnalGithubPackage):
     version("1.08.05", sha256="77f58e4200f699dcb324a3a9fc9e59562d2a1721a34a6db43fdb435853890d21")
     version("1.08.03", sha256="fefdb0803bc139a65339d9fa1509f2e9be1c5613b64ec1ec84e99f404663e4bf")
 
-    variant(
-        "cxxstd",
-        default="17",
-        values=("17", "20", "23"),
-        multi=False,
-        sticky=True,
-        description="C++ standard",
-    )
+    cxxstd_variant("17", "20", "23", default="17", sticky=True)
     conflicts("cxxstd=17", when="@1.14.00:")
 
     depends_on("art")

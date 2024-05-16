@@ -25,14 +25,7 @@ class CetlibExcept(CMakePackage, FnalGithubPackage):
     version("1.07.04", sha256="d021d26fda9f4f57b57850bc6f5ac0a79aed913ef1cde68a96838ad85d332d70")
     version("develop", branch="develop", get_full_repo=True)
 
-    variant(
-        "cxxstd",
-        default="17",
-        values=("17", "20", "23"),
-        multi=False,
-        sticky=True,
-        description="C++ standard",
-    )
+    cxxstd_variant("17", "20", "23", default="17", sticky=True)
     conflicts("cxxstd=17", when="@1.10.00:")
 
     depends_on("catch2@2.3.0:2", when="@:1.08", type=("build", "test"))

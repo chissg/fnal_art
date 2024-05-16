@@ -38,14 +38,7 @@ class Art(CMakePackage, FnalGithubPackage):
     version("3.04.00", sha256="38d27e1776adad157ad2d4e8c073ecda67ec4677fff9ebbffef6e37d7ed1d8ff")
     version("develop", branch="develop", get_full_repo=True)
 
-    variant(
-        "cxxstd",
-        default="17",
-        values=("17", "20", "23"),
-        multi=False,
-        sticky=True,
-        description="C++ standard",
-    )
+    cxxstd_variant("17", "20", "23", default="17", sticky=True)
     conflicts("cxxstd=17", when="@3.15.00:")
 
     depends_on("boost+date_time+graph+program_options+regex")

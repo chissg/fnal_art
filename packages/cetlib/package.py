@@ -29,14 +29,7 @@ class Cetlib(CMakePackage, FnalGithubPackage):
     version("3.13.04", sha256="40ca829cfb172f6cbf516bd3427fc7b7e893f9c916d969800261194610c45edf")
     version("develop", branch="develop", get_full_repo=True)
 
-    variant(
-        "cxxstd",
-        default="17",
-        values=("17", "20", "23"),
-        multi=False,
-        sticky=True,
-        description="C++ standard",
-    )
+    cxxstd_variant("17", "20", "23", default="17", sticky=True)
     conflicts("cxxstd=17", when="@3.19.00:")
 
     patch("test_build.patch", when="@:3.16.00")

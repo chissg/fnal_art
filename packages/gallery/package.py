@@ -30,14 +30,7 @@ class Gallery(CMakePackage, FnalGithubPackage):
     version("1.21.03", sha256="b1f41e1e4efcaf73b6c90c12dc513217ea5591ce369a9335d2ca6f4d0f2b1728")
     version("1.20.02", sha256="433e2b5727b9d9cf47206d9a01db5eab27c5cbb76407bb0ec14c0fd4e4dc41f9")
 
-    variant(
-        "cxxstd",
-        default="17",
-        values=("17", "20", "23"),
-        multi=False,
-        sticky=True,
-        description="C++ standard",
-    )
+    cxxstd_variant("17", "20", "23", default="17", sticky=True)
     conflicts("cxxstd=17", when="@1.23.00:")
 
     depends_on("canvas")

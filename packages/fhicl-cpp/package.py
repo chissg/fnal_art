@@ -29,14 +29,7 @@ class FhiclCpp(CMakePackage, FnalGithubPackage):
     version("4.15.03", sha256="99ae2b7557c671d0207dea96529e7c0fca2274974b6609cc7c6bf7e8d04bd12b")
     version("develop", branch="develop", get_full_repo=True)
 
-    variant(
-        "cxxstd",
-        default="17",
-        values=("17", "20", "23"),
-        multi=False,
-        sticky=True,
-        description="C++ standard",
-    )
+    cxxstd_variant("17", "20", "23", default="17", sticky=True)
     conflicts("cxxstd=17", when="@4.19.00:")
 
     depends_on("boost+program_options+test")
