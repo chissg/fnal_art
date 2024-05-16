@@ -31,14 +31,7 @@ class Messagefacility(CMakePackage, FnalGithubPackage):
     version("2.08.00", sha256="a2c833071dfe7538c40a0024d15f19ba062fd5f56b26f83f5cb739c12ff860ec")
     version("develop", branch="develop")
 
-    variant(
-        "cxxstd",
-        default="17",
-        values=("17", "20", "23"),
-        multi=False,
-        sticky=True,
-        description="C++ standard",
-    )
+    cxxstd_variant("17", "20", "23", default="17", sticky=True)
     conflicts("cxxstd=17", when="@2.11.00:")
 
     depends_on("boost+filesystem+program_options+system")
