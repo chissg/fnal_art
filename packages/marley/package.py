@@ -35,6 +35,7 @@ class Marley(Package):
     patch("marley-1.1.0.patch", when="@1.1.0")
     patch("marley-1.1.1.patch", when="@1.1.1")
     patch("marley-1.2.0.patch", when="@1.2.0")
+    patch("marley-1.2.1.patch", when="@1.2.1")
 
     def patch(self):
         cxxstd = self.spec.variants["cxxstd"].value
