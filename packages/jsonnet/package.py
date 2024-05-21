@@ -4,6 +4,7 @@
 # SPDX-License-Identifier: (Apache-2.0 OR MIT)
 
 from spack import *
+import os
 
 
 class Jsonnet(Package):
@@ -52,7 +53,10 @@ class Jsonnet(Package):
         install("include/libjsonnet++.h", prefix.include)
         libs = find(prefix.lib, "libjsonnet*")
         for lib in libs:
-            symlink(lib, prefix.lib + "%s.0" % lib)
+            try:
+                symlink(lib, prefix.lib + "%s.0" % lib)
+            except FileNotFoundError:
+                pass
 
     def setup_build_environment(self, spack_env):
         for cflag in ("-O3", "-DNDEBUG", "-g", "-fno-omit-frame-pointer"):

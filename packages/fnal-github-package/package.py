@@ -15,6 +15,9 @@ import re
 import bisect
 import functools
 
+# Python versions older than 3.9 do not support functools.cache
+cache_property = getattr(functools, "cache", functools.lru_cache)
+
 RE_VERSION = re.compile(r"^v")
 RE_UPS_STYLE = re.compile(r"^v(\d+)(_\d+)*.*")
 RE_DOT_STYLE = re.compile(r"(\d+)(\.\d+)*.*")
@@ -119,7 +122,7 @@ class FnalGithubPackage(Package):
         return f"{self.git}/archive/refs/tags/{version_str}.tar.gz"
 
     @property
-    @functools.cache
+    @cache_property
     def _version_patterns(self):
         self.version_patterns.sort(key=dotted_version_str)
         result = []
