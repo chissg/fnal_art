@@ -80,6 +80,14 @@ class Wirecell(Package):
                 "util/inc/WireCellUtil/Dtype.h",
             )
 
+    def patch(self):
+        with when("@:0.27.1 %gcc@12:"):
+            filter_file(
+                "#include <iomanip>",
+                "#include <iomanip>\n#include<sstream>",
+                "aux/src/Logger.cxx",
+            )
+
     def install(self, spec, prefix):
         cxxstd = self.spec.variants["cxxstd"].value
         cxxstdflag = "" if cxxstd == "default" else getattr(self.compiler, "cxx{0}_flag".format(cxxstd))
