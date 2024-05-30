@@ -16,7 +16,7 @@ import bisect
 import functools
 
 # Python versions older than 3.9 do not support functools.cache
-cache_property = getattr(functools, "cache", functools.lru_cache)
+cache_property = getattr(functools, "cache", functools.lru_cache())
 
 RE_VERSION = re.compile(r"^v")
 RE_UPS_STYLE = re.compile(r"^v(\d+)(_\d+)*.*")
