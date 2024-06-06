@@ -32,6 +32,7 @@ class FhiclCpp(CMakePackage, FnalGithubPackage):
     cxxstd_variant("17", "20", "23", default="17", sticky=True)
     conflicts("cxxstd=17", when="@4.19.00:")
 
+    depends_on("boost@:1.82", when="@:4.19")
     depends_on("boost+program_options+test")
     depends_on("cetlib")
     depends_on("cetlib-except")
