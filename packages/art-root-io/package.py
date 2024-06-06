@@ -37,6 +37,7 @@ class ArtRootIo(CMakePackage, FnalGithubPackage):
     conflicts("cxxstd=17", when="@1.14.00:")
 
     depends_on("art")
+    depends_on("boost@:1.82", when="@:1.14")
     depends_on("boost+filesystem+date_time+program_options")
     depends_on("canvas")
     depends_on("canvas-root-io")
