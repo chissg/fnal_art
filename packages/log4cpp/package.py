@@ -38,5 +38,5 @@ class Log4cpp(AutotoolsPackage):
     def setup_dependent_build_environment(self, spack_env, dspec):
         spack_env.prepend_path("PATH", self.spec.prefix.bin)
 
-    def setup_dependent_run_environment(self, run_env, dspec):
+    def setup_run_environment(self, run_env):
         run_env.prepend_path("PATH", self.spec.prefix.bin)

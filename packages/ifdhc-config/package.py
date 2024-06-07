@@ -59,3 +59,5 @@ class IfdhcConfig(Package):
     def setup_run_environment(self, run_env):
         run_env.prepend_path("PATH", self.spec.prefix.bin)
         run_env.set("IFDHC_CONFIG_DIR", self.spec.prefix)
+        # save for ifhdc setup_run_environment to use..
+        os.environ["IFDHC_CONFIG_BIN"] = str(self.spec.prefix.bin)

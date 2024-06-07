@@ -32,6 +32,7 @@ class Wirecell(Package):
     homepage = "https://wirecell.github.io"
     url = "https://github.com/WireCell/wire-cell-toolkit/archive/refs/tags/0.13.0.tar.gz"
 
+    version("0.27.1", sha256="a8410a9e0524570e811f5cca2ea9fc636e48c048a5e67c5cee567b935515e176")
     version("0.24.3", sha256="040d819a3a81b953a42c8b4bb898acf6978cee45beea0361a2f3cdb602a6028c")
     version("0.24.1", sha256="0467a4dff51abac3661aa99c5f3cc5de1ba1607a7f357631a2fbf7dcdf01c8a9")
     version("0.17.0", sha256="f2807adb83c8c6960ccefe8002bd015d646a96ad181d2092848d2461b3b81eea")
@@ -79,11 +80,17 @@ class Wirecell(Package):
                 "util/inc/WireCellUtil/Dtype.h",
             )
 
+    def patch(self):
+        with when("@:0.27.1 %gcc@12:"):
+            filter_file(
+                "#include <iomanip>",
+                "#include <iomanip>\n#include<sstream>",
+                "aux/src/Logger.cxx",
+            )
+
     def install(self, spec, prefix):
         cxxstd = self.spec.variants["cxxstd"].value
-        cxxstdflag = (
-            "" if cxxstd == "default" else getattr(self.compiler, "cxx{0}_flag".format(cxxstd))
-        )
+        cxxstdflag = "" if cxxstd == "default" else getattr(self.compiler, "cxx{0}_flag".format(cxxstd))
 
         cfg = "wcb"
         cfg += " --prefix=%s" % prefix
@@ -113,22 +120,29 @@ class Wirecell(Package):
 
     def setup_build_environment(self, spack_env):
         cxxstd = self.spec.variants["cxxstd"].value
-        cxxstdflag = (
-            "" if cxxstd == "default" else getattr(self.compiler, "cxx{0}_flag".format(cxxstd))
-        )
+        cxxstdflag = "" if cxxstd == "default" else getattr(self.compiler, "cxx{0}_flag".format(cxxstd))
         spack_env.append_flags("CXXFLAGS", cxxstdflag)
         # Ensure Root can find headers for autoparsing.
         for d in self.spec.traverse(
-            root=False, cover="nodes", order="post", deptype=("link"), direction="children"
+            root=False,
+            cover="nodes",
+            order="post",
+            deptype=("link"),
+            direction="children",
         ):
             spack_env.prepend_path("ROOT_INCLUDE_PATH", str(self.spec[d.name].prefix.include))
         # Cleanup.
         sanitize_environments(spack_env)
 
     def setup_run_environment(self, run_env):
+        run_env.prepend_path("PATH", self.prefix.bin)
         # Ensure Root can find headers for autoparsing.
         for d in self.spec.traverse(
-            root=False, cover="nodes", order="post", deptype=("link"), direction="children"
+            root=False,
+            cover="nodes",
+            order="post",
+            deptype=("link"),
+            direction="children",
         ):
             run_env.prepend_path("ROOT_INCLUDE_PATH", str(self.spec[d.name].prefix.include))
         run_env.prepend_path("ROOT_INCLUDE_PATH", self.prefix.include)
@@ -139,11 +153,6 @@ class Wirecell(Package):
         spack_env.prepend_path("ROOT_INCLUDE_PATH", self.prefix.include)
         # Cleanup.
         sanitize_environments(spack_env)
-
-    def setup_dependent_run_environment(self, run_env, dependent_spec):
-        run_env.prepend_path("ROOT_INCLUDE_PATH", self.prefix.include)
-        # Cleanup.
-        sanitize_environments(run_env)
 
     def flag_handler(self, name, flags):
         if name == "cxxflags" and self.spec.compiler.name == "gcc":

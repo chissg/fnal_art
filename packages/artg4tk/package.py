@@ -72,3 +72,8 @@ class Artg4tk(CMakePackage):
         spack_env.set("CETBUILDTOOLS_VERSION", self.spec["cetmodules"].version)
         spack_env.set("CETBUILDTOOLS_DIR", self.spec["cetmodules"].prefix)
         spack_env.set("LD_LIBRARY_PATH", self.spec["root"].prefix.lib)
+
+    def setup_run_environment(self, run_env):
+        run_env.prepend_path("ROOT_INCLUDE_PATH", self.prefix.include)
+        run_env.append_path("FHICL_FILE_PATH", "{0}/fcl".format(self.prefix))
+        run_env.append_path("CET_PLUGIN_PATH", self.prefix.lib)

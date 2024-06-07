@@ -83,3 +83,10 @@ class Ppfx(CMakePackage):
         env.set("LOG4CPP_LIB", self.spec["log4cpp"].prefix)
         env.set("PYLIB", self.spec["pythia6"].prefix)
         env.set("XERCES_C_INC", self.spec["xerces-c"].prefix)
+
+    def setup_run_environment(self, run_env):
+        run_env.prepend_path("PATH", self.prefix.bin)
+        run_env.prepend_path("ROOT_INCLUDE_PATH", self.prefix.include)
+        run_env.append_path("FW_SEARCH_PATH", "{0}/fw".format(self.prefix))
+        run_env.append_path("CET_PLUGIN_PATH", self.prefix.lib)
+

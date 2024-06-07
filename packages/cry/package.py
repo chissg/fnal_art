@@ -67,12 +67,11 @@ class Cry(MakefilePackage):
         spack_env.prepend_path("CET_PLUGIN_PATH", self.prefix.lib)
         spack_env.prepend_path("ROOT_INCLUDE_PATH", self.prefix.src)
 
-    def setup_dependent_run_environment(self, run_env, dspec):
+    def setup_run_environment(self, run_env):
         run_env.set("CRYHOME", self.prefix)
         run_env.set("CRY_LIB", self.prefix.lib)
         run_env.set("CRYDATAPATH", self.prefix.data)
         # Ensure we can find plugin libraries.
-        run_env.prepend_path("CET_PLUGIN_PATH", self.prefix.lib)
         run_env.prepend_path("ROOT_INCLUDE_PATH", self.prefix.src)
 
     @run_after("install")

@@ -132,5 +132,5 @@ class Pandora(CMakePackage):
     def setup_dependent_build_environment(self, spack_env, dspec):
         spack_env.prepend_path("CMAKE_PREFIX_PATH", "{0}/cmakemodules".format(self.prefix))
 
-    def setup_dependent_run_environment(self, run_env, dspec):
+    def setup_run_environment(self, run_env):
         run_env.prepend_path("CMAKE_PREFIX_PATH", "{0}/cmakemodules".format(self.prefix))

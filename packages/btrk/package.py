@@ -5,6 +5,7 @@
 
 from spack.package import *
 import os
+import shutil
 
 
 class Btrk(SConsPackage):
@@ -50,7 +51,7 @@ class Btrk(SConsPackage):
         return args
 
     def install(self, spec, prefix):
-        rename('%s/lib' % self.stage.source_path, prefix.lib)
+        move('%s/lib' % self.stage.source_path, prefix.lib)
         install_tree(self.stage.source_path, prefix.source)
         mkdirp(prefix.include)
         headerlist = find_all_headers(self.stage.source_path)

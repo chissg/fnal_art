@@ -69,29 +69,19 @@ class Wibtools(CMakePackage):
                 lambda v: (v.dotted, self.url_for_version(v)),
                 [
                     Version(d["name"][1:])
-                    for d in sjson.load(
-                        spack.util.web.read_from_url(
-                            self.list_url, accept_content_type="application/json"
-                        )[2]
-                    )
+                    for d in sjson.load(spack.util.web.read_from_url(self.list_url, accept_content_type="application/json")[2])
                     if d["name"].startswith("v")
                 ],
             )
-        )   
+        )
 
     def cmake_args(self):
         args = [
             "-DCMAKE_CXX_STANDARD={0}".format(self.spec.variants["cxxstd"].value),
         ]
         return args
- 
+
     def setup_run_environment(self, env):
-        prefix = self.prefix
-        env.set("WIBTOOLS_BIN", prefix.bin)
-        env.set("WIB_ADDRESS_TABLE_PATH", prefix + "/tables")
-        env.set("EIB_CONFIG_PATH", prefix + "/config")
-        
-    def setup_dependent_run_environment(self, env, dependent_spec):
         prefix = self.prefix
         env.set("WIBTOOLS_BIN", prefix.bin)
         env.set("WIB_ADDRESS_TABLE_PATH", prefix + "/tables")
