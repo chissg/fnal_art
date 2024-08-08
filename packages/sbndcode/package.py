@@ -91,6 +91,7 @@ class Sbndcode(CMakePackage):
     depends_on("marley", type=("build", "run"))
     depends_on("nug4", type=("build", "run"))
     depends_on("genie", type=("build", "run"))
+    depends_on("genie-xsec", type=("build", "run"))
     depends_on("ifdhc", type=("build", "run"))
     depends_on("libxml2", type=("build", "run"))
     # depends_on('nurandom', type=('build','run'))  ???
@@ -151,6 +152,7 @@ class Sbndcode(CMakePackage):
         run_env.prepend_path("ROOT_INCLUDE_PATH", self.prefix.include)
         # Perl modules.
         run_env.prepend_path("PERL5LIB", os.path.join(self.prefix, "perllib"))
+        run_env.prepend_path("GENIE_INC", str(self.spec["genie"].prefix.include))
         # Cleaup.
         sanitize_environments(run_env)
 

@@ -70,7 +70,7 @@ class Genie(AutotoolsPackage):
 
     depends_on("lhapdf" , when="+lhapdf")
 
-    depends_on("root+pythia6")
+    depends_on("root@6.28:+pythia6")
     depends_on("pythia6+root")
     depends_on("libxml2")
     depends_on("log4cpp")
@@ -82,10 +82,11 @@ class Genie(AutotoolsPackage):
     patch("patch/sles-cnl.patch", when="platform=cray")
     patch("patch/root_subdir.patch")
 
-    patch("patch/GENIE-Generator.patch", when="@3.04.00")
-    patch("patch/GENIE-Reweight.patch", when="@3.04.00", level=0)
+    patch("patch/GENIE-Generator.patch", when="@3.04.02")
+    patch("patch/GENIE-Reweight.patch", when="@3.04.02", level=0)
 
-    @when("os=almalinux9")
+    print(os)
+    # @when("os=almalinux9")
     def patch(self):
         filter_file(r'-lnsl','','src/make/Make.include')
 
@@ -175,6 +176,8 @@ class Genie(AutotoolsPackage):
         mkdirp(prefix.lib64)
         mkdirp(prefix.include)
         mkdirp(prefix.src)
+        mkdirp(prefix.config) # necessary for tune functionality
+        mkdirp(prefix.data) # necessary for PDG library lookup
 
         with working_dir(self.build_directory):
             make("install")
@@ -189,8 +192,12 @@ class Genie(AutotoolsPackage):
             os.path.join(self.prefix, "src", "scripts"),
         )
         src_make_dir = os.path.join(self.prefix, "src", "make", "")
+        config_dir = os.path.join(self.prefix, "config", "")
+        data_dir = os.path.join(self.prefix, "data", "")
         # filesystem.mkdirp(src_make_dir)
         filesystem.install_tree(os.path.join(self.stage.source_path, "src", "make"), src_make_dir)
+        filesystem.install_tree(os.path.join(self.stage.source_path, "config"), config_dir)
+        filesystem.install_tree(os.path.join(self.stage.source_path, "data"), data_dir)
 
     def setup_build_environment(self, spack_env):
         spack_env.set("ROOT_INCLUDE_PATH", os.path.join(self.stage.source_path, "src"))
