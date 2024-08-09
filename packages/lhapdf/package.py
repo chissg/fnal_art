@@ -52,7 +52,7 @@ class Lhapdf(AutotoolsPackage):
 
     depends_on("pdfsets")
     depends_on("python")
-    # depends_on("gettext")
+    depends_on("gettext")
 
     def configure_args(self):
         return ("--enable-low-memory", "--disable-pyext", "--disable-octave")
