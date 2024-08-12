@@ -38,7 +38,7 @@ class GenieXsec(Package):
         description="Name of genie xsec tune set to install.",
     )
 
-    urlbase_2 = ("https://scisoft.fnal.gov/scisoft/packages/genie_xsec/v3_04_00/genie_xsec-3.04.00-noarch-")
+    urlbase_2 = ("https://scisoft.fnal.gov/scisoft/packages/genie_xsec/v2_12_10/genie_xsec-2.12.10-noarch-")
     urlbase_3 = ("https://scisoft.fnal.gov/scisoft/packages/genie_xsec/v3_04_00/genie_xsec-3.04.00-noarch-")
 
     resource(
