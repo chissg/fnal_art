@@ -67,16 +67,23 @@ class Genie(AutotoolsPackage):
     )
 
     variant("lhapdf", default=True) 
+    variant("old_root", default=False) 
 
     depends_on("lhapdf" , when="+lhapdf")
 
     # Issues caused by default root cxxstd being 11
     # Separate issue caused by libxmp from +x requirement
-    depends_on("root @6.24.08: +pythia6 ~x cxxstd=11", when="cxxstd=11")
-    depends_on("root @6.24.08: +pythia6 ~x cxxstd=14", when="cxxstd=14")
-    depends_on("root @6.24.08: +pythia6 ~x cxxstd=17", when="cxxstd=17")
-    depends_on("root @6.24.08: +pythia6 ~x cxxstd=17", when="cxxstd=default")
-    depends_on("root @6.24.08: +pythia6 ~x cxxstd=20", when="cxxstd=20")
+    depends_on("root @6.30.00: ~x cxxstd=11", when="cxxstd=11 ~old_root")
+    depends_on("root @6.30.00: ~x cxxstd=14", when="cxxstd=14 ~old_root")
+    depends_on("root @6.30.00: ~x cxxstd=17", when="cxxstd=17 ~old_root")
+    depends_on("root @6.30.00: ~x cxxstd=17", when="cxxstd=default ~old_root")
+    depends_on("root @6.30.00: ~x cxxstd=20", when="cxxstd=20 ~old_root")
+
+    depends_on("root @6.24.08:6.28.12 +pythia6 ~x cxxstd=14", when="cxxstd=14 +old_root")
+    depends_on("root @6.24.08:6.28.12 +pythia6 ~x cxxstd=17", when="cxxstd=17 +old_root")
+    depends_on("root @6.24.08:6.28.12 +pythia6 ~x cxxstd=17", when="cxxstd=default +old_root")
+    depends_on("root @6.24.08:6.28.12 +pythia6 ~x cxxstd=20", when="cxxstd=20 +old_root")
+
     depends_on("pythia6+root")
     depends_on("libxml2")
     depends_on("log4cpp")
