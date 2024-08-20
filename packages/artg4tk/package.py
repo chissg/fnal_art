@@ -13,7 +13,7 @@ class Artg4tk(CMakePackage):
     git = "https://github.com/art-framework-suite/art-g4tk.git"
     url = "https://github.com/art-framework-suite/art-g4tk/archive/refs/tags/v11_00_01.tar.gz"
 
-    version('10.04.00', sha256='44a1e12425ff2ebe90f7482ad2b10cbde873477815f81707677eb2ad14d3cef4')
+    # version('10.04.00', sha256='44a1e12425ff2ebe90f7482ad2b10cbde873477815f81707677eb2ad14d3cef4')
     version("10.04.00", tag="v10_04_00", get_full_repo=True)
     version("c06a0ed7a0", commit="c06a0ed7a0a543cba5c23fc588f7dd6dcb6609e2", get_full_repo=True)
     version("develop", branch="develop", get_full_repo=True)
@@ -44,8 +44,7 @@ class Artg4tk(CMakePackage):
     )
 
     patch("cetmodules2-c06a0ed7a0a543cba5c23fc588f7dd6dcb6609e2.patch", when="@c06a0ed7a0")
-    patch("override.patch", when="@11.00.01")
-
+    # patch('mwm.patch')
     depends_on("cetmodules", type="build")
     depends_on("cetbuildtools", type="build")
     depends_on("art")

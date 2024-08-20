@@ -29,7 +29,6 @@ class Castxml(CMakePackage):
     homepage = "https://github.com/CastXML/CastXML"
     url = "https://github.com/CastXML/CastXML/archive/v0.2.0.tar.gz"
 
-    version("0.6.2", sha256="9bb108de1b3348a257be5b08a9f8418f89fdcd4af2e6ee271d68b0203ac75d5e")
     version("0.5.1", sha256="a7b40b1530585672f9cf5d7a6b6dd29f20c06cd5edf34ef34c89a184a4d1a006")
     version("0.3.6", sha256="e51a26704864c89036a0a69d9f29c2a522a9fa09c1009e8b8169a26480bb2993")
     version("0.3.5", sha256="397044081363da0f3e50aff995f71b68aedd194d034caa50869224a4e6784c3b")
@@ -41,22 +40,9 @@ class Castxml(CMakePackage):
     version("0.2.1", sha256="1f01149af1c58e59500e24cade8033e98a16001aa6a0f666643bbc9e303a82b0")
     version("0.2.0", sha256="626c395d0d3c777b5a1582cdfc4d33d142acfb12204ebe251535209126705ec1")
 
-    variant(
-        "cxxstd",
-        default="17",
-        values=("14", "17", "20"),
-        multi=False,
-        description="Use the specified C++ standard when building.",
-    )
-
-
     # FIXME: Add dependencies if required.
     depends_on('llvm')
 
     def cmake_args(self):
-        args = [
-            "-DCMAKE_CXX_STANDARD={0}".format(self.spec.variants["cxxstd"].value),
-            "-DCLANG_RESOURCE_DIR={0}".format(self.spec["llvm"].prefix+"/lib/clang/17")
-        ]
-
+        args = []
         return args
