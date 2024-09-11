@@ -17,6 +17,7 @@ class Ifdhc(MakefilePackage):
     git_base = "https://cdcvs.fnal.gov/projects/ifdhc/ifdhc.git"
     url = "https://cdcvs.fnal.gov/cgi-bin/git_archive.cgi/cvs/projects/ifdhc.v2_5_2.tbz2"
 
+    version("2.7.1", sha256="78581fce211c5da34ec15e521208a20015cc4cc6fcd8c6cbd18e3c59d701810c") 
     version("2.7", sha256="49c3e9fbc5a1ebb80d8fb870e45ec9faa6577c001a8a073521b071d51dd93bb8")
     version("2.6.20", sha256="54cffb88be5c085dd2f3246507cf850299b780e2ab16cd8abce4360e200b4044")
     version("2.6.19", sha256="5499391378d6769da0b94b0e8eaea358d6c7be40673e4c97c5580c4e94bdaa24")
