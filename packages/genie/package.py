@@ -86,7 +86,7 @@ class Genie(AutotoolsPackage):
     patch("patch/genie-r30006.patch", when="@3.00.06")
 
     patch("patch/sles-cnl.patch", when="platform=cray")
-    patch("patch/root_subdir.patch", when="@3.04.00")
+    patch("patch/root_subdir.patch")
 
     patch("patch/GENIE-Generator.patch", when="@3.04.02", level=0)
     patch("patch/GENIE-Reweight.patch", when="@3.04.02", level=0)
