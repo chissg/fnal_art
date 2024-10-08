@@ -52,6 +52,7 @@ class ArtRootIo(CMakePackage, FnalGithubPackage):
     depends_on("hep-concurrency")
     depends_on("messagefacility")
     depends_on("root+python")
+    depends_on("python")
     depends_on("sqlite@3.8.2:")
 
     if "SPACK_CMAKE_GENERATOR" in os.environ:

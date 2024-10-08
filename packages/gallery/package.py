@@ -40,6 +40,7 @@ class Gallery(CMakePackage, FnalGithubPackage):
     depends_on("cmake@3.21:", type="build")
     depends_on("range-v3", type=("build", "link", "run"))
     depends_on("root+python")
+    depends_on("python")
 
     if "SPACK_CMAKE_GENERATOR" in os.environ:
         generator = os.environ["SPACK_CMAKE_GENERATOR"]
