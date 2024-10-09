@@ -88,7 +88,7 @@ class Genie(AutotoolsPackage):
     patch("patch/sles-cnl.patch", when="platform=cray")
     patch("patch/root_subdir.patch")
 
-    patch("patch/GENIE-Generator.patch", when="@3.04.02")
+#    patch("patch/GENIE-Generator.patch", when="@3.04.02")
     patch("patch/GENIE-Reweight.patch", when="@3.04.02", level=0)
 
     # @when("os=almalinux9") patch should be applied on polaris too
