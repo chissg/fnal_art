@@ -154,14 +154,16 @@ class Icaruscode(CMakePackage):
             "-DCMAKE_CXX_STANDARD={0}".format(self.spec.variants["cxxstd"].value),
             "-Dicaruscode_FW_DIR=fw",
             "-Dicaruscode_WP_DIR={0}".format(self.spec["wirecell"].prefix),
-            "-DCMAKE_PREFIX_PATH={0}/lib/python{1}/site-packages/torch".format(
-                self.spec["py-torch"].prefix, self.spec["python"].version.up_to(2)
-            ),
             "-DCPPGSL_INC={0}".format(self.spec["cppgsl"].prefix.include),
             "-DTRACE_INC={0}".format(self.spec["trace"].prefix.include),
             "-DLIBWDA_INC={0}".format(self.spec["libwda"].prefix.include),
         ]
         return args
+
+    @property
+    def cmake_prefix_paths(self):
+        return "{0}/lib/python{1}/site-packages/torch".format(
+                self.spec["py-torch"].prefix, self.spec["python"].version.up_to(2))
 
     def setup_build_environment(self, spack_env):
         spack_env.set("CETBUILDTOOLS_VERSION", self.spec["cetmodules"].version)

@@ -118,11 +118,14 @@ class Sbndcode(CMakePackage):
         # Set CMake args.
         args = [
             "-DCMAKE_CXX_STANDARD={0}".format(self.spec.variants["cxxstd"].value),
-            "-DCMAKE_PREFIX_PATH={0}/lib/python{1}/site-packages/torch".format(
-                self.spec["py-torch"].prefix, self.spec["python"].version.up_to(2)
-            ),
         ]
         return args
+
+   @property
+   def cmake_prefix_paths(self):
+        return "{0}/lib/python{1}/site-packages/torch".format(
+                self.spec["py-torch"].prefix, self.spec["python"].version.up_to(2)
+            )
 
     def setup_build_environment(self, spack_env):
         # Binaries.
