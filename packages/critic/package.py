@@ -62,7 +62,6 @@ class Critic(CMakePackage, FnalGithubPackage):
     depends_on("hep-concurrency")
     depends_on("messagefacility")
     depends_on("root+python")
-    depends_on("python")
 
     if "SPACK_CMAKE_GENERATOR" in os.environ:
         generator = os.environ["SPACK_CMAKE_GENERATOR"]
