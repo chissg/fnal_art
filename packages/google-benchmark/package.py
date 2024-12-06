@@ -5,6 +5,8 @@
 
 
 from spack import *
+from spack.package import *
+
 
 class GoogleBenchmark(CMakePackage):
     """FIXME: Put a proper description of your package here."""

@@ -6,6 +6,7 @@
 import re
 
 from spack import *
+from spack.package import *
 
 
 class H5cpp(Package):

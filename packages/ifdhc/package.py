@@ -8,6 +8,7 @@ import os
 import llnl.util.tty as tty
 
 from spack import *
+from spack.package import *
 
 
 class Ifdhc(MakefilePackage):

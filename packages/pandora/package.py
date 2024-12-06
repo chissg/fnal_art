@@ -7,6 +7,7 @@ import glob
 import os.path
 
 from spack import *
+from spack.package import *
 
 
 class Pandora(CMakePackage):

@@ -7,6 +7,7 @@
 import os
 
 from spack import *
+from spack.package import *
 
 
 def sanitize_environments(*args):

@@ -23,6 +23,7 @@
 import os
 
 from spack import *
+from spack.package import *
 
 
 class StanMath(Package):
