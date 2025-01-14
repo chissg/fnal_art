@@ -21,7 +21,7 @@
 # ----------------------------------------------------------------------------
 
 import spack.util.spack_json as sjson
-from spack import *
+import spack.util.web
 from spack.package import *
 
 

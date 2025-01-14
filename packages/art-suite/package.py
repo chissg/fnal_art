@@ -7,6 +7,7 @@ import os
 
 from spack.package import *
 
+
 class ArtSuite(BundlePackage):
     """The art suite; art is an event-processing framework for particle physics experiments.
     """

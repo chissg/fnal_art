@@ -8,7 +8,6 @@ import os
 
 from llnl.util import filesystem
 
-from spack import *
 from spack.package import *
 
 

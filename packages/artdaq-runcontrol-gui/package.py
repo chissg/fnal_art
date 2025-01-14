@@ -4,6 +4,7 @@
 # SPDX-License-Identifier: (Apache-2.0 OR MIT)
 
 import spack.util.spack_json as sjson
+import spack.util.web
 from spack.package import *
 
 
